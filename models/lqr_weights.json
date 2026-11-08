@@ -1,0 +1,12 @@
+{
+  "method": "objective",
+  "LQR_Q": [
+    0.1,
+    0.01,
+    1.0,
+    0.01
+  ],
+  "LQR_R": 1.6e-06,
+  "LQR_TYPE": "discrete",
+  "mean_design_return": 496.5300465698993
+}

@@ -67,6 +67,7 @@ DESIGN_INIT_RANGES = dict(
     theta_dot=(-0.6, 0.6),
 )
 DESIGN_NOISE_STD = [0.0, 0.0, 0.0, 0.0]  # 설계 중 관측 노이즈 (강건성 설계 시 사용)
+DESIGN_N_SAMPLES = 16           # PID·LQR 튜닝 목적함수에 쓰는 설계용 초기상태 개수 (둘이 같은 상태 집합 사용)
 
 # 공통 성능 목표 = PPO의 보상 = PID 자동튜닝의 목적함수
 #   매 스텝 r = alive - cost,   cost = w_theta*θ² + w_x*x² + w_theta_dot*θ̇² + w_x_dot*ẋ² + w_u*(F/F_MAX)²
@@ -115,6 +116,23 @@ def sample_design_state(rng):
     r = DESIGN_INIT_RANGES
     return np.array([rng.uniform(*r["x"]), rng.uniform(*r["x_dot"]),
                      deg2rad(rng.uniform(*r["theta_deg"])), rng.uniform(*r["theta_dot"])])
+
+
+def design_states():
+    """PID·LQR 튜닝에 공통으로 쓰는 고정된 설계용 초기상태 집합 (SEED로 재현)"""
+    rng = np.random.default_rng(SEED)
+    return [sample_design_state(rng) for _ in range(DESIGN_N_SAMPLES)]
+
+
+def mean_design_return(controller, states=None):
+    """설계용 초기상태들에서의 평균 episode return (튜닝 목적함수, PPO 학습 조건과 동일: 외란 없음)"""
+    states = design_states() if states is None else states
+    total = 0.0
+    for s0 in states:
+        log = simulate(controller, s0, np.random.default_rng(SEED),
+                       noise_std=DESIGN_NOISE_STD, use_disturbance=False)
+        total += episode_return(log)
+    return total / len(states)
 
 
 def disturbance_force(t):

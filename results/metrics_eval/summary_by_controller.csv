@@ -1,0 +1,4 @@
+﻿controller,success_rate_%,common_success_angles_deg,mean_angle_rmse_deg,mean_settling_time_s,mean_settling_time_theta_s,mean_cart_rmse_m,mean_control_effort
+PID,100,+5 +10 +15 +20 -5 -10 -15 -20,1.684,0.93,0.56,0.0886,62.2
+LQR,100,+5 +10 +15 +20 -5 -10 -15 -20,1.676,1.06,0.65,0.0991,43.7
+PPO,100,+5 +10 +15 +20 -5 -10 -15 -20,1.757,1.05,0.70,0.1008,36.5

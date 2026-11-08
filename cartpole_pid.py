@@ -24,7 +24,7 @@ Cart-Pole 역진자 Balance 제어 — PID
 MODE = "eval"                   # "tune" | "eval" | "all"  (명령줄 인자가 있으면 그쪽 우선)
 
 PID_THETA = dict(kp=310.988, ki=0.406, kd=36.441)    # 각도 루프 게인 (θ는 rad 단위)
-PID_X     = dict(kp=50.838,  ki=0.072, kd= 58.051)    # 카트 위치 루프 게인 (x는 m 단위)
+PID_X     = dict(kp=50.838,  ki=0.072, kd=58.051)    # 카트 위치 루프 게인 (x는 m 단위)
 USE_X_LOOP = True
 
 DERIVATIVE_MODE = "measured"    # "measured"  : 측정 속도(θ̇, ẋ)를 미분항으로 사용
@@ -35,9 +35,8 @@ INTEGRAL_LIMIT = dict(theta=0.5, x=1.0)      # 적분값 상한 (Anti-windup, �
 # PPO 학습과 같은 초기상태 분포(DESIGN_INIT_RANGES)와 같은 목표(OBJECTIVE)로 게인을 최적화합니다.
 USE_TUNED_GAINS = False         # True면 eval 때 위 게인 대신 models/pid_gains.json 의 게인 사용
 TUNE = dict(
-    n_samples=16,               # 목적함수 계산에 쓰는 초기상태 개수 (고정 샘플)
     max_iter=400,               # Nelder-Mead 최대 반복 수
-)
+)                               # 설계용 초기상태 개수는 cartpole_common.DESIGN_N_SAMPLES (LQR 튜닝과 공유)
 GAINS_PATH = "models/pid_gains.json"
 RESULT_SUBDIR = "pid"
 
@@ -107,19 +106,11 @@ def tune(g_theta, g_x):
     """목적함수 = 고정된 설계용 초기상태들에서의 평균 episode return (PPO와 같은 정의) 최대화"""
     from scipy.optimize import minimize
 
-    rng = np.random.default_rng(C.SEED)
-    states = [C.sample_design_state(rng) for _ in range(TUNE["n_samples"])]
-
+    states = C.design_states()                      # LQR 튜닝과 같은 설계용 상태 집합
     best = [np.inf]
 
     def neg_return(p):
-        ctrl = PIDController(*_to_gains(p))
-        total = 0.0
-        for s0 in states:
-            log = C.simulate(ctrl, s0, np.random.default_rng(C.SEED),
-                             noise_std=C.DESIGN_NOISE_STD, use_disturbance=False)
-            total += C.episode_return(log)
-        val = -total / len(states)
+        val = -C.mean_design_return(PIDController(*_to_gains(p)), states)
         best[0] = min(best[0], val)
         return val
 
@@ -133,7 +124,7 @@ def tune(g_theta, g_x):
             print(f"  iter {it[0]:4d}  best return = {-best[0]:.2f}")
 
     res = minimize(neg_return, p0, method="Nelder-Mead", callback=cb,
-                   options=dict(maxiter=TUNE["max_iter"], xatol=1e-3, fatol=1e-3, adaptive=True))
+                   options=dict(maxiter=TUNE["max_iter"], xatol=0.01, fatol=0.01, adaptive=True))
     gt, gx = _to_gains(res.x)
     print(f"[PID 튜닝 완료] 평균 return = {-res.fun:.2f}")
     print(f"  PID_THETA = {json.dumps({k: round(v, 3) for k, v in gt.items()})}")
