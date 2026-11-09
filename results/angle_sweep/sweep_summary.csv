@@ -1,0 +1,7 @@
+﻿controller,direction,last_success_deg,first_fail_deg,status,fail_reason,fail_detail
+PID,+,34,35,FAIL 발견,FAIL(|θ|>45° @0.38s),"peak F 25.0 N, 포화 89%, max|x| 1.15 m"
+PID,−,-34,-35,FAIL 발견,FAIL(|θ|>45° @0.38s),"peak F 25.0 N, 포화 89%, max|x| 1.15 m"
+LQR,+,41,42,FAIL 발견,FAIL(|θ|>45° @0.40s),"peak F 25.0 N, 포화 95%, max|x| 1.45 m"
+LQR,−,-41,-42,FAIL 발견,FAIL(|θ|>45° @0.40s),"peak F 25.0 N, 포화 95%, max|x| 1.45 m"
+PPO,+,35,36,FAIL 발견,FAIL(|θ|>45° @0.42s),"peak F 25.0 N, 포화 43%, max|x| 1.27 m"
+PPO,−,-35,-36,FAIL 발견,FAIL(|θ|>45° @0.46s),"peak F 25.0 N, 포화 48%, max|x| 1.33 m"
