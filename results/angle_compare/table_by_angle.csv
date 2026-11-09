@@ -1,0 +1,157 @@
+﻿theta0_deg,metric,PID,LQR,PPO
+-30,"Nominal run (s0=[0,0,θ0,0])",SUCCESS,SUCCESS,SUCCESS
+-30,1. Angle RMSE [deg] ↓,5.155,5.165,5.505
+-30,2. Settling Time [s] ↓,0.90,1.20,2.12
+-30,3. Success Rate [%] ↑,76,100,88
+-30,4. Control Effort [N²·s] ↓,247.9,148.7,132.4
+-30,5. Position RMSE [m] ↓,0.2258,0.2933,0.2662
+-30,θ overshoot [deg],31.05,23.13,28.21
+-30,θ overshoot [% of |θ0|],103.5,77.1,94.0
+-30,x peak [m],0.857,0.947,0.952
+-30,x overshoot [m],0.012,0.014,0.059
+-30,F overshoot [N],25.0,16.8,18.6
+-30,θ peak [deg],30.00,30.00,30.00
+-30,F peak [N],25.0,25.0,25.0
+-25,"Nominal run (s0=[0,0,θ0,0])",SUCCESS,SUCCESS,SUCCESS
+-25,1. Angle RMSE [deg] ↓,3.953,3.984,4.200
+-25,2. Settling Time [s] ↓,0.98,1.10,1.14
+-25,3. Success Rate [%] ↑,98,100,98
+-25,4. Control Effort [N²·s] ↓,159.2,110.0,86.4
+-25,5. Position RMSE [m] ↓,0.2020,0.2283,0.2216
+-25,θ overshoot [deg],21.05,17.52,19.37
+-25,θ overshoot [% of |θ0|],84.2,70.1,77.5
+-25,x peak [m],0.653,0.733,0.747
+-25,x overshoot [m],0.010,0.011,0.044
+-25,F overshoot [N],25.0,13.3,10.0
+-25,θ peak [deg],25.00,25.00,25.00
+-25,F peak [N],25.0,25.0,25.0
+-20,"Nominal run (s0=[0,0,θ0,0])",SUCCESS,SUCCESS,SUCCESS
+-20,1. Angle RMSE [deg] ↓,2.943,2.928,3.064
+-20,2. Settling Time [s] ↓,0.86,0.96,1.04
+-20,3. Success Rate [%] ↑,100,100,100
+-20,4. Control Effort [N²·s] ↓,114.5,78.4,59.6
+-20,5. Position RMSE [m] ↓,0.1522,0.1698,0.1709
+-20,θ overshoot [deg],15.29,12.76,13.15
+-20,θ overshoot [% of |θ0|],76.5,63.8,65.8
+-20,x peak [m],0.490,0.543,0.564
+-20,x overshoot [m],0.007,0.008,0.030
+-20,F overshoot [N],20.7,10.6,6.2
+-20,θ peak [deg],20.00,20.00,20.00
+-20,F peak [N],25.0,25.0,25.0
+-15,"Nominal run (s0=[0,0,θ0,0])",SUCCESS,SUCCESS,SUCCESS
+-15,1. Angle RMSE [deg] ↓,2.026,2.006,2.090
+-15,2. Settling Time [s] ↓,0.70,0.80,0.86
+-15,3. Success Rate [%] ↑,100,100,100
+-15,4. Control Effort [N²·s] ↓,73.1,52.5,40.8
+-15,5. Position RMSE [m] ↓,0.1064,0.1183,0.1226
+-15,θ overshoot [deg],10.44,8.73,8.63
+-15,θ overshoot [% of |θ0|],69.6,58.2,57.5
+-15,x peak [m],0.342,0.378,0.399
+-15,x overshoot [m],0.005,0.006,0.017
+-15,F overshoot [N],15.4,7.7,3.9
+-15,θ peak [deg],15.00,15.00,15.00
+-15,F peak [N],25.0,25.0,25.0
+-10,"Nominal run (s0=[0,0,θ0,0])",SUCCESS,SUCCESS,SUCCESS
+-10,1. Angle RMSE [deg] ↓,1.221,1.218,1.261
+-10,2. Settling Time [s] ↓,0.52,0.64,0.72
+-10,3. Success Rate [%] ↑,100,100,100
+-10,4. Control Effort [N²·s] ↓,43.9,30.3,27.0
+-10,5. Position RMSE [m] ↓,0.0655,0.0736,0.0787
+-10,θ overshoot [deg],6.35,5.35,5.12
+-10,θ overshoot [% of |θ0|],63.5,53.5,51.2
+-10,x peak [m],0.211,0.235,0.251
+-10,x overshoot [m],0.003,0.004,0.005
+-10,F overshoot [N],10.6,5.0,2.4
+-10,θ peak [deg],10.00,10.00,10.00
+-10,F peak [N],25.0,25.0,25.0
+-5,"Nominal run (s0=[0,0,θ0,0])",SUCCESS,SUCCESS,SUCCESS
+-5,1. Angle RMSE [deg] ↓,0.546,0.552,0.567
+-5,2. Settling Time [s] ↓,0.16,0.20,0.22
+-5,3. Success Rate [%] ↑,100,100,100
+-5,4. Control Effort [N²·s] ↓,17.1,13.6,13.0
+-5,5. Position RMSE [m] ↓,0.0304,0.0345,0.0401
+-5,θ overshoot [deg],2.91,2.47,2.29
+-5,θ overshoot [% of |θ0|],58.2,49.5,45.9
+-5,x peak [m],0.098,0.110,0.120
+-5,x overshoot [m],0.001,0.002,0.000
+-5,F overshoot [N],5.4,2.4,1.5
+-5,θ peak [deg],5.00,5.00,5.00
+-5,F peak [N],25.0,25.0,25.0
+5,"Nominal run (s0=[0,0,θ0,0])",SUCCESS,SUCCESS,SUCCESS
+5,1. Angle RMSE [deg] ↓,0.546,0.552,0.602
+5,2. Settling Time [s] ↓,0.16,0.20,0.20
+5,3. Success Rate [%] ↑,100,100,100
+5,4. Control Effort [N²·s] ↓,17.1,13.6,13.3
+5,5. Position RMSE [m] ↓,0.0304,0.0345,0.0366
+5,θ overshoot [deg],2.91,2.47,2.51
+5,θ overshoot [% of |θ0|],58.2,49.5,50.3
+5,x peak [m],0.098,0.110,0.114
+5,x overshoot [m],0.001,0.002,0.025
+5,F overshoot [N],5.4,2.4,2.2
+5,θ peak [deg],5.00,5.00,5.00
+5,F peak [N],25.0,25.0,25.0
+10,"Nominal run (s0=[0,0,θ0,0])",SUCCESS,SUCCESS,SUCCESS
+10,1. Angle RMSE [deg] ↓,1.221,1.218,1.287
+10,2. Settling Time [s] ↓,0.52,0.64,0.70
+10,3. Success Rate [%] ↑,100,100,100
+10,4. Control Effort [N²·s] ↓,43.9,30.3,28.3
+10,5. Position RMSE [m] ↓,0.0655,0.0736,0.0742
+10,θ overshoot [deg],6.35,5.35,5.26
+10,θ overshoot [% of |θ0|],63.5,53.5,52.6
+10,x peak [m],0.211,0.235,0.242
+10,x overshoot [m],0.003,0.004,0.036
+10,F overshoot [N],10.6,5.0,4.2
+10,θ peak [deg],10.00,10.00,10.00
+10,F peak [N],25.0,25.0,25.0
+15,"Nominal run (s0=[0,0,θ0,0])",SUCCESS,SUCCESS,SUCCESS
+15,1. Angle RMSE [deg] ↓,2.026,2.006,2.107
+15,2. Settling Time [s] ↓,0.70,0.80,0.86
+15,3. Success Rate [%] ↑,100,100,100
+15,4. Control Effort [N²·s] ↓,73.1,52.5,45.1
+15,5. Position RMSE [m] ↓,0.1064,0.1183,0.1175
+15,θ overshoot [deg],10.44,8.73,8.68
+15,θ overshoot [% of |θ0|],69.6,58.2,57.9
+15,x peak [m],0.342,0.378,0.387
+15,x overshoot [m],0.005,0.006,0.048
+15,F overshoot [N],15.4,7.7,6.1
+15,θ peak [deg],15.00,15.00,15.00
+15,F peak [N],25.0,25.0,25.0
+20,"Nominal run (s0=[0,0,θ0,0])",SUCCESS,SUCCESS,SUCCESS
+20,1. Angle RMSE [deg] ↓,2.943,2.928,3.075
+20,2. Settling Time [s] ↓,0.86,0.96,1.04
+20,3. Success Rate [%] ↑,100,100,100
+20,4. Control Effort [N²·s] ↓,114.5,78.4,65.3
+20,5. Position RMSE [m] ↓,0.1522,0.1698,0.1658
+20,θ overshoot [deg],15.29,12.76,13.25
+20,θ overshoot [% of |θ0|],76.5,63.8,66.3
+20,x peak [m],0.490,0.543,0.550
+20,x overshoot [m],0.007,0.008,0.061
+20,F overshoot [N],20.7,10.6,8.8
+20,θ peak [deg],20.00,20.00,20.00
+20,F peak [N],25.0,25.0,25.0
+25,"Nominal run (s0=[0,0,θ0,0])",SUCCESS,SUCCESS,SUCCESS
+25,1. Angle RMSE [deg] ↓,3.953,3.984,4.204
+25,2. Settling Time [s] ↓,0.98,1.10,1.18
+25,3. Success Rate [%] ↑,98,100,98
+25,4. Control Effort [N²·s] ↓,159.2,110.0,93.4
+25,5. Position RMSE [m] ↓,0.2020,0.2283,0.2161
+25,θ overshoot [deg],21.05,17.52,19.77
+25,θ overshoot [% of |θ0|],84.2,70.1,79.1
+25,x peak [m],0.653,0.733,0.728
+25,x overshoot [m],0.010,0.011,0.075
+25,F overshoot [N],25.0,13.3,13.6
+25,θ peak [deg],25.00,25.00,25.00
+25,F peak [N],25.0,25.0,25.0
+30,"Nominal run (s0=[0,0,θ0,0])",SUCCESS,SUCCESS,SUCCESS
+30,1. Angle RMSE [deg] ↓,5.155,5.165,5.518
+30,2. Settling Time [s] ↓,0.90,1.20,2.12
+30,3. Success Rate [%] ↑,76,100,80
+30,4. Control Effort [N²·s] ↓,247.9,148.7,145.9
+30,5. Position RMSE [m] ↓,0.2258,0.2933,0.2570
+30,θ overshoot [deg],31.05,23.13,29.02
+30,θ overshoot [% of |θ0|],103.5,77.1,96.7
+30,x peak [m],0.857,0.947,0.926
+30,x overshoot [m],0.012,0.014,0.090
+30,F overshoot [N],25.0,16.8,23.5
+30,θ peak [deg],30.00,30.00,30.00
+30,F peak [N],25.0,25.0,25.0
