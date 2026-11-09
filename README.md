@@ -42,7 +42,7 @@ InversePendulum/
 | 지표 | 정의 | 좋은 방향 |
 |---|---|---|
 | Angle RMSE [deg] | `sqrt(mean θ²)` | ↓ |
-| Settling Time [s] | `|θ| ≤ 3°`, `|θ̇| ≤ 0.2 rad/s` (+ `|x| ≤ 0.2 m`) 에 들어가 끝까지 유지되는 첫 시각 | ↓ |
+| Settling Time [s] | `\|θ\| ≤ 3°`, `\|θ̇\| ≤ 0.2 rad/s` (+ `|x| ≤ 0.2 m`) 에 들어가 끝까지 유지되는 첫 시각 | ↓ |
 | Success Rate [%] | 10초 동안 넘어지지 않고, 마지막 2초 안정 조건 만족 | ↑ |
 | Control Effort [N²·s] | `Σ F² Δt` | ↓ |
 | Position RMSE [m] | `sqrt(mean x²)` | ↓ |
