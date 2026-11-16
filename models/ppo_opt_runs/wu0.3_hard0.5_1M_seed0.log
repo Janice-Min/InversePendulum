@@ -1,0 +1,53 @@
+/usr/local/lib/python3.13/site-packages/stable_baselines3/common/save_util.py:284: UserWarning: Path 'models/ppo_opt_runs/wu0.3_hard0.5_1M_seed0/ckpt' does not exist. Will create it.
+  warnings.warn(f"Path '{path.parent}' does not exist. Will create it.")
+[wu0.3_hard0.5_1M_seed0]    20000 steps  J=1490.0000  실패 148/148  평균 Ts=10.000s  최대 Ts=10.00s  평균 effort=17.6  스펙 위반  ← best
+[wu0.3_hard0.5_1M_seed0]    40000 steps  J=1329.6801  실패 132/148  평균 Ts=9.680s  최대 Ts=10.00s  평균 effort=29.8  스펙 위반  ← best
+[wu0.3_hard0.5_1M_seed0]    60000 steps  J=42.7584  실패 4/148  평균 Ts=2.758s  최대 Ts=10.00s  평균 effort=43.9  스펙 위반  ← best
+[wu0.3_hard0.5_1M_seed0]    80000 steps  J=23.2342  실패 2/148  평균 Ts=3.234s  최대 Ts=10.00s  평균 effort=53.8  스펙 위반  ← best
+[wu0.3_hard0.5_1M_seed0]   100000 steps  J=2.5818  실패 0/148  평균 Ts=2.582s  최대 Ts=4.58s  평균 effort=59.5  OK  ← best
+[wu0.3_hard0.5_1M_seed0]   120000 steps  J=2.3401  실패 0/148  평균 Ts=2.340s  최대 Ts=3.98s  평균 effort=56.7  OK  ← best
+[wu0.3_hard0.5_1M_seed0]   140000 steps  J=1.9772  실패 0/148  평균 Ts=1.977s  최대 Ts=2.36s  평균 effort=66.1  OK  ← best
+[wu0.3_hard0.5_1M_seed0]   160000 steps  J=2.0334  실패 0/148  평균 Ts=2.033s  최대 Ts=2.50s  평균 effort=62.8  OK
+[wu0.3_hard0.5_1M_seed0]   180000 steps  J=2.0561  실패 0/148  평균 Ts=2.056s  최대 Ts=2.52s  평균 effort=64.2  OK
+[wu0.3_hard0.5_1M_seed0]   200000 steps  J=2.1274  실패 0/148  평균 Ts=2.127s  최대 Ts=2.58s  평균 effort=57.4  OK
+[wu0.3_hard0.5_1M_seed0]   220000 steps  J=2.1534  실패 0/148  평균 Ts=2.153s  최대 Ts=2.62s  평균 effort=59.1  OK
+[wu0.3_hard0.5_1M_seed0]   240000 steps  J=2.0778  실패 0/148  평균 Ts=2.078s  최대 Ts=2.66s  평균 effort=60.2  OK
+[wu0.3_hard0.5_1M_seed0]   260000 steps  J=22.0668  실패 2/148  평균 Ts=2.067s  최대 Ts=10.00s  평균 effort=66.3  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   280000 steps  J=22.0635  실패 2/148  평균 Ts=2.064s  최대 Ts=10.00s  평균 effort=67.6  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   300000 steps  J=62.0880  실패 6/148  평균 Ts=2.088s  최대 Ts=10.00s  평균 effort=78.7  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   320000 steps  J=120.0210  실패 11/148  평균 Ts=2.235s  최대 Ts=10.00s  평균 effort=92.5  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   340000 steps  J=108.5320  실패 10/148  평균 Ts=2.152s  최대 Ts=10.00s  평균 effort=90.2  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   360000 steps  J=252.4108  실패 24/148  평균 Ts=2.840s  최대 Ts=10.00s  평균 effort=95.3  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   380000 steps  J=121.9122  실패 11/148  평균 Ts=2.197s  최대 Ts=10.00s  평균 effort=95.5  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   400000 steps  J=110.6187  실패 10/148  평균 Ts=2.107s  최대 Ts=10.00s  평균 effort=93.6  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   420000 steps  J=173.4141  실패 16/148  평균 Ts=2.440s  최대 Ts=10.00s  평균 effort=97.6  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   440000 steps  J=83.2872  실패 7/148  평균 Ts=1.935s  최대 Ts=10.00s  평균 effort=98.2  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   460000 steps  J=648.3799  실패 62/148  평균 Ts=4.900s  최대 Ts=10.00s  평균 effort=117.6  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   480000 steps  J=711.3840  실패 68/148  평균 Ts=5.245s  최대 Ts=10.00s  평균 effort=121.8  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   500000 steps  J=568.2734  실패 54/148  평균 Ts=4.477s  최대 Ts=10.00s  평균 effort=118.1  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   520000 steps  J=695.1048  실패 67/148  평균 Ts=5.221s  최대 Ts=10.00s  평균 effort=111.8  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   540000 steps  J=762.9906  실패 74/148  평균 Ts=5.612s  최대 Ts=10.00s  평균 effort=107.8  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   560000 steps  J=898.0655  실패 88/148  평균 Ts=6.386s  최대 Ts=10.00s  평균 effort=98.7  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   580000 steps  J=886.7589  실패 87/148  평균 Ts=6.343s  최대 Ts=10.00s  평균 effort=96.7  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   600000 steps  J=883.8822  실패 87/148  평균 Ts=6.345s  최대 Ts=10.00s  평균 effort=92.1  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   620000 steps  J=935.6153  실패 92/148  평균 Ts=6.655s  최대 Ts=10.00s  평균 effort=94.3  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   640000 steps  J=946.1510  실패 93/148  평균 Ts=6.714s  최대 Ts=10.00s  평균 effort=95.1  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   660000 steps  J=976.4217  실패 96/148  평균 Ts=6.866s  최대 Ts=10.00s  평균 effort=95.3  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   680000 steps  J=926.4111  실패 91/148  평균 Ts=6.584s  최대 Ts=10.00s  평균 effort=95.7  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   700000 steps  J=936.8727  실패 92/148  평균 Ts=6.654s  최대 Ts=10.00s  평균 effort=96.3  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   720000 steps  J=877.7213  실패 86/148  평균 Ts=6.306s  최대 Ts=10.00s  평균 effort=98.3  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   740000 steps  J=846.6617  실패 83/148  평균 Ts=6.140s  최대 Ts=10.00s  평균 effort=96.8  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   760000 steps  J=917.3222  실패 90/148  평균 Ts=6.513s  최대 Ts=10.00s  평균 effort=97.3  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   780000 steps  J=820.5414  실패 80/148  평균 Ts=5.965s  최대 Ts=10.00s  평균 effort=103.3  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   800000 steps  J=744.6073  실패 72/148  평균 Ts=5.534s  최대 Ts=10.00s  평균 effort=110.5  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   820000 steps  J=680.1713  실패 66/148  평균 Ts=5.232s  최대 Ts=10.00s  평균 effort=103.9  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   840000 steps  J=771.1128  실패 75/148  평균 Ts=5.707s  최대 Ts=10.00s  평균 effort=104.6  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   860000 steps  J=781.6897  실패 76/148  평균 Ts=5.736s  최대 Ts=10.00s  평균 effort=105.5  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   880000 steps  J=813.9265  실패 79/148  평균 Ts=5.875s  최대 Ts=10.00s  평균 effort=108.9  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   900000 steps  J=805.1598  실패 78/148  평균 Ts=5.827s  최대 Ts=10.00s  평균 effort=110.9  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   920000 steps  J=814.3666  실패 79/148  평균 Ts=5.872s  최대 Ts=10.00s  평균 effort=109.6  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   940000 steps  J=854.5025  실패 83/148  평균 Ts=6.080s  최대 Ts=10.00s  평균 effort=109.5  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   960000 steps  J=801.8570  실패 78/148  평균 Ts=5.797s  최대 Ts=10.00s  평균 effort=105.7  스펙 위반
+[wu0.3_hard0.5_1M_seed0]   980000 steps  J=617.4057  실패 59/148  평균 Ts=4.747s  최대 Ts=10.00s  평균 effort=116.3  스펙 위반
+[wu0.3_hard0.5_1M_seed0]  1000000 steps  J=662.1057  실패 64/148  평균 Ts=5.054s  최대 Ts=10.00s  평균 effort=107.3  스펙 위반
+[wu0.3_hard0.5_1M_seed0] 학습 완료 (459s)
