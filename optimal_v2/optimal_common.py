@@ -6,7 +6,7 @@ PID / LQR / PPO 를 "같은 기준, 같은 설계 상태"로 최적화하기 위
 
   최적 모델의 정의
     1) 필수 (스펙)   : |θ0| ≤ 30° 설계 상태(148개)에서 전부 성공
-                       → evaluate_metrics.judge() 기준: 넘어지지 않고, 마지막 2 s 동안
+                       → evaluate_metrics.judge() 기준: 10 s 동안 |x| ≤ 2.4 m (각도 실패 한계 없음), 마지막 2 s 동안
                          |θ| ≤ 3°, |θ̇| ≤ 0.2 rad/s, |x| ≤ 0.2 m 유지
     2) 최소화         : 평균 Settling Time  (θ, θ̇, x 모두 만족 = evaluate_metrics.settling_time(use_x=True))
     3) 상한           : 평균 Control Effort Σ F² Δt ≤ EFFORT_BUDGET
@@ -144,7 +144,7 @@ def batch_run(policy, S0):
         S_new = _step(S, F)
         S = np.where(alive[:, None], S_new, S)       # 실패한 에피소드는 정지 (원본은 break)
         effort += np.where(alive, F ** 2 * C.DT, 0.0)
-        failed_now = alive & ((np.abs(S[:, 0]) > C.X_MAX) | (np.abs(S[:, 2]) > C.deg2rad(C.THETA_FAIL_DEG)))
+        failed_now = alive & (np.abs(S[:, 0]) > C.X_MAX)   # = C.is_failed (각도 실패 한계 없음)
         alive &= ~failed_now
         last_bad = np.where(alive & ~_stable(S), k + 1, last_bad)
     k_settle = last_bad + 1

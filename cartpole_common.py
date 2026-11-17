@@ -25,8 +25,9 @@ PHYS = dict(
     b_cart=0.0,                 # Cart 점성 마찰 [N·s/m]
 )
 F_MAX = 25.0                    # 최대 제어입력 [N] (모든 제어기 출력이 여기서 포화)
-X_MAX = 2.4                     # Cart 이동 한계 [m] (넘으면 실패)
-THETA_FAIL_DEG = 45.0           # 이 각도를 넘으면 실패
+X_MAX = 2.4                     # Cart 이동 한계 [m] (넘으면 실패 — 도중 종료 조건은 이것 하나)
+                                # 각도에는 실패 한계가 없음: 진자가 넘어가도 10 s 끝까지 시뮬레이션하고,
+                                # 마지막 2 s 안정 조건(evaluate_metrics.CRIT)으로만 성공/실패를 판정
 
 # ---------- 시뮬레이션 ----------
 SIM_TIME = 10.0                 # 실험 1회 길이 [s]
@@ -71,7 +72,9 @@ DESIGN_N_SAMPLES = 16           # PID·LQR 튜닝 목적함수에 쓰는 설계�
 
 # 공통 성능 목표 = PPO의 보상 = PID 자동튜닝의 목적함수
 #   매 스텝 r = alive - cost,   cost = w_theta*θ² + w_x*x² + w_theta_dot*θ̇² + w_x_dot*ẋ² + w_u*(F/F_MAX)²
-#   실패하면 그 스텝 r = -fail_penalty 후 종료
+#   실패(|x| > X_MAX)하면 그 스텝 r = -fail_penalty 후 종료
+#   주의: 각도로는 종료되지 않으므로, 넘어진 상태(θ ≈ 180° → θ² ≈ 9.9)로 남는 스텝마다 r ≈ -9 가 쌓임.
+#         PPO 를 다시 학습하면 "넘어진 뒤 레일 밖으로 나가 -fail_penalty 로 끝내기"가 보상상 이득이 될 수 있음
 OBJECTIVE = dict(
     alive=1.0,
     w_theta=1.0,
@@ -186,7 +189,7 @@ class CartPoleSim:
 
 
 def is_failed(s):
-    return abs(s[0]) > X_MAX or abs(s[2]) > deg2rad(THETA_FAIL_DEG)
+    return abs(s[0]) > X_MAX
 
 
 def step_reward(s_next, F, failed):

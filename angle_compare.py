@@ -26,7 +26,7 @@ Cart-Pole 역진자 — 초기각별 제어기 비교 (PID / LQR / PPO,  ±5° ~
   2. Settling Time [s]      ↓  |θ| ≤ 3°, |θ̇| ≤ 0.2 rad/s 에 들어가 끝까지(최소 2 s) 유지되는 첫 시각
                                (SETTLING_USE_X = True 면 |x| ≤ 0.2 m 도 포함 = evaluate_metrics 기본 방식)
   3. Success Rate [%]       ↑  반복 실행 중 evaluate_metrics.judge() 성공 비율
-                               (10 s 동안 |θ| < 45°, |x| ≤ 2.4 m  그리고  마지막 2 s |θ| ≤ 3°, |θ̇| ≤ 0.2 rad/s, |x| ≤ 0.2 m)
+                               (10 s 동안 |x| ≤ 2.4 m  그리고  마지막 2 s |θ| ≤ 3°, |θ̇| ≤ 0.2 rad/s, |x| ≤ 0.2 m)
   4. Control Effort [N²·s]  ↓  Σ F_k² Δt
   5. Position RMSE [m]      ↓  sqrt(mean x_k²), k = 1..N
 
@@ -726,7 +726,7 @@ def main():
     print(f"  {C.SIM_TIME:g} s, dt = {C.DT:g} s, F_MAX = ±{C.F_MAX:g} N, 노이즈 {C.NOISE_STD}, "
           f"외란 {'ON' if C.DISTURBANCE['enabled'] else 'OFF'}")
     print(f"  Settling: {settling_desc()} 을 끝까지(≥{E.CRIT['hold_time']:g} s) 유지하기 시작한 시각")
-    print(f"  성공 기준: 10 s 동안 |θ|<{C.THETA_FAIL_DEG:g}°, |x|≤{C.X_MAX:g} m, 마지막 {E.CRIT['hold_time']:g} s "
+    print(f"  성공 기준: 10 s 동안 |x|≤{C.X_MAX:g} m, 마지막 {E.CRIT['hold_time']:g} s "
           f"|θ|≤{E.CRIT['theta_deg']:g}°, |θ̇|≤{E.CRIT['theta_dot']:g} rad/s, |x|≤{E.CRIT['x']:g} m")
 
     rows, logs = run_nominal(controllers, angles)

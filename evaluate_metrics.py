@@ -79,7 +79,7 @@ SECONDARY = [    # 그래프 해석용 보조 지표
     ("episode_return",        "Design Objective Return ↑",      "{:.1f}"),
 ]
 
-WHY_SHORT = dict(x_limit=f"|x|>{C.X_MAX:g}m", theta_fall=f"|θ|>{C.THETA_FAIL_DEG:g}°",
+WHY_SHORT = dict(x_limit=f"|x|>{C.X_MAX:g}m",
                  theta="θ", theta_dot="θ̇", x="x")
 
 
@@ -114,8 +114,8 @@ def settling_time(log, use_x=True):
 def judge(log):
     """⑤ 성공 판정 → (성공 여부, 실패 원인 목록)"""
     s = log["s"]
-    if log["failed"]:          # simulate()가 도중에 종료: |x| > X_MAX 또는 |θ| > THETA_FAIL_DEG
-        return False, ["x_limit" if abs(s[-1, 0]) > C.X_MAX else "theta_fall"]
+    if log["failed"]:          # simulate()가 도중에 종료: |x| > X_MAX (각도 실패 한계는 없음)
+        return False, ["x_limit"]
     why = []
     if np.max(np.abs(s[:, 0])) > C.X_MAX:                       # 10초 동안 이동 한계 위반
         why.append("x_limit")

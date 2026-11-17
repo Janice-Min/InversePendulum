@@ -9,7 +9,8 @@ Cart-Pole 역진자 — 초기각 한계 탐색 (PID / LQR / PPO)
   - 실행    : cartpole_common.simulate()  (같은 시뮬레이터 / dt / F_MAX, 초기상태 [0, 0, θ0, 0])
   - 성공 판정: evaluate_metrics.py 와 같은 기준 (평가지표.pdf ⑤)
               10초 동안 |x| ≤ 2.4 m  그리고  마지막 2초 동안 |θ| ≤ 3°, |θ̇| ≤ 0.2 rad/s, |x| ≤ 0.2 m
-              → 도중에 넘어지거나(|θ|>45°) 레일을 벗어나도, 10초 안에 안정화되지 않아도 FAIL
+              → 도중에 레일을 벗어나거나(|x|>2.4 m), 10초 안에 안정화되지 않으면 FAIL
+                (각도 실패 한계는 없음: 진자가 넘어가도 끝까지 실행하고 마지막 2초로 판정)
 
 필요 파일: cartpole_common.py, cartpole_pid.py, cartpole_lqr.py, cartpole_ppo.py, simulator.py, evaluate_metrics.py
 
@@ -28,7 +29,7 @@ Cart-Pole 역진자 — 초기각 한계 탐색 (PID / LQR / PPO)
 # 0. 탐색 설정 — 여기만 바꾸면 됩니다
 # ================================================================
 START_DEG = 21                 # 시작 각도 [deg]  (±21°부터)
-MAX_DEG = 45                   # 마지막 각도 [deg] (cartpole_common.THETA_FAIL_DEG = 45°가 넘어짐 판정이므로 그 미만)
+MAX_DEG = 45                   # 마지막 각도 [deg] (각도 실패 한계가 없어져서 더 크게 잡아도 됨)
 STEP_DEG = 1                   # 증가 간격 [deg]
 CONTROLLERS = ["PID", "LQR", "PPO"]
 
@@ -36,7 +37,7 @@ SEPARATE_SIGNS = False         # False: 같은 크기에서 +θ, −θ를 모두
                                # True : +쪽과 −쪽을 따로 추적 (한쪽이 실패해도 반대쪽은 계속 → 방향별 한계)
                                #        PID·LQR은 선형이라 양쪽이 같지만, PPO는 비대칭일 수 있음
 
-FAIL_PLOT_TIME = 4.0           # sweep_fail_cases.png 가로축 0 ~ 이 시간[s] (넘어짐은 1초 안에 일어나므로 확대)
+FAIL_PLOT_TIME = 4.0           # sweep_fail_cases.png 가로축 0 ~ 이 시간[s] (레일 이탈로 일찍 끝난 실패만 있을 때 확대)
                                # 실패 원인이 "10초 안에 안정화 못함"이면 자동으로 10초 전체를 보여줌
 OUT_SUBDIR = "angle_sweep"     # 결과 폴더: results/angle_sweep/
 SAVE_RAW = False               # True면 실행마다 원시 데이터 CSV 저장 (raw/)
@@ -173,7 +174,7 @@ def _plt():
 
 def _short_reason(r):
     if r["terminated"]:
-        return f"θ>{C.THETA_FAIL_DEG:g}°" if r["why"][0] == "theta_fall" else f"x>{C.X_MAX:g}"
+        return f"x>{C.X_MAX:g}"
     return ",".join(E.WHY_SHORT[w] for w in r["why"])
 
 

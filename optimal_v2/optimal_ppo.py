@@ -6,7 +6,7 @@ optimal_common.py 의 기준(스펙 + 최소화)에 맞춰 PPO 를 다시 학습
 
   보상 (기존 보상에 Settling 항 추가)
     r = 1 (생존)  −  W_BAND · 1[안정화 기준 밖]  −  (θ² + 0.1x² + 0.01θ̇² + 0.01ẋ²)  −  W_U · (F/F_MAX)²
-    실패하면 −FAIL_PENALTY 후 종료
+    실패(|x| > 2.4 m)하면 −FAIL_PENALTY 후 종료 (각도로는 종료하지 않음 — cartpole_common.OBJECTIVE 주석 참고)
       - 1[안정화 기준 밖]: |θ| ≤ 3°, |θ̇| ≤ 0.2 rad/s, |x| ≤ 0.2 m 중 하나라도 벗어나면 1
         → 에피소드 합 ≈ 기준 밖에 있던 시간 ∝ Settling Time.  W_BAND < 1 이라 기준 밖이어도
           버티는 스텝의 보상은 양수 → "넘어지지 않기"가 여전히 1순위
