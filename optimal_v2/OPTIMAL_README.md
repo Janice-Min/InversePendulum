@@ -140,6 +140,7 @@ r = 1 − 0.5·1[기준 밖] − (θ² + 0.1x² + 0.01θ̇² + 0.01ẋ²) − W_
 | `optimal_pid_lqr.py` | PID·LQR 최적화, effort 상한 sweep |
 | `optimal_ppo.py` | 보상 재설계, PPO 학습(run 목록 `RUNS`), 체크포인트 선택 |
 | `optimal_compare.py` | 최적 PID·LQR·PPO를 테스트 조건에서 비교 → `results/optimal/` |
+| `realtime_compare.py` | 저장된 최적 모델 세 개를 하나의 창에서 같은 시계·초기상태로 실시간 실행 |
 
 ```bash
 python optimal_compare.py         # 약 1~2분: 저장된 최적 모델 3개 비교, CSV·그래프 생성
@@ -150,6 +151,15 @@ python optimal_ppo.py grid        # 2코어 기준 약 40분: PPO 6개 run 학�
 ```
 
 인자 없이 `python optimal_pid_lqr.py`를 실행하면 `all`과 같아요.
+
+실시간 비교는 **레포 루트에서** 실행하세요.
+
+```bash
+python optimal_v2/realtime_compare.py
+python optimal_v2/realtime_compare.py --theta-deg -25 --x 0.3 --x-dot 0.1 --theta-dot 0.2
+```
+
+기본값은 `θ0=+30°`, 다른 초기상태는 0, 재생 속도는 실제 시간과 같은 1배입니다. `--speed 0.5`로 느리게 재생할 수 있습니다. **Space**는 일시정지/재개, **R**은 같은 초기상태에서 다시 시작, **Q** 또는 **Esc**는 창을 닫습니다. 세 제어기의 상태는 화면 아래 각도·카트 위치·제어력 그래프에 시간에 맞춰 추가되고, 종료 시 동일한 `evaluate_metrics` 판정을 콘솔에 표시합니다. 창을 띄울 수 있는 로컬 Python 환경에서 `pip install numpy scipy matplotlib gymnasium stable-baselines3`를 먼저 실행하세요. `optimal_v2/models/`의 세 최적 파일이 모두 있어야 하며, 기본 `simulator.py`의 모델은 사용하지 않습니다.
 
 **PPO 학습 기록에 대해**
 

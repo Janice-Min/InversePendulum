@@ -19,6 +19,7 @@ InversePendulum/
 ├── angle_compare.py       # ±5°~±30° 초기각별 비교 + 성공률(반복 실행)
 ├── angle_sweep.py         # 초기각을 1°씩 키우며 제어기별 한계 각도 탐색
 ├── models/                # 튜닝·학습된 제어기 파라미터
+├── optimal_v2/            # 별도로 최적화된 PID/LQR/PPO 모델과 실시간 비교
 └── results/               # 실험 결과 (CSV, 그래프)
 ```
 
@@ -71,9 +72,12 @@ InversePendulum/
 pip install numpy scipy matplotlib gymnasium stable-baselines3
 
 python simulator.py              # 세 제어기 애니메이션 비교 (기본 θ0 = 10°)
+python optimal_v2/realtime_compare.py  # 최적 모델 세 개를 같은 조건에서 실시간 동시 실행 (기본 θ0 = 30°)
 python evaluate_metrics.py       # 평가지표 비교 → results/metrics_eval/
 python angle_compare.py          # 초기각별 비교 → results/angle_compare/
 python angle_sweep.py            # 한계 각도 탐색 → results/angle_sweep/
 ```
 
 PPO 모델이 없으면 `python cartpole_ppo.py train` 으로 먼저 학습하세요 (없으면 PPO 는 자동으로 건너뜀).
+
+최적 모델 실시간 비교는 `optimal_v2/models/`의 `pid_gains_opt.json`, `lqr_weights_opt.json`, `ppo_opt.zip`을 사용합니다. `--theta-deg`, `--x`, `--x-dot`, `--theta-dot`으로 세 시뮬레이션에 동일한 초기상태를 지정할 수 있습니다. 자세한 실행법은 [optimal_v2/OPTIMAL_README.md](optimal_v2/OPTIMAL_README.md)를 참고하세요.
