@@ -1,0 +1,103 @@
+C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\stable_baselines3\common\save_util.py:284: UserWarning: Path 'models\ppo_opt_runs\wu0.03_hard0.5_2M_seed1\ckpt' does not exist. Will create it.
+  warnings.warn(f"Path '{path.parent}' does not exist. Will create it.")
+[wu0.03_hard0.5_2M_seed1]    20000 steps  J=1490.0000  Ω«∆– 148/148  ∆Ú±’ Ts=10.000s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=84.3/115  Ω∫∆Â ¿ßπ›  °Á best
+[wu0.03_hard0.5_2M_seed1]    40000 steps  J=1490.0000  Ω«∆– 148/148  ∆Ú±’ Ts=10.000s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=62.9/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]    60000 steps  J=1490.0000  Ω«∆– 148/148  ∆Ú±’ Ts=10.000s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=26.3/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]    80000 steps  J=1389.3716  Ω«∆– 138/148  ∆Ú±’ Ts=9.372s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=22.9/115  Ω∫∆Â ¿ßπ›  °Á best
+[wu0.03_hard0.5_2M_seed1]   100000 steps  J=866.4731  Ω«∆– 86/148  ∆Ú±’ Ts=6.473s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=32.9/115  Ω∫∆Â ¿ßπ›  °Á best
+[wu0.03_hard0.5_2M_seed1]   120000 steps  J=1298.7551  Ω«∆– 129/148  ∆Ú±’ Ts=8.755s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=40.8/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]   140000 steps  J=1107.6139  Ω«∆– 110/148  ∆Ú±’ Ts=7.614s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=43.7/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]   160000 steps  J=1147.8154  Ω«∆– 114/148  ∆Ú±’ Ts=7.815s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=46.4/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]   180000 steps  J=1198.1116  Ω«∆– 119/148  ∆Ú±’ Ts=8.112s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=47.6/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]   200000 steps  J=1167.9307  Ω«∆– 116/148  ∆Ú±’ Ts=7.931s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=49.6/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]   220000 steps  J=1157.8492  Ω«∆– 115/148  ∆Ú±’ Ts=7.849s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=50.0/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]   240000 steps  J=1057.2914  Ω«∆– 105/148  ∆Ú±’ Ts=7.291s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=49.3/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]   260000 steps  J=986.8814  Ω«∆– 98/148  ∆Ú±’ Ts=6.881s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=52.1/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]   280000 steps  J=886.2834  Ω«∆– 88/148  ∆Ú±’ Ts=6.283s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=55.7/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]   300000 steps  J=926.5291  Ω«∆– 92/148  ∆Ú±’ Ts=6.529s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=54.5/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]   320000 steps  J=986.8912  Ω«∆– 98/148  ∆Ú±’ Ts=6.891s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=53.7/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]   340000 steps  J=986.8824  Ω«∆– 98/148  ∆Ú±’ Ts=6.882s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=58.5/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]   360000 steps  J=986.8896  Ω«∆– 98/148  ∆Ú±’ Ts=6.890s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=54.9/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]   380000 steps  J=896.3503  Ω«∆– 89/148  ∆Ú±’ Ts=6.350s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=55.2/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]   400000 steps  J=846.0508  Ω«∆– 84/148  ∆Ú±’ Ts=6.051s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=52.5/115  Ω∫∆Â ¿ßπ›  °Á best
+[wu0.03_hard0.5_2M_seed1]   420000 steps  J=664.9878  Ω«∆– 66/148  ∆Ú±’ Ts=4.988s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=50.6/115  Ω∫∆Â ¿ßπ›  °Á best
+[wu0.03_hard0.5_2M_seed1]   440000 steps  J=292.7673  Ω«∆– 29/148  ∆Ú±’ Ts=2.767s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=51.9/115  Ω∫∆Â ¿ßπ›  °Á best
+[wu0.03_hard0.5_2M_seed1]   460000 steps  J=61.3582  Ω«∆– 6/148  ∆Ú±’ Ts=1.358s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=52.9/115  Ω∫∆Â ¿ßπ›  °Á best
+[wu0.03_hard0.5_2M_seed1]   480000 steps  J=0.9847  Ω«∆– 0/148  ∆Ú±’ Ts=0.985s  √÷¥Î Ts=1.20s  ∆Ú±’ effort=54.5/115  OK  °Á best
+[wu0.03_hard0.5_2M_seed1]   500000 steps  J=0.9835  Ω«∆– 0/148  ∆Ú±’ Ts=0.984s  √÷¥Î Ts=1.22s  ∆Ú±’ effort=54.3/115  OK  °Á best
+[wu0.03_hard0.5_2M_seed1]   520000 steps  J=71.3918  Ω«∆– 7/148  ∆Ú±’ Ts=1.392s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=56.6/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]   540000 steps  J=131.7885  Ω«∆– 13/148  ∆Ú±’ Ts=1.789s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=53.2/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]   560000 steps  J=0.9945  Ω«∆– 0/148  ∆Ú±’ Ts=0.994s  √÷¥Î Ts=1.22s  ∆Ú±’ effort=52.6/115  OK
+[wu0.03_hard0.5_2M_seed1]   580000 steps  J=0.9727  Ω«∆– 0/148  ∆Ú±’ Ts=0.973s  √÷¥Î Ts=1.20s  ∆Ú±’ effort=55.3/115  OK  °Á best
+[wu0.03_hard0.5_2M_seed1]   600000 steps  J=0.9719  Ω«∆– 0/148  ∆Ú±’ Ts=0.972s  √÷¥Î Ts=1.20s  ∆Ú±’ effort=55.3/115  OK  °Á best
+[wu0.03_hard0.5_2M_seed1]   620000 steps  J=21.0742  Ω«∆– 2/148  ∆Ú±’ Ts=1.074s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=57.5/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]   640000 steps  J=0.9611  Ω«∆– 0/148  ∆Ú±’ Ts=0.961s  √÷¥Î Ts=1.18s  ∆Ú±’ effort=55.6/115  OK  °Á best
+[wu0.03_hard0.5_2M_seed1]   660000 steps  J=0.9404  Ω«∆– 0/148  ∆Ú±’ Ts=0.940s  √÷¥Î Ts=1.16s  ∆Ú±’ effort=58.7/115  OK  °Á best
+[wu0.03_hard0.5_2M_seed1]   680000 steps  J=0.9468  Ω«∆– 0/148  ∆Ú±’ Ts=0.947s  √÷¥Î Ts=1.18s  ∆Ú±’ effort=57.0/115  OK
+[wu0.03_hard0.5_2M_seed1]   700000 steps  J=0.9589  Ω«∆– 0/148  ∆Ú±’ Ts=0.959s  √÷¥Î Ts=1.20s  ∆Ú±’ effort=56.5/115  OK
+[wu0.03_hard0.5_2M_seed1]   720000 steps  J=0.9708  Ω«∆– 0/148  ∆Ú±’ Ts=0.971s  √÷¥Î Ts=1.20s  ∆Ú±’ effort=55.3/115  OK
+[wu0.03_hard0.5_2M_seed1]   740000 steps  J=1.0192  Ω«∆– 0/148  ∆Ú±’ Ts=1.019s  √÷¥Î Ts=1.26s  ∆Ú±’ effort=51.2/115  OK
+[wu0.03_hard0.5_2M_seed1]   760000 steps  J=1.0273  Ω«∆– 0/148  ∆Ú±’ Ts=1.027s  √÷¥Î Ts=1.28s  ∆Ú±’ effort=51.0/115  OK
+[wu0.03_hard0.5_2M_seed1]   780000 steps  J=1.0154  Ω«∆– 0/148  ∆Ú±’ Ts=1.015s  √÷¥Î Ts=1.26s  ∆Ú±’ effort=50.9/115  OK
+[wu0.03_hard0.5_2M_seed1]   800000 steps  J=31.1874  Ω«∆– 3/148  ∆Ú±’ Ts=1.187s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=51.1/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]   820000 steps  J=473.8304  Ω«∆– 47/148  ∆Ú±’ Ts=3.830s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=51.0/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]   840000 steps  J=51.3146  Ω«∆– 5/148  ∆Ú±’ Ts=1.315s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=50.2/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]   860000 steps  J=1.0051  Ω«∆– 0/148  ∆Ú±’ Ts=1.005s  √÷¥Î Ts=1.26s  ∆Ú±’ effort=50.9/115  OK
+[wu0.03_hard0.5_2M_seed1]   880000 steps  J=0.9884  Ω«∆– 0/148  ∆Ú±’ Ts=0.988s  √÷¥Î Ts=1.24s  ∆Ú±’ effort=53.0/115  OK
+[wu0.03_hard0.5_2M_seed1]   900000 steps  J=31.1546  Ω«∆– 3/148  ∆Ú±’ Ts=1.155s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=54.1/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]   920000 steps  J=21.1253  Ω«∆– 2/148  ∆Ú±’ Ts=1.125s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=52.0/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]   940000 steps  J=1.0031  Ω«∆– 0/148  ∆Ú±’ Ts=1.003s  √÷¥Î Ts=1.24s  ∆Ú±’ effort=51.1/115  OK
+[wu0.03_hard0.5_2M_seed1]   960000 steps  J=0.9996  Ω«∆– 0/148  ∆Ú±’ Ts=1.000s  √÷¥Î Ts=1.24s  ∆Ú±’ effort=51.6/115  OK
+[wu0.03_hard0.5_2M_seed1]   980000 steps  J=0.9795  Ω«∆– 0/148  ∆Ú±’ Ts=0.979s  √÷¥Î Ts=1.22s  ∆Ú±’ effort=52.9/115  OK
+[wu0.03_hard0.5_2M_seed1]  1000000 steps  J=0.9599  Ω«∆– 0/148  ∆Ú±’ Ts=0.960s  √÷¥Î Ts=1.18s  ∆Ú±’ effort=54.2/115  OK
+[wu0.03_hard0.5_2M_seed1]  1020000 steps  J=0.9442  Ω«∆– 0/148  ∆Ú±’ Ts=0.944s  √÷¥Î Ts=1.16s  ∆Ú±’ effort=57.4/115  OK
+[wu0.03_hard0.5_2M_seed1]  1040000 steps  J=21.0661  Ω«∆– 2/148  ∆Ú±’ Ts=1.066s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=56.9/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]  1060000 steps  J=0.9223  Ω«∆– 0/148  ∆Ú±’ Ts=0.922s  √÷¥Î Ts=1.46s  ∆Ú±’ effort=59.7/115  OK  °Á best
+[wu0.03_hard0.5_2M_seed1]  1080000 steps  J=10.9761  Ω«∆– 1/148  ∆Ú±’ Ts=0.976s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=60.0/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]  1100000 steps  J=0.9150  Ω«∆– 0/148  ∆Ú±’ Ts=0.915s  √÷¥Î Ts=1.12s  ∆Ú±’ effort=58.5/115  OK  °Á best
+[wu0.03_hard0.5_2M_seed1]  1120000 steps  J=21.0336  Ω«∆– 2/148  ∆Ú±’ Ts=1.034s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=58.8/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]  1140000 steps  J=10.9670  Ω«∆– 1/148  ∆Ú±’ Ts=0.967s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=59.1/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]  1160000 steps  J=10.9555  Ω«∆– 1/148  ∆Ú±’ Ts=0.956s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=61.5/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]  1180000 steps  J=0.8701  Ω«∆– 0/148  ∆Ú±’ Ts=0.870s  √÷¥Î Ts=1.06s  ∆Ú±’ effort=64.6/115  OK  °Á best
+[wu0.03_hard0.5_2M_seed1]  1200000 steps  J=0.8581  Ω«∆– 0/148  ∆Ú±’ Ts=0.858s  √÷¥Î Ts=1.32s  ∆Ú±’ effort=66.4/115  OK  °Á best
+[wu0.03_hard0.5_2M_seed1]  1220000 steps  J=0.8547  Ω«∆– 0/148  ∆Ú±’ Ts=0.855s  √÷¥Î Ts=1.42s  ∆Ú±’ effort=68.4/115  OK  °Á best
+[wu0.03_hard0.5_2M_seed1]  1240000 steps  J=0.8455  Ω«∆– 0/148  ∆Ú±’ Ts=0.846s  √÷¥Î Ts=1.38s  ∆Ú±’ effort=69.0/115  OK  °Á best
+[wu0.03_hard0.5_2M_seed1]  1260000 steps  J=0.8532  Ω«∆– 0/148  ∆Ú±’ Ts=0.853s  √÷¥Î Ts=1.40s  ∆Ú±’ effort=68.9/115  OK
+[wu0.03_hard0.5_2M_seed1]  1280000 steps  J=0.8703  Ω«∆– 0/148  ∆Ú±’ Ts=0.870s  √÷¥Î Ts=1.38s  ∆Ú±’ effort=64.8/115  OK
+[wu0.03_hard0.5_2M_seed1]  1300000 steps  J=433.4838  Ω«∆– 43/148  ∆Ú±’ Ts=3.484s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=70.2/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]  1320000 steps  J=101.4511  Ω«∆– 10/148  ∆Ú±’ Ts=1.451s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=67.4/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]  1340000 steps  J=0.7977  Ω«∆– 0/148  ∆Ú±’ Ts=0.798s  √÷¥Î Ts=1.46s  ∆Ú±’ effort=76.8/115  OK  °Á best
+[wu0.03_hard0.5_2M_seed1]  1360000 steps  J=0.7909  Ω«∆– 0/148  ∆Ú±’ Ts=0.791s  √÷¥Î Ts=1.50s  ∆Ú±’ effort=80.0/115  OK  °Á best
+[wu0.03_hard0.5_2M_seed1]  1380000 steps  J=10.8251  Ω«∆– 1/148  ∆Ú±’ Ts=0.825s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=96.5/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]  1400000 steps  J=10.8364  Ω«∆– 1/148  ∆Ú±’ Ts=0.836s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=81.4/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]  1420000 steps  J=121.5714  Ω«∆– 12/148  ∆Ú±’ Ts=1.571s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=65.1/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]  1440000 steps  J=10.8999  Ω«∆– 1/148  ∆Ú±’ Ts=0.900s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=65.1/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]  1460000 steps  J=10.9022  Ω«∆– 1/148  ∆Ú±’ Ts=0.902s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=68.7/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]  1480000 steps  J=20.9747  Ω«∆– 2/148  ∆Ú±’ Ts=0.975s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=65.5/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]  1500000 steps  J=0.8254  Ω«∆– 0/148  ∆Ú±’ Ts=0.825s  √÷¥Î Ts=1.48s  ∆Ú±’ effort=71.5/115  OK
+[wu0.03_hard0.5_2M_seed1]  1520000 steps  J=20.9411  Ω«∆– 2/148  ∆Ú±’ Ts=0.941s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=69.0/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]  1540000 steps  J=232.2331  Ω«∆– 23/148  ∆Ú±’ Ts=2.233s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=68.1/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]  1560000 steps  J=20.9386  Ω«∆– 2/148  ∆Ú±’ Ts=0.939s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=69.2/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]  1580000 steps  J=61.1828  Ω«∆– 6/148  ∆Ú±’ Ts=1.183s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=69.7/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]  1600000 steps  J=0.8109  Ω«∆– 0/148  ∆Ú±’ Ts=0.811s  √÷¥Î Ts=1.24s  ∆Ú±’ effort=66.8/115  OK
+[wu0.03_hard0.5_2M_seed1]  1620000 steps  J=0.8084  Ω«∆– 0/148  ∆Ú±’ Ts=0.808s  √÷¥Î Ts=1.00s  ∆Ú±’ effort=65.9/115  OK
+[wu0.03_hard0.5_2M_seed1]  1640000 steps  J=0.8219  Ω«∆– 0/148  ∆Ú±’ Ts=0.822s  √÷¥Î Ts=1.02s  ∆Ú±’ effort=63.3/115  OK
+[wu0.03_hard0.5_2M_seed1]  1660000 steps  J=20.8934  Ω«∆– 2/148  ∆Ú±’ Ts=0.893s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=78.1/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]  1680000 steps  J=0.7600  Ω«∆– 0/148  ∆Ú±’ Ts=0.760s  √÷¥Î Ts=1.44s  ∆Ú±’ effort=76.3/115  OK  °Á best
+[wu0.03_hard0.5_2M_seed1]  1700000 steps  J=0.7535  Ω«∆– 0/148  ∆Ú±’ Ts=0.754s  √÷¥Î Ts=1.40s  ∆Ú±’ effort=77.4/115  OK  °Á best
+[wu0.03_hard0.5_2M_seed1]  1720000 steps  J=0.7393  Ω«∆– 0/148  ∆Ú±’ Ts=0.739s  √÷¥Î Ts=1.38s  ∆Ú±’ effort=78.7/115  OK  °Á best
+[wu0.03_hard0.5_2M_seed1]  1740000 steps  J=10.7750  Ω«∆– 1/148  ∆Ú±’ Ts=0.775s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=99.8/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]  1760000 steps  J=10.7742  Ω«∆– 1/148  ∆Ú±’ Ts=0.774s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=97.9/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]  1780000 steps  J=0.7104  Ω«∆– 0/148  ∆Ú±’ Ts=0.710s  √÷¥Î Ts=1.36s  ∆Ú±’ effort=93.3/115  OK  °Á best
+[wu0.03_hard0.5_2M_seed1]  1800000 steps  J=0.7386  Ω«∆– 0/148  ∆Ú±’ Ts=0.739s  √÷¥Î Ts=1.34s  ∆Ú±’ effort=80.6/115  OK
+[wu0.03_hard0.5_2M_seed1]  1820000 steps  J=0.7342  Ω«∆– 0/148  ∆Ú±’ Ts=0.734s  √÷¥Î Ts=1.26s  ∆Ú±’ effort=80.6/115  OK
+[wu0.03_hard0.5_2M_seed1]  1840000 steps  J=0.7205  Ω«∆– 0/148  ∆Ú±’ Ts=0.721s  √÷¥Î Ts=1.36s  ∆Ú±’ effort=90.6/115  OK
+[wu0.03_hard0.5_2M_seed1]  1860000 steps  J=20.8445  Ω«∆– 2/148  ∆Ú±’ Ts=0.844s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=107.5/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]  1880000 steps  J=0.7449  Ω«∆– 0/148  ∆Ú±’ Ts=0.745s  √÷¥Î Ts=1.82s  ∆Ú±’ effort=94.2/115  OK
+[wu0.03_hard0.5_2M_seed1]  1900000 steps  J=0.7876  Ω«∆– 0/148  ∆Ú±’ Ts=0.788s  √÷¥Î Ts=0.96s  ∆Ú±’ effort=70.8/115  OK
+[wu0.03_hard0.5_2M_seed1]  1920000 steps  J=0.7818  Ω«∆– 0/148  ∆Ú±’ Ts=0.782s  √÷¥Î Ts=0.96s  ∆Ú±’ effort=71.3/115  OK
+[wu0.03_hard0.5_2M_seed1]  1940000 steps  J=20.9461  Ω«∆– 2/148  ∆Ú±’ Ts=0.946s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=63.4/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]  1960000 steps  J=0.8504  Ω«∆– 0/148  ∆Ú±’ Ts=0.850s  √÷¥Î Ts=1.04s  ∆Ú±’ effort=59.0/115  OK
+[wu0.03_hard0.5_2M_seed1]  1980000 steps  J=10.9045  Ω«∆– 1/148  ∆Ú±’ Ts=0.904s  √÷¥Î Ts=10.00s  ∆Ú±’ effort=59.7/115  Ω∫∆Â ¿ßπ›
+[wu0.03_hard0.5_2M_seed1]  2000000 steps  J=0.8134  Ω«∆– 0/148  ∆Ú±’ Ts=0.813s  √÷¥Î Ts=1.00s  ∆Ú±’ effort=65.7/115  OK
+[wu0.03_hard0.5_2M_seed1] «–Ω¿ øœ∑· (327s)

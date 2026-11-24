@@ -82,6 +82,27 @@ N_STEPS = int(round(C.SIM_TIME / C.DT))
 HOLD_STEPS = int(round(CRIT["hold_time"] / C.DT))
 
 
+# ---------------- JSON (Windows 에서도 UTF-8 로 저장, 예전 cp949 파일도 읽음) ----------------
+def load_json(path):
+    import json
+    for enc in ("utf-8", "cp949"):
+        try:
+            with open(path, encoding=enc) as f:
+                return json.load(f)
+        except UnicodeDecodeError:
+            continue
+    raise ValueError(f"{path} 를 utf-8 / cp949 로 읽지 못했습니다.")
+
+
+def save_json(path, obj, indent=2):
+    import json
+    d = os.path.dirname(path)
+    if d:
+        os.makedirs(d, exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(obj, f, indent=indent, ensure_ascii=False, default=str)
+
+
 # ---------------- 안정화 기준 ----------------
 def stable_mask(S, theta_only=False):
     """S: (..., 4) 상태 → 안정화 기준 만족 여부. theta_only=True 면 θ, θ̇ 만 (참고 지표용)"""

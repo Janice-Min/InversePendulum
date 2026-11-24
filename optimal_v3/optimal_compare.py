@@ -72,11 +72,11 @@ def build_controllers():
     """{제어기: (배치 정책, 단일 제어기)} — 모델이 없으면 건너뜀"""
     out = {}
     if os.path.exists(OPL.PID_OUT):
-        d = json.load(open(OPL.PID_OUT))
+        d = O.load_json(OPL.PID_OUT)
         g = [d["PID_THETA"][k] for k in ("kp", "ki", "kd")] + [d["PID_X"][k] for k in ("kp", "ki", "kd")]
         out["PID"] = (O.BatchPID(g), P.PIDController(d["PID_THETA"], d["PID_X"]))
     if os.path.exists(OPL.LQR_OUT):
-        K = np.asarray(json.load(open(OPL.LQR_OUT))["K"])
+        K = np.asarray(O.load_json(OPL.LQR_OUT)["K"])
         out["LQR"] = (O.BatchLinear(K), L.LQRController(K))
     if os.path.exists(OPP.BEST_PATH + ".zip"):
         try:
@@ -158,11 +158,12 @@ def ppo_seed_table(S0, meta):
         return []
     if not runs:
         return []
-    best = json.load(open(OPP.SUMMARY_PATH))["best"]["run"]
+    best = O.load_json(OPP.SUMMARY_PATH)["best"]["run"]
     rows = []
     for info, model in runs:
         s = summarize(run_set(O.BatchPPO(model), S0, meta, "PPO"))
         rows.append(dict(group="run", run=info["run"], w_u=info["w_u"], seed=info["seed"], step=info["step"],
+                         complete=info.get("complete", ""),
                          design_J=info["J"], selected=info["run"] == best,
                          success_rate_pct=s["success_rate_pct"], mean_settling_time_s=s["mean_settling_time_s"],
                          mean_settling_time_fail10_s=s["mean_settling_time_fail10_s"],
@@ -173,7 +174,7 @@ def ppo_seed_table(S0, meta):
     groups.append(("all runs", list(rows)))
     for name, rs in groups:
         for stat, fn in (("mean", np.mean), ("sd", lambda v: np.std(v, ddof=1) if len(v) > 1 else NAN)):
-            rows.append(dict(group=f"{name} {stat} (n={len(rs)})", run="", w_u="", seed="", step="", selected="",
+            rows.append(dict(group=f"{name} {stat} (n={len(rs)})", run="", w_u="", seed="", step="", complete="", selected="",
                              **{k: float(fn([r[k] for r in rs])) for k in keys}))
     return rows
 

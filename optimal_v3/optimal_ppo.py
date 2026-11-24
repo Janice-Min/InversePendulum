@@ -47,7 +47,6 @@ SUMMARY_PATH = "models/ppo_opt.json"
 # ================================================================
 import os
 import sys
-import json
 import glob
 import time
 import shutil
@@ -137,8 +136,7 @@ def train(w_u, seed, hard_frac, steps):
                 if J < self.best:
                     self.best, tag = J, "  ← best"
                 print(f"[{name}] {self.num_timesteps:>8d} steps  {O.fmt(s)}{tag}", flush=True)
-                with open(os.path.join(out_dir, "history.json"), "w") as f:
-                    json.dump(hist, f, indent=1, ensure_ascii=False)
+                O.save_json(os.path.join(out_dir, "history.json"), hist, indent=1)
             return True
 
     venv = make_vec_env(make_env_class(w_u, hard_frac), n_envs=N_ENVS, seed=seed)
@@ -148,17 +146,32 @@ def train(w_u, seed, hard_frac, steps):
     print(f"[{name}] 학습 완료 ({time.time() - t0:.0f}s)", flush=True)
 
 
+def n_ckpt(r):
+    return len(glob.glob(os.path.join(RUN_DIR, run_name(*r), "ckpt", "*.zip")))
+
+
+def is_complete(r):
+    """체크포인트가 끝까지(총 스텝 / EVAL_FREQ 개) 저장된 run 만 완료로 봄 — 중간에 끊긴 run 은 다시 학습"""
+    return n_ckpt(r) >= r[3] // EVAL_FREQ
+
+
 def grid():
-    jobs = [r for r in RUNS if not os.path.isdir(os.path.join(RUN_DIR, run_name(*r), "ckpt"))]
-    print(f"학습할 run {len(jobs)}개 / 전체 {len(RUNS)}개 (이미 있는 run 은 건너뜀)")
+    jobs = [r for r in RUNS if not is_complete(r)]
+    print(f"학습할 run {len(jobs)}개 / 전체 {len(RUNS)}개 (끝까지 학습된 run 은 건너뜀)")
+    for r in jobs:
+        d = os.path.join(RUN_DIR, run_name(*r))
+        if os.path.isdir(d):
+            print(f"  {run_name(*r)}: 중간에 끊긴 run (체크포인트 {n_ckpt(r)}/{r[3] // EVAL_FREQ}개) → 지우고 처음부터 다시 학습")
+            shutil.rmtree(d)
     os.makedirs(RUN_DIR, exist_ok=True)
     running = []
     while jobs or running:
         while jobs and len(running) < N_PARALLEL:
             r = jobs.pop(0)
-            log = open(os.path.join(RUN_DIR, run_name(*r) + ".log"), "w")
+            log = open(os.path.join(RUN_DIR, run_name(*r) + ".log"), "w", encoding="utf-8")
+            env = dict(os.environ, PYTHONIOENCODING="utf-8")        # Windows 에서도 로그를 UTF-8 로
             running.append(subprocess.Popen([sys.executable, os.path.join(O.HERE, "optimal_ppo.py"), "train", *map(str, r)],
-                                            stdout=log, stderr=subprocess.STDOUT))
+                                            stdout=log, stderr=subprocess.STDOUT, env=env))
         time.sleep(5)
         running = [p for p in running if p.poll() is None]
     select()
@@ -180,12 +193,13 @@ def select():
             J, s = O.evaluate(O.BatchPPO(PPO.load(path, device="cpu")), states)
             if rb is None or J < rb["J"]:
                 rb = dict(run=name, w_u=r[0], seed=r[1], hard_frac=r[2], total_steps=r[3],
-                          step=int(os.path.basename(path)[:-4]), n_ckpt=len(ckpts), **s)
+                          step=int(os.path.basename(path)[:-4]), n_ckpt=len(ckpts), complete=is_complete(r), **s)
                 src = path
         shutil.copy(src, os.path.join(run_dir, "selected.zip"))
         rb["path"] = os.path.join(run_dir, "selected.zip")
         rows.append(rb)
-        print(f"[{name}] 체크포인트 {len(ckpts)}개 중 step {rb['step']}  {O.fmt(rb)}")
+        print(f"[{name}] 체크포인트 {len(ckpts)}개 중 step {rb['step']}  {O.fmt(rb)}"
+              + ("" if rb["complete"] else "  ⚠ 학습 미완료 (grid 로 다시 학습 가능)"))
         if best is None or rb["J"] < best["J"]:
             best = rb
         if not KEEP_ALL_CKPT:
@@ -193,12 +207,10 @@ def select():
     if best is None:
         sys.exit("학습된 run 이 없습니다.")
     shutil.copy(best["path"], BEST_PATH + ".zip")
-    with open(SUMMARY_PATH, "w") as f:
-        json.dump(dict(best=best, runs=rows, reward=REWARD, criterion=O.criterion(),
-                       train_theta_deg=TRAIN_THETA_DEG, hard_theta_deg=HARD_THETA_DEG, n_envs=N_ENVS,
-                       eval_freq=EVAL_FREQ, ppo_kw=PPO_KW, observation="[x, ẋ, sinθ, cosθ, θ̇]",
-                       action="a ∈ [-1, 1] → F = a·F_MAX (결정론적 평가: 평균 행동)"),
-                  f, indent=2, ensure_ascii=False, default=str)
+    O.save_json(SUMMARY_PATH, dict(best=best, runs=rows, reward=REWARD, criterion=O.criterion(),
+                                   train_theta_deg=TRAIN_THETA_DEG, hard_theta_deg=HARD_THETA_DEG, n_envs=N_ENVS,
+                                   eval_freq=EVAL_FREQ, ppo_kw=PPO_KW, observation="[x, ẋ, sinθ, cosθ, θ̇]",
+                                   action="a ∈ [-1, 1] → F = a·F_MAX (결정론적 평가: 평균 행동)"))
     print(f"\n[PPO 최적] {best['run']} (step {best['step']})  {O.fmt(best)}\n  저장: {BEST_PATH}.zip, {SUMMARY_PATH}")
 
 
@@ -207,7 +219,7 @@ def load_runs():
     from stable_baselines3 import PPO
     if not os.path.exists(SUMMARY_PATH):
         return []
-    rows = json.load(open(SUMMARY_PATH))["runs"]
+    rows = O.load_json(SUMMARY_PATH)["runs"]
     return [(r, PPO.load(r["path"], device="cpu")) for r in rows if os.path.exists(r["path"])]
 
 
