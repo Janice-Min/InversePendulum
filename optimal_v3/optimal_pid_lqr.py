@@ -160,9 +160,7 @@ def search(kind, bounds, x0, budget, seeds, de_maxiter, verbose=True):
 
 
 def _save(path, d):
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, "w") as f:
-        json.dump(d, f, indent=2, ensure_ascii=False)
+    O.save_json(path, d)
     print(f"  저장: {path}")
 
 
@@ -239,10 +237,10 @@ def check():
     """배치 시뮬레이터(최적화용)와 원본 cartpole_common.simulate() 의 성공·Ts·effort 가 같은지 확인"""
     ctrls = []
     if os.path.exists(PID_OUT):
-        d = json.load(open(PID_OUT))
+        d = O.load_json(PID_OUT)
         gp = [d["PID_THETA"][k] for k in ("kp", "ki", "kd")] + [d["PID_X"][k] for k in ("kp", "ki", "kd")]
         ctrls.append(("최적 PID", O.BatchPID(gp), P.PIDController(d["PID_THETA"], d["PID_X"])))
-    K = np.asarray(json.load(open(LQR_OUT))["K"]) if os.path.exists(LQR_OUT) else O.bryson_K(O.BRYSON_Z0)
+    K = np.asarray(O.load_json(LQR_OUT)["K"]) if os.path.exists(LQR_OUT) else O.bryson_K(O.BRYSON_Z0)
     ctrls.append(("최적 LQR" if os.path.exists(LQR_OUT) else "Bryson 초기 LQR", O.BatchLinear(K), L.LQRController(K)))
     states = O.design_states()
     for name, bp, ctrl in ctrls:
@@ -255,17 +253,21 @@ def check():
         print(f"[{name}] 배치 = 원본: {'일치' if same else '불일치!'}   {O.fmt(O.objective(res)[1])}")
 
 
+def _drop_budget(summ):
+    return {k: v for k, v in summ.items() if k != "budget"}     # 요약 dict 에도 budget 이 있어서 중복 방지
+
+
 def sweep():
     import csv
     rows = []
     for b in SWEEP_BUDGETS:
         gt, gx, s1 = optimize_pid(b, [SWEEP_SEED], SWEEP_DE_MAXITER, save=False, verbose=False)
         print(f"[sweep] 상한 {b:>5}  PID  {O.fmt(s1)}", flush=True)
-        rows.append(dict(budget=b, controller="PID", params=json.dumps(dict(theta=gt, x=gx)), **s1))
+        rows.append(dict(budget=b, controller="PID", params=json.dumps(dict(theta=gt, x=gx)), **_drop_budget(s1)))
         z, K, s2 = optimize_lqr(b, [SWEEP_SEED], SWEEP_DE_MAXITER, save=False, verbose=False)
         print(f"[sweep] 상한 {b:>5}  LQR  {O.fmt(s2)}", flush=True)
-        rows.append(dict(budget=b, controller="LQR", params=json.dumps(dict(z_max=list(map(float, z)),
-                                                                             K=list(map(float, K)))), **s2))
+        rows.append(dict(budget=b, controller="LQR", params=json.dumps(dict(z_max=list(map(float, z)), K=list(map(float, K)))),
+                         **_drop_budget(s2)))
         os.makedirs(os.path.dirname(SWEEP_OUT), exist_ok=True)
         with open(SWEEP_OUT, "w", newline="", encoding="utf-8-sig") as f:
             w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))

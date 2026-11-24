@@ -1,0 +1,220 @@
+{
+  "PID_THETA": {
+    "kp": 112.65919915512227,
+    "ki": 49.79226289980006,
+    "kd": 11.725090356432625
+  },
+  "PID_X": {
+    "kp": 3.0230158074314613,
+    "ki": 0.3822847718864801,
+    "kd": 15.780592400653147
+  },
+  "criterion": {
+    "crit": {
+      "theta_deg": 3.0,
+      "theta_dot": 0.2,
+      "x_dot": 0.05,
+      "x_abs": null,
+      "hold_time": 2.0
+    },
+    "settling_use_xdot": false,
+    "rail_x_max": 2.4,
+    "spec_angles_deg": [
+      5,
+      10,
+      15,
+      20,
+      25,
+      30
+    ],
+    "design_states": 148,
+    "design_seed": 2026,
+    "other_ranges": {
+      "x": [
+        -0.6,
+        0.6
+      ],
+      "x_dot": [
+        -0.6,
+        0.6
+      ],
+      "theta_dot": [
+        -0.6,
+        0.6
+      ]
+    },
+    "effort_budget": 115.0,
+    "effort_budget_rule": 115.0,
+    "W_FAIL": 10.0,
+    "W_EFFORT": 50.0
+  },
+  "design_result": {
+    "J": 0.5925675675675675,
+    "n_fail": 0,
+    "n": 148,
+    "mean_ts": 0.5925675675675675,
+    "max_ts": 0.92,
+    "mean_effort": 114.0048793567373,
+    "budget": 115.0,
+    "feasible": true
+  },
+  "search": {
+    "bounds": [
+      [
+        1.0,
+        3.5
+      ],
+      [
+        0.0,
+        50.0
+      ],
+      [
+        0.0,
+        2.7
+      ],
+      [
+        -2.0,
+        3.0
+      ],
+      [
+        0.0,
+        50.0
+      ],
+      [
+        -1.0,
+        3.0
+      ]
+    ],
+    "x0": [
+      2.492743631360183,
+      0.406,
+      1.5615902862077382,
+      1.7061884567905266,
+      0.072,
+      1.763809705396578
+    ],
+    "de_settings": {
+      "strategy": "best1bin",
+      "popsize": 15,
+      "maxiter": 150,
+      "tol": 0.001,
+      "mutation": [
+        0.5,
+        1.0
+      ],
+      "recombination": 0.7,
+      "init": "sobol",
+      "polish": false,
+      "vectorized": true,
+      "updating": "deferred"
+    },
+    "nm_settings": {
+      "maxiter": 600,
+      "xatol": 0.0001,
+      "fatol": 1e-05,
+      "adaptive": true,
+      "initial_simplex": null,
+      "x0": "DE √÷¿˚«ÿ"
+    },
+    "n_design_states": 148,
+    "seeds": [
+      {
+        "seed": 0,
+        "J": 0.5929729729729729,
+        "p": [
+          2.0536391800372793,
+          46.88334673710103,
+          1.07135669903698,
+          0.5122743522274373,
+          0.014059391172853786,
+          1.203233456130856
+        ],
+        "de": {
+          "J": 0.5931081081081081,
+          "nit": 150,
+          "population_size": 128,
+          "n_candidates_evaluated": 19328,
+          "converged_by_tol": false,
+          "message": "Maximum number of iterations has been exceeded."
+        },
+        "nm": {
+          "J_before": 0.5931081081081081,
+          "J_after": 0.5929729729729729,
+          "nit": 119,
+          "n_candidates_evaluated": 400,
+          "message": "Optimization terminated successfully."
+        },
+        "time_s": 175.3
+      },
+      {
+        "seed": 1,
+        "J": 0.5927027027027026,
+        "p": [
+          2.0557450435838662,
+          48.39501915661005,
+          1.0761076030531769,
+          0.46210063621137476,
+          0.508302354835247,
+          1.20807886333114
+        ],
+        "de": {
+          "J": 0.5928378378378379,
+          "nit": 150,
+          "population_size": 128,
+          "n_candidates_evaluated": 19328,
+          "converged_by_tol": false,
+          "message": "Maximum number of iterations has been exceeded."
+        },
+        "nm": {
+          "J_before": 0.5928378378378379,
+          "J_after": 0.5927027027027026,
+          "nit": 128,
+          "n_candidates_evaluated": 479,
+          "message": "Optimization terminated successfully."
+        },
+        "time_s": 194.2
+      },
+      {
+        "seed": 2,
+        "J": 0.5925675675675675,
+        "p": [
+          2.0517666597011477,
+          49.79226289980006,
+          1.0691161981802033,
+          0.48044041812135263,
+          0.3822847718864801,
+          1.1981233025176108
+        ],
+        "de": {
+          "J": 0.5935135135135134,
+          "nit": 150,
+          "population_size": 128,
+          "n_candidates_evaluated": 19328,
+          "converged_by_tol": false,
+          "message": "Maximum number of iterations has been exceeded."
+        },
+        "nm": {
+          "J_before": 0.5935135135135134,
+          "J_after": 0.5925675675675675,
+          "nit": 120,
+          "n_candidates_evaluated": 458,
+          "message": "Optimization terminated successfully."
+        },
+        "time_s": 197.2
+      }
+    ],
+    "selected_seed": 2,
+    "J_spread_over_seeds": [
+      0.5925675675675675,
+      0.5929729729729729
+    ],
+    "variables": [
+      "theta.kp (log)",
+      "theta.ki (lin)",
+      "theta.kd (log)",
+      "x.kp (log)",
+      "x.ki (lin)",
+      "x.kd (log)"
+    ]
+  }
+}

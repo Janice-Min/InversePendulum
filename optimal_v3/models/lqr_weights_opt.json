@@ -1,0 +1,293 @@
+{
+  "method": "bryson_search",
+  "state_order": [
+    "x",
+    "x_dot",
+    "theta",
+    "theta_dot"
+  ],
+  "z_max": {
+    "x": 22.94038857542026,
+    "x_dot": 0.013013987334842313,
+    "theta": 0.7602660912920027,
+    "theta_dot": 23.775853990040456
+  },
+  "theta_max_deg": 43.5600383379395,
+  "u_max": 25.0,
+  "Q_diag": [
+    0.0019001962652231167,
+    5904.447161857795,
+    1.7300902481623675,
+    0.0017689996619465113
+  ],
+  "R": 0.0016,
+  "LQR_TYPE": "discrete (ZOH, DARE)",
+  "dt": 0.02,
+  "A": [
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      -1.9619999999982993,
+      0.24999999999999994
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    [
+      0.0,
+      0.0,
+      29.429999999989203,
+      -3.749999999999999
+    ]
+  ],
+  "B": [
+    0.0,
+    1.0,
+    0.0,
+    -2.5
+  ],
+  "Ad": [
+    [
+      1.0,
+      0.020000000000000004,
+      -0.0003831449684186126,
+      4.625153566572561e-05
+    ],
+    [
+      0.0,
+      1.0,
+      -0.037878817305324185,
+      0.004443411772834915
+    ],
+    [
+      0.0,
+      0.0,
+      1.005747174526282,
+      0.019306226965014134
+    ],
+    [
+      0.0,
+      0.0,
+      0.5681822595801574,
+      0.9333488234074792
+    ]
+  ],
+  "Bd": [
+    0.00019921380975356355,
+    0.01988437116083569,
+    -0.00048820714630345226,
+    -0.04826556741253534
+  ],
+  "K": [
+    -0.02651353845018517,
+    -46.751847972994135,
+    -273.6917273403837,
+    -40.004482194953134
+  ],
+  "control_law": "F = -K s (±F_MAX 포화)",
+  "closed_loop_pole_abs": [
+    0.0006759086511021195,
+    0.8736415937215949,
+    0.9299689314709779,
+    0.9999886541472787
+  ],
+  "criterion": {
+    "crit": {
+      "theta_deg": 3.0,
+      "theta_dot": 0.2,
+      "x_dot": 0.05,
+      "x_abs": null,
+      "hold_time": 2.0
+    },
+    "settling_use_xdot": false,
+    "rail_x_max": 2.4,
+    "spec_angles_deg": [
+      5,
+      10,
+      15,
+      20,
+      25,
+      30
+    ],
+    "design_states": 148,
+    "design_seed": 2026,
+    "other_ranges": {
+      "x": [
+        -0.6,
+        0.6
+      ],
+      "x_dot": [
+        -0.6,
+        0.6
+      ],
+      "theta_dot": [
+        -0.6,
+        0.6
+      ]
+    },
+    "effort_budget": 115.0,
+    "effort_budget_rule": 115.0,
+    "W_FAIL": 10.0,
+    "W_EFFORT": 50.0
+  },
+  "design_result": {
+    "J": 0.8472972972972973,
+    "n_fail": 0,
+    "n": 148,
+    "mean_ts": 0.8472972972972973,
+    "max_ts": 1.12,
+    "mean_effort": 81.54995083302296,
+    "budget": 115.0,
+    "feasible": true
+  },
+  "search": {
+    "bounds": [
+      [
+        -2.0,
+        3.0
+      ],
+      [
+        -3.0,
+        2.0
+      ],
+      [
+        -3.0,
+        1.0
+      ],
+      [
+        -3.0,
+        2.0
+      ]
+    ],
+    "x0": [
+      0.38021124171160603,
+      0.0,
+      -0.2810003621212818,
+      0.3010299956639812
+    ],
+    "de_settings": {
+      "strategy": "best1bin",
+      "popsize": 15,
+      "maxiter": 150,
+      "tol": 0.001,
+      "mutation": [
+        0.5,
+        1.0
+      ],
+      "recombination": 0.7,
+      "init": "sobol",
+      "polish": false,
+      "vectorized": true,
+      "updating": "deferred"
+    },
+    "nm_settings": {
+      "maxiter": 600,
+      "xatol": 0.0001,
+      "fatol": 1e-05,
+      "adaptive": true,
+      "initial_simplex": null,
+      "x0": "DE 최적해"
+    },
+    "n_design_states": 148,
+    "seeds": [
+      {
+        "seed": 0,
+        "J": 0.8472972972972973,
+        "p": [
+          1.3606007699179767,
+          -1.885589620255519,
+          -0.11903437909521797,
+          1.3761361250416841
+        ],
+        "de": {
+          "J": 0.8472972972972973,
+          "nit": 8,
+          "population_size": 64,
+          "n_candidates_evaluated": 576,
+          "converged_by_tol": true,
+          "message": "Optimization terminated successfully."
+        },
+        "nm": {
+          "J_before": 0.8472972972972973,
+          "J_after": 0.8472972972972973,
+          "nit": 25,
+          "n_candidates_evaluated": 149,
+          "message": "Optimization terminated successfully."
+        },
+        "time_s": 9.3
+      },
+      {
+        "seed": 1,
+        "J": 0.8472972972972973,
+        "p": [
+          1.4167811762114204,
+          -2.952778336624802,
+          -0.9932224129463352,
+          -0.2951797816857833
+        ],
+        "de": {
+          "J": 0.8472972972972973,
+          "nit": 6,
+          "population_size": 64,
+          "n_candidates_evaluated": 448,
+          "converged_by_tol": true,
+          "message": "Optimization terminated successfully."
+        },
+        "nm": {
+          "J_before": 0.8472972972972973,
+          "J_after": 0.8472972972972973,
+          "nit": 24,
+          "n_candidates_evaluated": 143,
+          "message": "Optimization terminated successfully."
+        },
+        "time_s": 8.3
+      },
+      {
+        "seed": 2,
+        "J": 0.8472972972972973,
+        "p": [
+          2.300063556595473,
+          -1.5379133201608226,
+          0.12397201094690402,
+          1.613639142181869
+        ],
+        "de": {
+          "J": 0.8472972972972973,
+          "nit": 6,
+          "population_size": 64,
+          "n_candidates_evaluated": 448,
+          "converged_by_tol": true,
+          "message": "Optimization terminated successfully."
+        },
+        "nm": {
+          "J_before": 0.8472972972972973,
+          "J_after": 0.8472972972972973,
+          "nit": 26,
+          "n_candidates_evaluated": 155,
+          "message": "Optimization terminated successfully."
+        },
+        "time_s": 8.9
+      }
+    ],
+    "selected_seed": 0,
+    "J_spread_over_seeds": [
+      0.8472972972972973,
+      0.8472972972972973
+    ],
+    "variables": [
+      "log10 z_max.x",
+      "log10 z_max.x_dot",
+      "log10 z_max.theta",
+      "log10 z_max.theta_dot"
+    ]
+  }
+}
