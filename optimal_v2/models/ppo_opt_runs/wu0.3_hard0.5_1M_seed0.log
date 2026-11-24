@@ -1,53 +1,53 @@
-/usr/local/lib/python3.13/site-packages/stable_baselines3/common/save_util.py:284: UserWarning: Path 'models/ppo_opt_runs/wu0.3_hard0.5_1M_seed0/ckpt' does not exist. Will create it.
+C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\stable_baselines3\common\save_util.py:284: UserWarning: Path 'models\ppo_opt_runs\wu0.3_hard0.5_1M_seed0\ckpt' does not exist. Will create it.
   warnings.warn(f"Path '{path.parent}' does not exist. Will create it.")
-[wu0.3_hard0.5_1M_seed0]    20000 steps  J=1490.0000  ì‹¤íŒ¨ 148/148  í‰ê·  Ts=10.000s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=17.6  ìŠ¤í™ ìœ„ë°˜  â† best
-[wu0.3_hard0.5_1M_seed0]    40000 steps  J=1329.6801  ì‹¤íŒ¨ 132/148  í‰ê·  Ts=9.680s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=29.8  ìŠ¤í™ ìœ„ë°˜  â† best
-[wu0.3_hard0.5_1M_seed0]    60000 steps  J=42.7584  ì‹¤íŒ¨ 4/148  í‰ê·  Ts=2.758s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=43.9  ìŠ¤í™ ìœ„ë°˜  â† best
-[wu0.3_hard0.5_1M_seed0]    80000 steps  J=23.2342  ì‹¤íŒ¨ 2/148  í‰ê·  Ts=3.234s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=53.8  ìŠ¤í™ ìœ„ë°˜  â† best
-[wu0.3_hard0.5_1M_seed0]   100000 steps  J=2.5818  ì‹¤íŒ¨ 0/148  í‰ê·  Ts=2.582s  ìµœëŒ€ Ts=4.58s  í‰ê·  effort=59.5  OK  â† best
-[wu0.3_hard0.5_1M_seed0]   120000 steps  J=2.3401  ì‹¤íŒ¨ 0/148  í‰ê·  Ts=2.340s  ìµœëŒ€ Ts=3.98s  í‰ê·  effort=56.7  OK  â† best
-[wu0.3_hard0.5_1M_seed0]   140000 steps  J=1.9772  ì‹¤íŒ¨ 0/148  í‰ê·  Ts=1.977s  ìµœëŒ€ Ts=2.36s  í‰ê·  effort=66.1  OK  â† best
-[wu0.3_hard0.5_1M_seed0]   160000 steps  J=2.0334  ì‹¤íŒ¨ 0/148  í‰ê·  Ts=2.033s  ìµœëŒ€ Ts=2.50s  í‰ê·  effort=62.8  OK
-[wu0.3_hard0.5_1M_seed0]   180000 steps  J=2.0561  ì‹¤íŒ¨ 0/148  í‰ê·  Ts=2.056s  ìµœëŒ€ Ts=2.52s  í‰ê·  effort=64.2  OK
-[wu0.3_hard0.5_1M_seed0]   200000 steps  J=2.1274  ì‹¤íŒ¨ 0/148  í‰ê·  Ts=2.127s  ìµœëŒ€ Ts=2.58s  í‰ê·  effort=57.4  OK
-[wu0.3_hard0.5_1M_seed0]   220000 steps  J=2.1534  ì‹¤íŒ¨ 0/148  í‰ê·  Ts=2.153s  ìµœëŒ€ Ts=2.62s  í‰ê·  effort=59.1  OK
-[wu0.3_hard0.5_1M_seed0]   240000 steps  J=2.0778  ì‹¤íŒ¨ 0/148  í‰ê·  Ts=2.078s  ìµœëŒ€ Ts=2.66s  í‰ê·  effort=60.2  OK
-[wu0.3_hard0.5_1M_seed0]   260000 steps  J=22.0668  ì‹¤íŒ¨ 2/148  í‰ê·  Ts=2.067s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=66.3  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   280000 steps  J=22.0635  ì‹¤íŒ¨ 2/148  í‰ê·  Ts=2.064s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=67.6  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   300000 steps  J=62.0880  ì‹¤íŒ¨ 6/148  í‰ê·  Ts=2.088s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=78.7  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   320000 steps  J=120.0210  ì‹¤íŒ¨ 11/148  í‰ê·  Ts=2.235s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=92.5  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   340000 steps  J=108.5320  ì‹¤íŒ¨ 10/148  í‰ê·  Ts=2.152s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=90.2  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   360000 steps  J=252.4108  ì‹¤íŒ¨ 24/148  í‰ê·  Ts=2.840s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=95.3  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   380000 steps  J=121.9122  ì‹¤íŒ¨ 11/148  í‰ê·  Ts=2.197s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=95.5  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   400000 steps  J=110.6187  ì‹¤íŒ¨ 10/148  í‰ê·  Ts=2.107s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=93.6  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   420000 steps  J=173.4141  ì‹¤íŒ¨ 16/148  í‰ê·  Ts=2.440s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=97.6  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   440000 steps  J=83.2872  ì‹¤íŒ¨ 7/148  í‰ê·  Ts=1.935s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=98.2  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   460000 steps  J=648.3799  ì‹¤íŒ¨ 62/148  í‰ê·  Ts=4.900s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=117.6  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   480000 steps  J=711.3840  ì‹¤íŒ¨ 68/148  í‰ê·  Ts=5.245s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=121.8  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   500000 steps  J=568.2734  ì‹¤íŒ¨ 54/148  í‰ê·  Ts=4.477s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=118.1  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   520000 steps  J=695.1048  ì‹¤íŒ¨ 67/148  í‰ê·  Ts=5.221s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=111.8  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   540000 steps  J=762.9906  ì‹¤íŒ¨ 74/148  í‰ê·  Ts=5.612s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=107.8  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   560000 steps  J=898.0655  ì‹¤íŒ¨ 88/148  í‰ê·  Ts=6.386s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=98.7  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   580000 steps  J=886.7589  ì‹¤íŒ¨ 87/148  í‰ê·  Ts=6.343s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=96.7  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   600000 steps  J=883.8822  ì‹¤íŒ¨ 87/148  í‰ê·  Ts=6.345s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=92.1  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   620000 steps  J=935.6153  ì‹¤íŒ¨ 92/148  í‰ê·  Ts=6.655s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=94.3  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   640000 steps  J=946.1510  ì‹¤íŒ¨ 93/148  í‰ê·  Ts=6.714s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=95.1  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   660000 steps  J=976.4217  ì‹¤íŒ¨ 96/148  í‰ê·  Ts=6.866s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=95.3  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   680000 steps  J=926.4111  ì‹¤íŒ¨ 91/148  í‰ê·  Ts=6.584s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=95.7  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   700000 steps  J=936.8727  ì‹¤íŒ¨ 92/148  í‰ê·  Ts=6.654s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=96.3  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   720000 steps  J=877.7213  ì‹¤íŒ¨ 86/148  í‰ê·  Ts=6.306s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=98.3  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   740000 steps  J=846.6617  ì‹¤íŒ¨ 83/148  í‰ê·  Ts=6.140s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=96.8  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   760000 steps  J=917.3222  ì‹¤íŒ¨ 90/148  í‰ê·  Ts=6.513s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=97.3  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   780000 steps  J=820.5414  ì‹¤íŒ¨ 80/148  í‰ê·  Ts=5.965s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=103.3  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   800000 steps  J=744.6073  ì‹¤íŒ¨ 72/148  í‰ê·  Ts=5.534s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=110.5  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   820000 steps  J=680.1713  ì‹¤íŒ¨ 66/148  í‰ê·  Ts=5.232s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=103.9  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   840000 steps  J=771.1128  ì‹¤íŒ¨ 75/148  í‰ê·  Ts=5.707s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=104.6  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   860000 steps  J=781.6897  ì‹¤íŒ¨ 76/148  í‰ê·  Ts=5.736s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=105.5  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   880000 steps  J=813.9265  ì‹¤íŒ¨ 79/148  í‰ê·  Ts=5.875s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=108.9  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   900000 steps  J=805.1598  ì‹¤íŒ¨ 78/148  í‰ê·  Ts=5.827s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=110.9  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   920000 steps  J=814.3666  ì‹¤íŒ¨ 79/148  í‰ê·  Ts=5.872s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=109.6  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   940000 steps  J=854.5025  ì‹¤íŒ¨ 83/148  í‰ê·  Ts=6.080s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=109.5  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   960000 steps  J=801.8570  ì‹¤íŒ¨ 78/148  í‰ê·  Ts=5.797s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=105.7  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]   980000 steps  J=617.4057  ì‹¤íŒ¨ 59/148  í‰ê·  Ts=4.747s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=116.3  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0]  1000000 steps  J=662.1057  ì‹¤íŒ¨ 64/148  í‰ê·  Ts=5.054s  ìµœëŒ€ Ts=10.00s  í‰ê·  effort=107.3  ìŠ¤í™ ìœ„ë°˜
-[wu0.3_hard0.5_1M_seed0] í•™ìŠµ ì™„ë£Œ (459s)
+[wu0.3_hard0.5_1M_seed0]    20000 steps  J=1490.0000  ½ÇÆĞ 148/148  Æò±Õ Ts=10.000s  ÃÖ´ë Ts=10.00s  Æò±Õ effort=83.8  ½ºÆå À§¹İ  ¡ç best
+[wu0.3_hard0.5_1M_seed0]    40000 steps  J=1490.0000  ½ÇÆĞ 148/148  Æò±Õ Ts=10.000s  ÃÖ´ë Ts=10.00s  Æò±Õ effort=93.1  ½ºÆå À§¹İ
+[wu0.3_hard0.5_1M_seed0]    60000 steps  J=1490.0000  ½ÇÆĞ 148/148  Æò±Õ Ts=10.000s  ÃÖ´ë Ts=10.00s  Æò±Õ effort=55.1  ½ºÆå À§¹İ
+[wu0.3_hard0.5_1M_seed0]    80000 steps  J=1490.0000  ½ÇÆĞ 148/148  Æò±Õ Ts=10.000s  ÃÖ´ë Ts=10.00s  Æò±Õ effort=19.8  ½ºÆå À§¹İ
+[wu0.3_hard0.5_1M_seed0]   100000 steps  J=164.7545  ½ÇÆĞ 16/148  Æò±Õ Ts=4.754s  ÃÖ´ë Ts=10.00s  Æò±Õ effort=35.0  ½ºÆå À§¹İ  ¡ç best
+[wu0.3_hard0.5_1M_seed0]   120000 steps  J=14.6501  ½ÇÆĞ 1/148  Æò±Õ Ts=4.650s  ÃÖ´ë Ts=10.00s  Æò±Õ effort=50.1  ½ºÆå À§¹İ  ¡ç best
+[wu0.3_hard0.5_1M_seed0]   140000 steps  J=3.9804  ½ÇÆĞ 0/148  Æò±Õ Ts=3.980s  ÃÖ´ë Ts=6.14s  Æò±Õ effort=54.9  OK  ¡ç best
+[wu0.3_hard0.5_1M_seed0]   160000 steps  J=868.4815  ½ÇÆĞ 86/148  Æò±Õ Ts=8.481s  ÃÖ´ë Ts=10.00s  Æò±Õ effort=55.8  ½ºÆå À§¹İ
+[wu0.3_hard0.5_1M_seed0]   180000 steps  J=3.0488  ½ÇÆĞ 0/148  Æò±Õ Ts=3.049s  ÃÖ´ë Ts=4.72s  Æò±Õ effort=58.0  OK  ¡ç best
+[wu0.3_hard0.5_1M_seed0]   200000 steps  J=2.4888  ½ÇÆĞ 0/148  Æò±Õ Ts=2.489s  ÃÖ´ë Ts=3.02s  Æò±Õ effort=50.9  OK  ¡ç best
+[wu0.3_hard0.5_1M_seed0]   220000 steps  J=2.4355  ½ÇÆĞ 0/148  Æò±Õ Ts=2.436s  ÃÖ´ë Ts=2.88s  Æò±Õ effort=53.3  OK  ¡ç best
+[wu0.3_hard0.5_1M_seed0]   240000 steps  J=2.3896  ½ÇÆĞ 0/148  Æò±Õ Ts=2.390s  ÃÖ´ë Ts=2.90s  Æò±Õ effort=53.6  OK  ¡ç best
+[wu0.3_hard0.5_1M_seed0]   260000 steps  J=2.4184  ½ÇÆĞ 0/148  Æò±Õ Ts=2.418s  ÃÖ´ë Ts=3.08s  Æò±Õ effort=51.7  OK
+[wu0.3_hard0.5_1M_seed0]   280000 steps  J=2.3122  ½ÇÆĞ 0/148  Æò±Õ Ts=2.312s  ÃÖ´ë Ts=2.90s  Æò±Õ effort=56.2  OK  ¡ç best
+[wu0.3_hard0.5_1M_seed0]   300000 steps  J=2.3700  ½ÇÆĞ 0/148  Æò±Õ Ts=2.370s  ÃÖ´ë Ts=2.98s  Æò±Õ effort=51.3  OK
+[wu0.3_hard0.5_1M_seed0]   320000 steps  J=2.5064  ½ÇÆĞ 0/148  Æò±Õ Ts=2.506s  ÃÖ´ë Ts=3.20s  Æò±Õ effort=46.9  OK
+[wu0.3_hard0.5_1M_seed0]   340000 steps  J=2.4070  ½ÇÆĞ 0/148  Æò±Õ Ts=2.407s  ÃÖ´ë Ts=2.98s  Æò±Õ effort=47.9  OK
+[wu0.3_hard0.5_1M_seed0]   360000 steps  J=2.8378  ½ÇÆĞ 0/148  Æò±Õ Ts=2.838s  ÃÖ´ë Ts=4.40s  Æò±Õ effort=48.4  OK
+[wu0.3_hard0.5_1M_seed0]   380000 steps  J=2.3032  ½ÇÆĞ 0/148  Æò±Õ Ts=2.303s  ÃÖ´ë Ts=2.82s  Æò±Õ effort=50.9  OK  ¡ç best
+[wu0.3_hard0.5_1M_seed0]   400000 steps  J=2.2876  ½ÇÆĞ 0/148  Æò±Õ Ts=2.288s  ÃÖ´ë Ts=2.72s  Æò±Õ effort=50.8  OK  ¡ç best
+[wu0.3_hard0.5_1M_seed0]   420000 steps  J=2.3451  ½ÇÆĞ 0/148  Æò±Õ Ts=2.345s  ÃÖ´ë Ts=2.70s  Æò±Õ effort=54.3  OK
+[wu0.3_hard0.5_1M_seed0]   440000 steps  J=2.3918  ½ÇÆĞ 0/148  Æò±Õ Ts=2.392s  ÃÖ´ë Ts=2.86s  Æò±Õ effort=51.7  OK
+[wu0.3_hard0.5_1M_seed0]   460000 steps  J=2.2977  ½ÇÆĞ 0/148  Æò±Õ Ts=2.298s  ÃÖ´ë Ts=2.72s  Æò±Õ effort=53.8  OK
+[wu0.3_hard0.5_1M_seed0]   480000 steps  J=2.2468  ½ÇÆĞ 0/148  Æò±Õ Ts=2.247s  ÃÖ´ë Ts=2.62s  Æò±Õ effort=52.8  OK  ¡ç best
+[wu0.3_hard0.5_1M_seed0]   500000 steps  J=2.2900  ½ÇÆĞ 0/148  Æò±Õ Ts=2.290s  ÃÖ´ë Ts=2.78s  Æò±Õ effort=50.1  OK
+[wu0.3_hard0.5_1M_seed0]   520000 steps  J=2.2418  ½ÇÆĞ 0/148  Æò±Õ Ts=2.242s  ÃÖ´ë Ts=2.62s  Æò±Õ effort=51.2  OK  ¡ç best
+[wu0.3_hard0.5_1M_seed0]   540000 steps  J=2.2812  ½ÇÆĞ 0/148  Æò±Õ Ts=2.281s  ÃÖ´ë Ts=2.74s  Æò±Õ effort=51.0  OK
+[wu0.3_hard0.5_1M_seed0]   560000 steps  J=2.2736  ½ÇÆĞ 0/148  Æò±Õ Ts=2.274s  ÃÖ´ë Ts=2.72s  Æò±Õ effort=52.6  OK
+[wu0.3_hard0.5_1M_seed0]   580000 steps  J=2.3158  ½ÇÆĞ 0/148  Æò±Õ Ts=2.316s  ÃÖ´ë Ts=2.96s  Æò±Õ effort=50.4  OK
+[wu0.3_hard0.5_1M_seed0]   600000 steps  J=2.1788  ½ÇÆĞ 0/148  Æò±Õ Ts=2.179s  ÃÖ´ë Ts=2.66s  Æò±Õ effort=51.4  OK  ¡ç best
+[wu0.3_hard0.5_1M_seed0]   620000 steps  J=2.1378  ½ÇÆĞ 0/148  Æò±Õ Ts=2.138s  ÃÖ´ë Ts=2.60s  Æò±Õ effort=52.6  OK  ¡ç best
+[wu0.3_hard0.5_1M_seed0]   640000 steps  J=2.1372  ½ÇÆĞ 0/148  Æò±Õ Ts=2.137s  ÃÖ´ë Ts=2.62s  Æò±Õ effort=52.2  OK  ¡ç best
+[wu0.3_hard0.5_1M_seed0]   660000 steps  J=2.1154  ½ÇÆĞ 0/148  Æò±Õ Ts=2.115s  ÃÖ´ë Ts=2.84s  Æò±Õ effort=52.0  OK  ¡ç best
+[wu0.3_hard0.5_1M_seed0]   680000 steps  J=2.0908  ½ÇÆĞ 0/148  Æò±Õ Ts=2.091s  ÃÖ´ë Ts=2.54s  Æò±Õ effort=53.4  OK  ¡ç best
+[wu0.3_hard0.5_1M_seed0]   700000 steps  J=2.0700  ½ÇÆĞ 0/148  Æò±Õ Ts=2.070s  ÃÖ´ë Ts=2.52s  Æò±Õ effort=54.2  OK  ¡ç best
+[wu0.3_hard0.5_1M_seed0]   720000 steps  J=1.9932  ½ÇÆĞ 0/148  Æò±Õ Ts=1.993s  ÃÖ´ë Ts=2.58s  Æò±Õ effort=54.9  OK  ¡ç best
+[wu0.3_hard0.5_1M_seed0]   740000 steps  J=2.0081  ½ÇÆĞ 0/148  Æò±Õ Ts=2.008s  ÃÖ´ë Ts=2.64s  Æò±Õ effort=54.3  OK
+[wu0.3_hard0.5_1M_seed0]   760000 steps  J=1.9441  ½ÇÆĞ 0/148  Æò±Õ Ts=1.944s  ÃÖ´ë Ts=2.66s  Æò±Õ effort=56.0  OK  ¡ç best
+[wu0.3_hard0.5_1M_seed0]   780000 steps  J=1.8922  ½ÇÆĞ 0/148  Æò±Õ Ts=1.892s  ÃÖ´ë Ts=2.44s  Æò±Õ effort=58.4  OK  ¡ç best
+[wu0.3_hard0.5_1M_seed0]   800000 steps  J=2.0153  ½ÇÆĞ 0/148  Æò±Õ Ts=2.015s  ÃÖ´ë Ts=2.58s  Æò±Õ effort=59.1  OK
+[wu0.3_hard0.5_1M_seed0]   820000 steps  J=2.0136  ½ÇÆĞ 0/148  Æò±Õ Ts=2.014s  ÃÖ´ë Ts=2.58s  Æò±Õ effort=56.4  OK
+[wu0.3_hard0.5_1M_seed0]   840000 steps  J=1.9411  ½ÇÆĞ 0/148  Æò±Õ Ts=1.941s  ÃÖ´ë Ts=2.52s  Æò±Õ effort=56.3  OK
+[wu0.3_hard0.5_1M_seed0]   860000 steps  J=1.9303  ½ÇÆĞ 0/148  Æò±Õ Ts=1.930s  ÃÖ´ë Ts=2.38s  Æò±Õ effort=57.6  OK
+[wu0.3_hard0.5_1M_seed0]   880000 steps  J=1.8434  ½ÇÆĞ 0/148  Æò±Õ Ts=1.843s  ÃÖ´ë Ts=2.80s  Æò±Õ effort=60.5  OK  ¡ç best
+[wu0.3_hard0.5_1M_seed0]   900000 steps  J=1.8276  ½ÇÆĞ 0/148  Æò±Õ Ts=1.828s  ÃÖ´ë Ts=3.38s  Æò±Õ effort=63.0  OK  ¡ç best
+[wu0.3_hard0.5_1M_seed0]   920000 steps  J=42.0030  ½ÇÆĞ 4/148  Æò±Õ Ts=2.003s  ÃÖ´ë Ts=10.00s  Æò±Õ effort=79.3  ½ºÆå À§¹İ
+[wu0.3_hard0.5_1M_seed0]   940000 steps  J=11.8415  ½ÇÆĞ 1/148  Æò±Õ Ts=1.841s  ÃÖ´ë Ts=10.00s  Æò±Õ effort=68.7  ½ºÆå À§¹İ
+[wu0.3_hard0.5_1M_seed0]   960000 steps  J=11.8219  ½ÇÆĞ 1/148  Æò±Õ Ts=1.822s  ÃÖ´ë Ts=10.00s  Æò±Õ effort=68.7  ½ºÆå À§¹İ
+[wu0.3_hard0.5_1M_seed0]   980000 steps  J=11.8396  ½ÇÆĞ 1/148  Æò±Õ Ts=1.840s  ÃÖ´ë Ts=10.00s  Æò±Õ effort=65.6  ½ºÆå À§¹İ
+[wu0.3_hard0.5_1M_seed0]  1000000 steps  J=11.8319  ½ÇÆĞ 1/148  Æò±Õ Ts=1.832s  ÃÖ´ë Ts=10.00s  Æò±Õ effort=72.4  ½ºÆå À§¹İ
+[wu0.3_hard0.5_1M_seed0] ÇĞ½À ¿Ï·á (174s)
