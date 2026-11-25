@@ -1,79 +1,61 @@
-# Inverse Pendulum (Cart-Pole) — PID / LQR / PPO 비교
+# optimal_v4 — PID · LQR · PPO 역진자 비교 (v4 보고서용 코드)
 
-Cart-Pole 역진자를 **PID, LQR, PPO(강화학습)** 세 제어기로 균형 제어하고, 같은 시뮬레이터·같은 조건에서 평가지표로 성능을 비교하는 프로젝트입니다.
-
-- 상태: `s = [x, ẋ, θ, θ̇]`, `θ = 0` 이 수직(Upright)
-- 목표: 카트를 중앙(`x = 0`)에 두고 막대를 수직으로 유지
-- 공통 조건: `dt = 0.02 s`, `F_MAX = 25 N`, 10초 시뮬레이션, `|x| > 2.4 m` 이면 실패 (각도 실패 한계 없음)
-
-## 폴더 구조
+공통 목적함수 없이 세 제어기를 각자의 설계 절차로 만들고, **각도 RMSE · 입력 사용량 E · 안정화 시간 Ts** 로 비교합니다.
+물리 모델과 적분기는 레포 루트의 `cartpole_common.py` 를 그대로 씁니다. 모든 명령은 이 폴더(`optimal_v4/`)에서 실행합니다.
 
 ```
-InversePendulum/
-├── cartpole_common.py     # 공통 설정 + 시뮬레이터 (모든 파일이 import)
-├── cartpole_pid.py        # PID 제어기 (+ 게인 자동튜닝)
-├── cartpole_lqr.py        # LQR 제어기 (+ Q/R 튜닝)
-├── cartpole_ppo.py        # PPO 제어기 (학습 / 평가)
-├── simulator.py           # 애니메이션 시각화 & 제어기 비교
-├── evaluate_metrics.py    # 평가지표 계산 (초기각별 비교)
-├── angle_compare.py       # ±5°~±30° 초기각별 비교 + 성공률(반복 실행)
-├── angle_sweep.py         # 초기각을 1°씩 키우며 제어기별 한계 각도 탐색
-├── models/                # 튜닝·학습된 제어기 파라미터
-└── results/               # 실험 결과 (CSV, 그래프)
+pip install numpy scipy matplotlib stable-baselines3 gymnasium
 ```
 
-## 코드 설명
+## 파일
 
-| 파일 | 역할 | 실행 |
-|---|---|---|
-| `cartpole_common.py` | 물리 파라미터, 입력 제한, 시뮬레이션 시간, 외란/노이즈, 초기상태 분포, 보상(성능 목표) 등 **공통 설정**과 RK4 기반 `CartPoleSim`, `simulate()`. 여기서 바꾸면 세 제어기에 똑같이 적용됨 | (직접 실행 X) |
-| `cartpole_pid.py` | 각도 PID + 카트 위치 PID 를 더해 힘을 출력. Nelder-Mead 로 게인 자동튜닝 가능 | `python cartpole_pid.py tune / eval / all` |
-| `cartpole_lqr.py` | Upright 에서 수치 선형화 → 이산 LQR 게인 `K` 계산, `F = -K s`. Q/R 을 성능 목표에서 바로 쓰거나(`objective`) 탐색(`search`) | `python cartpole_lqr.py tune / eval / all` |
-| `cartpole_ppo.py` | Gymnasium 환경 + stable-baselines3 PPO 로 학습한 정책을 제어기로 사용 | `python cartpole_ppo.py train / eval / all` |
-| `simulator.py` | 세 제어기를 불러와 같은 초기조건에서 애니메이션으로 비교, 또는 실험 세트 일괄 비교 | `python simulator.py` / `python simulator.py animate theta_deg=20` / `python simulator.py compare` |
-| `evaluate_metrics.py` | 초기각(기본 ±5~20°)별로 세 제어기를 실행해 평가지표·시간응답·trade-off 그래프 생성. `judge()`, `compute_pdf_metrics()` 는 다른 스크립트에서 재사용 | `python evaluate_metrics.py` / `python evaluate_metrics.py 5 10 -5 -10` |
-| `angle_compare.py` | ±5°~±30°(5° 간격) 초기각별 비교. 기준 실행으로 지표·overshoot 를, 무작위 초기상태 반복 실행(50회)으로 **성공률**을 계산 | `python angle_compare.py` |
-| `angle_sweep.py` | ±21° 부터 1°씩 키우며 각 제어기가 **처음 실패하는 각도**와 실패 원인 탐색 | `python angle_sweep.py` |
+| 파일 | 역할 | 보고서 |
+| --- | --- | --- |
+| `common_v4.py` | 공통 기준: 성공 판정, 세 지표, 초기상태 집합(설계 148 / 검증 600 / 테스트 600), 배치 시뮬레이터, PID·선형·PPO 제어기, Bryson LQR, 극점, 그래프 | 3장, 4.2절 |
+| `pid_tuning_v4.py` | PID 수동 튜닝 도구: 설계 집합 평가, 각도별 그래프, 시간응답, 튜닝 기록, 게인 sweep, ±10% 파레토 확인 | 4.1절, 표 4 |
+| `ppo_v4.py` | PPO 학습 → 체크포인트 선택 → 검증/테스트 평가 (보상 exp(−C), 실패 벌점 −10) | 4.3절, 부록 A.3 |
+| `compare_v4.py` | 세 제어기 비교: 종합 표, 초기각별 그림, 30° 시간응답, 대응 비교(t 신뢰구간, Wilcoxon) | 6장, 표 11·12, 그림 1~3 |
+| `sensitivity_v4.py` | 민감도: LQR 허용 크기, PID 게인, PPO 보상 허용 크기(재학습) | 5장, 표 8·9·10 |
+| `input_limit_v4.py` | 입력 제한 25 → 5 N 축소 실험 | 7장, 표 13·14·15, 그림 4 |
+| `analysis_v4.py` | 본문 보조 수치: 설계 집합 지표, 극점·감쇠비, 식 (6) 확인, PPO 국소 선형 근사 | 2.4, 4.1~4.3, 5.3, 8장 |
 
-> 각 파일 상단의 `# 0. ... 설정 — 여기만 바꾸면 됩니다` 블록에서 실험 조건을 바꿀 수 있습니다.
+## 실행 순서
 
-## 평가지표
+```
+# 1) PID 수동 튜닝 (pid_tuning_v4.py 맨 위 GAINS 를 바꿔 가며 반복)
+python pid_tuning_v4.py                 # 평가 + 그래프 + 튜닝 기록 한 줄
+python pid_tuning_v4.py sweep kd_x      # 한 게인만 바꿔 보기
+python pid_tuning_v4.py pareto          # ±10% 파레토 개선 확인 (종료 조건)
+python pid_tuning_v4.py save            # 최종 게인 저장 → models/pid_gains_manual.json
 
-| 지표 | 정의 | 좋은 방향 |
-|---|---|---|
-| Angle RMSE [deg] | `sqrt(mean θ²)` | ↓ |
-| Settling Time [s] | `\|θ\| ≤ 3°`, `\|θ̇\| ≤ 0.2 rad/s` (+ `\|x\| ≤ 0.2 m`) 에 들어가 끝까지 유지되는 첫 시각 | ↓ |
-| Success Rate [%] | 10초 동안 `\|x\| ≤ 2.4 m`, 마지막 2초 안정 조건 만족 | ↑ |
-| Control Effort [N²·s] | `Σ F² Δt` | ↓ |
-| Position RMSE [m] | `sqrt(mean x²)` | ↓ |
+# 2) PPO 학습·선택 (시드 3개 × 2M 스텝, 수십 분~수 시간)
+python ppo_v4.py train
+python ppo_v4.py select                 # → models/ppo_v4.zip
+python ppo_v4.py eval val
 
-## `models/`
+# 3) 비교·분석 (검증 집합으로 확인)
+python compare_v4.py val
+python sensitivity_v4.py lqr
+python sensitivity_v4.py pid
+python sensitivity_v4.py ppo            # PPO 재학습 포함, 오래 걸림
+python input_limit_v4.py
+python analysis_v4.py all
 
-| 파일 | 내용 |
-|---|---|
-| `pid_gains.json` | 튜닝된 PID 게인 (`PID_THETA`, `PID_X`) |
-| `lqr_weights.json` | LQR 가중치 `Q`, `R` |
-| `ppo_cartpole_balance.zip` | 학습된 PPO 모델 (stable-baselines3) |
-
-## `results/`
-
-| 폴더 | 생성 스크립트 | 주요 내용 |
-|---|---|---|
-| `metrics_eval/` | `evaluate_metrics.py` | 초기각별 지표 표(`table_by_angle.csv`), 성공/실패 표, 시간응답(`timeseries_*.png`), 지표 막대그래프, `tradeoff.png` |
-| `angle_compare/` | `angle_compare.py` | 지표·overshoot 표(`table_*.png`), 초기각에 따른 지표 변화(`metrics_vs_angle.png`), 반복 실행 결과(`mc_trials.csv`), 각도별 시간응답(`timeseries/`) |
-| `angle_sweep/` | `angle_sweep.py` | 성공/실패 지도(`sweep_map.png`), 한계 각도 요약(`sweep_summary.csv`), 실패 직전·직후 시간응답(`sweep_fail_cases.png`) |
-
-각 폴더의 `raw/` 에는 실행 1회의 원시 시계열 `t, x, ẋ, θ, θ̇, F` 가 `theta0_<각도>_<제어기>.csv` 로 저장됩니다.
-
-## 빠른 시작
-
-```bash
-pip install numpy scipy matplotlib gymnasium stable-baselines3
-
-python simulator.py              # 세 제어기 애니메이션 비교 (기본 θ0 = 10°)
-python evaluate_metrics.py       # 평가지표 비교 → results/metrics_eval/
-python angle_compare.py          # 초기각별 비교 → results/angle_compare/
-python angle_sweep.py            # 한계 각도 탐색 → results/angle_sweep/
+# 4) 모든 설계를 확정한 뒤 마지막에 한 번
+python compare_v4.py test
+python ppo_v4.py eval test
 ```
 
-PPO 모델이 없으면 `python cartpole_ppo.py train` 으로 먼저 학습하세요 (없으면 PPO 는 자동으로 건너뜀).
+LQR 은 Bryson 허용 크기(`common_v4.BRYSON`, 표 5)에서 매번 계산되며 `models/lqr_bryson.json` 에 기록됩니다.
+
+## 출력 위치
+
+- `models/` — PID 게인, LQR 게인, PPO 모델과 체크포인트, PID 튜닝 기록
+- `results/<val|test|sensitivity|input_limit|analysis|pid_tuning>/` — CSV · JSON (엑셀에서 바로 열림), `table11_summary.md`
+- `figures/<pid_tuning|val|test|sensitivity|input_limit>/` — PNG 그림
+
+## 주의
+
+- 검증(val)은 개발 중 몇 번이고 써도 되지만, 테스트(test)는 모델을 모두 확정한 뒤 한 번만 봅니다 (3.3절).
+- PPO 는 학습 도중 일시적으로 성능이 무너질 수 있으므로, 마지막 모델이 아니라 `select` 가 고른 모델을 씁니다.
+- 그래프 한글 글꼴은 Windows 맑은 고딕, macOS AppleGothic, Linux Nanum/Noto 를 자동으로 찾습니다.
