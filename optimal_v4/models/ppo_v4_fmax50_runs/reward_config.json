@@ -1,0 +1,9 @@
+{
+  "x_max": 2.4,
+  "x_dot_max": 100.0,
+  "theta_max_deg": 30.0,
+  "theta_dot_max": 2.0,
+  "f_max": 50.0,
+  "fail_penalty": 10.0,
+  "fail_theta_deg": 90.0
+}
