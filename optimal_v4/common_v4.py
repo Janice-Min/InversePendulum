@@ -33,7 +33,7 @@ TEST_SEED, TEST_TRIALS = 20261124, 50
 # ---- LQR Bryson 허용 크기 (표 5) ----
 BRYSON = dict(
     x=2.4,                  # [m]
-    x_dot=100.0,            # [m/s]  (속도 가중치는 사실상 0)
+    x_dot=1.0,            # [m/s]  (속도 가중치는 사실상 0)
     theta_deg=30.0,         # [deg]
     theta_dot=2.0,          # [rad/s]
     u=25.0,                 # [N]

@@ -2,9 +2,11 @@
 Cart-Pole v4 — PPO 학습 · 체크포인트 선택 · 성공률 평가
 ================================================================
 보상 (보고서 4.3절 식 18~19)
-  C = (x/2.4)² + (ẋ/100)² + (θ/30°)² + (θ̇/2.0)² + (F/25)²     ← LQR 비용 s'Qs + RF² 와 같음 (Bryson 허용 크기, 표 5)
-  r = exp(−C)                         정상 스텝 (0 < r ≤ 1)
+  C = (x/2.4)² + (ẋ/1.0)² + (θ/30°)² + (θ̇/2.0)² + (F/25)²     ← 각 변수를 허용 크기(표 5)로 나눈 제곱합
+  r = 1 / (1 + C)                     정상 스텝 (0 < r ≤ 1, C = 0 이면 1)
   r = −FAIL_PENALTY 후 에피소드 종료    |x| > 2.4 m 또는 |θ| > 90°  (학습에서만. 평가는 3.1절 성공 기준 그대로)
+  ※ exp(−C) 는 C 가 커지면(큰 각도에서 카트가 1 m/s 보다 빠를 때) 보상이 거의 0 으로 납작해져
+    학습 신호가 사라짐. 1/(1+C) 는 C 가 작을 때는 exp(−C) 와 비슷하고(둘 다 ≈ 1 − C), C 가 커도 천천히 줄어듦.
   500 스텝(10 s) 시간 제한은 truncated (실패 아님 → 가치함수로 부트스트랩)
 
 선택 (보고서 4.3절)
@@ -37,7 +39,7 @@ Cart-Pole v4 — PPO 학습 · 체크포인트 선택 · 성공률 평가
 # ================================================================
 REWARD = dict(
     x_max=2.4,              # [m]     카트 위치 허용 크기   (표 5, LQR 과 같음)
-    x_dot_max=100.0,        # [m/s]   카트 속도 허용 크기
+    x_dot_max=1.0,          # [m/s]   카트 속도 허용 크기
     theta_max_deg=30.0,     # [deg]   진자 각도 허용 크기
     theta_dot_max=2.0,      # [rad/s] 진자 각속도 허용 크기
     f_max=25.0,             # [N]     입력 허용 크기
@@ -45,11 +47,13 @@ REWARD = dict(
     fail_theta_deg=90.0,    # 학습 중 이 각도를 넘으면 실패로 종료 (평가에는 쓰지 않음)
 )
 
-SEEDS = [0, 1, 2]           # 학습 시드
+SEEDS = [0, 1, 2, 3, 4]           # 학습 시드
 TOTAL_STEPS = 2_000_000     # run 당 학습 스텝
 EVAL_FREQ = 50_000          # 체크포인트 평가 간격 [스텝]
 N_ENVS = 4                  # 병렬 환경 수 (표 7)
 N_PARALLEL = 2              # 동시에 학습하는 시드 수 (CPU 코어 수 이하)
+LR_START = 3e-4             # 학습률 시작값 (cartpole_ppo.PPO_KW 와 같음)
+LR_LINEAR_DECAY = True      # True: 학습률을 LR_START 에서 학습 끝 0 까지 직선으로 줄임 (후반 정책 흔들림 감소)
 
 TRAIN_THETA_DEG = 32.0          # 학습 초기각 θ0 ~ U(±32°)
 HARD_THETA_DEG = (24.0, 32.0)   # HARD_FRAC 비율은 |θ0| ~ U(24°, 32°)
@@ -113,7 +117,7 @@ def th_fail():
 
 # ---------------- 보상 ----------------
 def cost(x, xd, th, thd, F):
-    """식 (19): C = s'Qs + RF² (스칼라·배열 모두 가능)"""
+    """식 (19): 허용 크기로 나눈 제곱합 C (스칼라·배열 모두 가능)"""
     R = REWARD
     return ((x / R["x_max"]) ** 2 + (xd / R["x_dot_max"]) ** 2 + (th / th_max()) ** 2
             + (thd / R["theta_dot_max"]) ** 2 + (F / R["f_max"]) ** 2)
@@ -124,12 +128,17 @@ def is_fail(x, th):
     return (np.abs(x) > C.X_MAX) | (np.abs(th) > th_fail())
 
 
+def reward_from_cost(Cc):
+    """식 (18): 정상 스텝 보상 r = 1 / (1 + C)"""
+    return 1.0 / (1.0 + Cc)
+
+
 def step_reward(s, F):
     """스텝 후 상태 s, 이번 스텝 입력 F → (보상, 실패 여부)"""
     x, xd, th, thd = s
     if bool(is_fail(x, th)):
         return -REWARD["fail_penalty"], True
-    return float(np.exp(-cost(x, xd, th, thd, F))), False
+    return float(reward_from_cost(cost(x, xd, th, thd, F))), False
 
 
 # ---------------- 학습 환경 ----------------
@@ -179,7 +188,7 @@ def batch_return(policy, S0):
         F = np.where(alive, np.clip(policy.act(S), -C.F_MAX, C.F_MAX), 0.0)
         S = np.where(alive[:, None], V.step_batch(S, F), S)
         fail = alive & is_fail(S[:, 0], S[:, 2])
-        r = np.exp(-cost(S[:, 0], S[:, 1], S[:, 2], S[:, 3], F))
+        r = reward_from_cost(cost(S[:, 0], S[:, 1], S[:, 2], S[:, 3], F))
         G += np.where(fail, -REWARD["fail_penalty"], np.where(alive, r, 0.0))
         alive &= ~fail
     return G
@@ -245,7 +254,11 @@ def train_one(seed, steps, eval_freq):
             return True
 
     venv = make_vec_env(make_env_class(), n_envs=N_ENVS, seed=seed)
-    model = PPO("MlpPolicy", venv, seed=seed, verbose=0, device="cpu", **dict(PP.PPO_KW))
+    kw = dict(PP.PPO_KW)
+    if LR_LINEAR_DECAY:
+        # SB3 는 남은 진행률 p (학습 시작 1 → 끝 0) 를 넘겨 줌 → 학습률 = LR_START × p
+        kw["learning_rate"] = lambda p: LR_START * p
+    model = PPO("MlpPolicy", venv, seed=seed, verbose=0, device="cpu", **kw)
     t0 = time.time()
     model.learn(total_timesteps=steps, callback=EvalCallback())
     print(f"[seed {seed}] 학습 완료 ({time.time() - t0:.0f} s)", flush=True)

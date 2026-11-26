@@ -28,10 +28,12 @@ LQR_CONDITIONS = [   # (이름, Bryson 허용 크기 변경, 사전 예상)
     ("u_max = 50 N (R ÷4)", dict(u=50.0), "입력 증가, 안정화 단축"),
     ("θ_max = 15° (Q₃₃ ×4)", dict(theta_deg=15.0), "각도 RMSE 감소"),
     ("θ_max = 60° (Q₃₃ ÷4)", dict(theta_deg=60.0), "각도 RMSE 증가"),
-    ("ẋ_max = 10 m/s (Q₂₂ ×100)", dict(x_dot=10.0), "카트 정지 촉진"),
-    ("ẋ_max = 1.0 m/s (Q₂₂ ×10⁴)", dict(x_dot=1.0), "카트 정지 더 촉진"),
+    ("ẋ_max = 0.5 m/s (Q₂₂ ×4)", dict(x_dot=0.5), "카트 속도 더 억제"),
+    ("ẋ_max = 2.0 m/s (Q₂₂ ÷4)", dict(x_dot=2.0), "카트 속도 덜 억제"),
+    ("ẋ_max = 100 m/s (Q₂₂ ÷10⁴)", dict(x_dot=100.0), "카트 속도 가중치 사실상 없음"),
     ("x_max = 1.2 m (Q₁₁ ×4)", dict(x=1.2), "진자 지표 변화 작음"),
 ]
+
 PID_CONDITIONS = [   # (이름, 게인 변경 {키: 배수 또는 ("=", 값)}, 사전 예상)
     ("기준 (식 12)", {}, "—"),
     ("kpθ ×0.7", dict(kp_theta=0.7), "응답 지연"),
@@ -48,7 +50,7 @@ PPO_CONDITIONS = [   # (이름, ppo_v4 태그, REWARD 변경, 사전 예상)
     ("F_max = 12.5 N (R ×4)", "fmax12.5", dict(f_max=12.5), "입력 감소, 안정화 지연"),
     ("F_max = 50 N (R ÷4)", "fmax50", dict(f_max=50.0), "입력 증가, 안정화 단축"),
     ("θ_max = 15° (Q₃₃ ×4)", "thmax15", dict(theta_max_deg=15.0), "각도 RMSE 감소"),
-    ("ẋ_max = 1.0 m/s (Q₂₂ ×10⁴)", "xdmax1", dict(x_dot_max=1.0), "카트 정지 촉진"),
+    ("ẋ_max = 100 m/s (Q₂₂ ÷10⁴)", "xdmax100", dict(x_dot_max=100.0), "카트 속도 가중치 사실상 없음"),
 ]
 WHICH = "val"        # 민감도 분석은 검증 집합 (3.3절)
 
