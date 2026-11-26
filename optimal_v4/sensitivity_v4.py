@@ -6,7 +6,7 @@ Cart-Pole v4 — 제어기 파라미터 민감도 분석 (보고서 5장: 표 8�
   lqr   Bryson 허용 크기 변화 (표 8): u_max, θ_max, ẋ_max, x_max   — 게인을 다시 계산 (실제 포화는 ±25 N 그대로)
   pid   PID 게인 변화 (표 9): kpθ, kdθ, kiθ, kdx 배수, 카트 위치 루프 제거
   ppo   PPO 보상 허용 크기 변화 (표 10): 조건마다 ppo_v4.py 로 시드 3개를 다시 학습 → 선택 → 검증 평가
-        (시간이 오래 걸립니다: 조건 5개 × 시드 3개 × 2M 스텝. --steps 로 줄여 시험해 볼 수 있음)
+        (시간이 오래 걸립니다: 조건 4개 × 시드 5개 × 2M 스텝. --steps 로 줄여 시험해 볼 수 있음)
 
 출력: results/sensitivity/{lqr,pid,ppo}.csv, figures/sensitivity/{lqr,pid,ppo}.png
       표 8·9·10 의 "사전 예상" 열은 아래 조건 목록의 expect 에 적어 두었습니다.
@@ -144,11 +144,14 @@ def pid():
         s = V.summarize(res)
         poles = V.pid_poles(g)["full"]
         nz = [l for l in poles if abs(l) > 1e-6]
-        rows.append(dict(condition=name, expect=expect, max_real_pole=round(float(max(l.real for l in nz)), 4),
+        _, zmax = V.pid_poles_discrete(g)
+        rows.append(dict(condition=name, expect=expect, max_abs_z=round(zmax, 4),
+                         max_real_pole=round(float(max(l.real for l in nz)), 4),
                          gains=", ".join(f"{k}={g[k]:.4g}" for k in V.GAIN_KEYS), **s))
     print(f"\n[표 9] PID 게인 단일 변화 ({WHICH} {len(S0)}개)")
-    print_rows(rows, ("최대 극점 실수부", "max_real_pole"))
-    print("  ※ 최대 극점 실수부 > 0 이면 선형화 폐루프가 불안정 (식 (6)의 0 극점은 제외)")
+    print_rows(rows, ("이산 최대 |z|", "max_abs_z"))
+    print("  ※ 이산시간 폐루프(ZOH)의 최대 고유값 크기 (식 (6)의 보존 관계에 따른 1 하나 제외). 1 이상이면 선형 폐루프 불안정")
+    print("    연속시간 최대 실수부(max_real_pole)는 샘플링에 의한 불안정을 놓칠 수 있어 참고용으로만 저장")
     V.save_csv(os.path.join(OUT, "pid.csv"), rows)
     print(f"\n  그림: {plot_bars(rows, f'PID 게인 민감도 ({WHICH} {len(S0)}개, 점선 = 기준)', 'pid')}")
 

@@ -1,0 +1,66 @@
+diff --git a/optimal_v4/ppo_v4.py b/optimal_v4/ppo_v4.py
+index bc4640d..529c6b8 100644
+--- a/optimal_v4/ppo_v4.py
++++ b/optimal_v4/ppo_v4.py
+@@ -2,8 +2,11 @@
+ Cart-Pole v4 — PPO 학습 · 체크포인트 선택 · 성공률 평가
+ ================================================================
+ 보상 (보고서 4.3절 식 18~19)
+-  C = (x/2.4)² + (ẋ/1.0)² + (θ/30°)² + (θ̇/2.0)² + (F/25)²     ← 각 변수를 허용 크기(표 5)로 나눈 제곱합
+-  r = 1 / (1 + C)                     정상 스텝 (0 < r ≤ 1, C = 0 이면 1)
++  C = (x/2.4)² + (ẋ/1.0)² + (θ/30°)² + (θ̇/2.0)² + (F/25)²     ← 각 변수를 허용 크기(표 6)로 나눈 제곱합 = LQR 단계 비용
++  r = 1 / (1 + C) − w_stop·1[|θ| ≤ 3°, |θ̇| ≤ 0.2 rad/s, |ẋ| > 0.05 m/s]   정상 스텝
++      정지 벌점항: 진자는 성공 기준 안에 있는데 카트가 정지 기준(0.05 m/s)보다 빠르면 w_stop 만큼 감점.
++      (ẋ/1.0)² 항은 |ẋ| = 0.05 m/s 에서 0.0025 에 불과해 3.1절의 카트 정지 조건을 거의 유도하지 못했음.
++      기준 안(|ẋ| ≤ 0.05)에서는 0 이므로 평형점 부근에서 r ≈ 1 − C (LQR 비용과 같은 형태)는 그대로 유지
+   r = −FAIL_PENALTY 후 에피소드 종료    |x| > 2.4 m 또는 |θ| > 90°  (학습에서만. 평가는 3.1절 성공 기준 그대로)
+   ※ exp(−C) 는 C 가 커지면(큰 각도에서 카트가 1 m/s 보다 빠를 때) 보상이 거의 0 으로 납작해져
+     학습 신호가 사라짐. 1/(1+C) 는 C 가 작을 때는 exp(−C) 와 비슷하고(둘 다 ≈ 1 − C), C 가 커도 천천히 줄어듦.
+@@ -45,6 +48,7 @@ REWARD = dict(
+     f_max=25.0,             # [N]     입력 허용 크기
+     fail_penalty=10.0,      # 실패(레일 이탈 또는 90° 초과) 스텝의 보상 = −fail_penalty, 그리고 종료
+     fail_theta_deg=90.0,    # 학습 중 이 각도를 넘으면 실패로 종료 (평가에는 쓰지 않음)
++    stop_penalty=0.5,       # 정지 벌점 w_stop: 진자 직립 기준 안 + |ẋ| > 0.05 m/s 인 스텝에서 감점 (정상 보상 최대 1의 절반)
+ )
+ 
+ SEEDS = [0, 1, 2, 3, 4]           # 학습 시드
+@@ -129,16 +133,28 @@ def is_fail(x, th):
+ 
+ 
+ def reward_from_cost(Cc):
+-    """식 (18): 정상 스텝 보상 r = 1 / (1 + C)"""
++    """식 (18)의 첫 항: r = 1 / (1 + C)"""
+     return 1.0 / (1.0 + Cc)
+ 
+ 
++def stop_violation(xd, th, thd):
++    """식 (18)의 정지 벌점 조건: 진자는 성공 기준(3.1절) 안, 카트 속도는 정지 기준 밖"""
++    cr = V.CRIT
++    return ((np.abs(np.degrees(th)) <= cr["theta_deg"]) & (np.abs(thd) <= cr["theta_dot"])
++            & (np.abs(xd) > cr["x_dot"]))
++
++
++def normal_reward(x, xd, th, thd, F):
++    """식 (18): 정상 스텝 보상 = 1/(1+C) − w_stop·1[정지 위반]"""
++    return reward_from_cost(cost(x, xd, th, thd, F)) - REWARD.get("stop_penalty", 0.0) * stop_violation(xd, th, thd)
++
++
+ def step_reward(s, F):
+     """스텝 후 상태 s, 이번 스텝 입력 F → (보상, 실패 여부)"""
+     x, xd, th, thd = s
+     if bool(is_fail(x, th)):
+         return -REWARD["fail_penalty"], True
+-    return float(reward_from_cost(cost(x, xd, th, thd, F))), False
++    return float(normal_reward(x, xd, th, thd, F)), False
+ 
+ 
+ # ---------------- 학습 환경 ----------------
+@@ -188,7 +204,7 @@ def batch_return(policy, S0):
+         F = np.where(alive, np.clip(policy.act(S), -C.F_MAX, C.F_MAX), 0.0)
+         S = np.where(alive[:, None], V.step_batch(S, F), S)
+         fail = alive & is_fail(S[:, 0], S[:, 2])
+-        r = reward_from_cost(cost(S[:, 0], S[:, 1], S[:, 2], S[:, 3], F))
++        r = normal_reward(S[:, 0], S[:, 1], S[:, 2], S[:, 3], F)
+         G += np.where(fail, -REWARD["fail_penalty"], np.where(alive, r, 0.0))
+         alive &= ~fail
+     return G

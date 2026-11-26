@@ -32,7 +32,7 @@ GAINS = dict(
     kp_theta=110.0,     # 각도 P  [N/rad]
     ki_theta=45.0,      # 각도 I  [N/(rad·s)]
     kd_theta=12.0,      # 각도 D  [N·s/rad]
-    kp_x=3.3,           # 위치 P  [N/m]
+    kp_x=2.97,          # 위치 P  [N/m]  (7단계: ±10% 확인에서 −10% 가 파레토 개선)
     ki_x=0.38,           # 위치 I  [N/(m·s)]
     kd_x=16.0,          # 위치 D (카트 속도) [N·s/m]
 )
@@ -78,6 +78,8 @@ def print_result(gains, s, rows):
     print(f"\n  선형화 폐루프 극점 (적분 상태 포함): {V.fmt_poles(full)}")
     print(f"  각도 PD 부분계 극점 (위치 루프·적분 없이): {V.fmt_poles(pp['angle_pd'])}")
     print("  ※ 0 근처 극점 하나는 식 (6)의 보존 관계 때문에 생기며 발산이 아닙니다.")
+    _, zmax = V.pid_poles_discrete(gains)
+    print(f"  이산시간 폐루프 최대 |z| (보존 관계의 1 제외): {zmax:.4f}" + ("  ⚠ 1 이상 — 샘플링 포함 시 불안정" if zmax >= 1 else ""))
     if unstable:
         print(f"  ⚠ 실수부가 양수인 극점이 있습니다: {V.fmt_poles(unstable)}")
 
@@ -237,8 +239,10 @@ def save(gains, note):
     if s["n_success"] < s["n"]:
         print(f"  ⚠ 설계 집합 {s['n_success']}/{s['n']} 성공 — 4.1절은 148개 전부 성공을 요구합니다. 그래도 저장합니다.")
     pp = V.pid_poles(gains)
+    _, zmax = V.pid_poles_discrete(gains)
     V.save_json(V.PID_GAINS_PATH, dict(gains=gains, note=note, design_summary=s, design_by_angle=rows,
                                        poles_full=[str(l) for l in pp["full"]], poles_angle_pd=[str(l) for l in pp["angle_pd"]],
+                                       poles_discrete_max_abs=zmax,
                                        law="F = sat(±25)(kpθ·θ + kiθ·∫θ + kdθ·θ̇ + kpx·x + kix·∫x + kdx·ẋ)",
                                        integral_limit=V.INTEGRAL_LIMIT, saved=datetime.now().isoformat(timespec="minutes")))
     print(f"\n[저장] {V.P(V.PID_GAINS_PATH)}\n  {V.fmt_summary(s)}")

@@ -10,6 +10,7 @@ optimal_v4 의 다른 코드(pid_tuning_v4, ppo_v4, compare_v4, sensitivity_v4, 
   초기상태 (3.3절)    설계 148 / 검증 600 / 테스트 600  (v3 와 같은 생성 규칙과 시드)
   LQR (4.2절)         Bryson 허용 크기 (표 5) → Q = diag(1/s_max²), R = 1/u_max²
   PID (4.1절)         F = kpθ·θ + kiθ·∫θ + kdθ·θ̇ + kpx·x + kix·∫x + kdx·ẋ  (적분 포화 방지 |∫θ| ≤ 0.5, |∫x| ≤ 1.0)
+  안정성 판정         제어가 Δt = 0.02 s 로 샘플링되므로 이산시간 폐루프(ZOH)의 고유값 크기로 판정 (pid_poles_discrete)
 """
 
 # ================================================================
@@ -28,12 +29,13 @@ DESIGN_RANDOM_PER_ANGLE = {5: 4, 10: 4, 15: 4, 20: 8, 25: 16, 30: 32}   # 부호
 OTHER_RANGES = dict(x=(-0.6, 0.6), x_dot=(-0.6, 0.6), theta_dot=(-0.6, 0.6))
 DESIGN_SEED = 2026
 VAL_SEED, VAL_TRIALS = 0, 50
-TEST_SEED, TEST_TRIALS = 20261124, 50
+TEST_SEED, TEST_TRIALS = 20261126, 50   # 초판(커밋 9b77730)의 테스트 시드 20261124는 이미 평가에 사용했으므로 교체
+                                        # (이전 결과는 results/archive/test_seed20261124_v4초판/)
 
 # ---- LQR Bryson 허용 크기 (표 5) ----
 BRYSON = dict(
     x=2.4,                  # [m]
-    x_dot=1.0,            # [m/s]  (속도 가중치는 사실상 0)
+    x_dot=1.0,              # [m/s]  회복 중 카트 속도의 크기 척도 (5.1절에서 0.5, 2.0, 100 으로 민감도 확인)
     theta_deg=30.0,         # [deg]
     theta_dot=2.0,          # [rad/s]
     u=25.0,                 # [N]
@@ -312,9 +314,10 @@ class BatchPID:
     """F = kpθ·θ + kiθ·∫θ + kdθ·θ̇ + kpx·x + kix·∫x + kdx·ẋ  (cartpole_pid.PIDController 와 같은 식)"""
     name = "PID"
 
-    def __init__(self, gains):
+    def __init__(self, gains, integral_limit=None):
         g = gains if isinstance(gains, dict) else dict(zip(GAIN_KEYS, gains))
         self.g = {k: float(g[k]) for k in GAIN_KEYS}
+        self.ilim = dict(INTEGRAL_LIMIT, **(integral_limit or {}))     # 7.5절 입력 제한 검증에서 바꿈
 
     def reset(self, N):
         self.I_th, self.I_x = np.zeros(N), np.zeros(N)
@@ -322,8 +325,8 @@ class BatchPID:
     def act(self, S):
         x, xd, th, thd = S.T
         g = self.g
-        self.I_th = np.clip(self.I_th + th * C.DT, -INTEGRAL_LIMIT["theta"], INTEGRAL_LIMIT["theta"])
-        self.I_x = np.clip(self.I_x + x * C.DT, -INTEGRAL_LIMIT["x"], INTEGRAL_LIMIT["x"])
+        self.I_th = np.clip(self.I_th + th * C.DT, -self.ilim["theta"], self.ilim["theta"])
+        self.I_x = np.clip(self.I_x + x * C.DT, -self.ilim["x"], self.ilim["x"])
         return (g["kp_theta"] * th + g["ki_theta"] * self.I_th + g["kd_theta"] * thd
                 + g["kp_x"] * x + g["ki_x"] * self.I_x + g["kd_x"] * xd)
 
@@ -417,6 +420,27 @@ def pid_poles(gains):
     b = A[3, 3] + B[3, 0] * g["kd_theta"]
     pd = np.roots([1.0, -b, -a])
     return dict(full=full, angle_pd=pd)
+
+
+def pid_poles_discrete(gains):
+    """PID 이산시간 폐루프 고유값 (ZOH, Δt = C.DT, 적분 상태 포함). 시뮬레이션과 같은 순서:
+    I_k = I_{k-1} + θ_k Δt,  F_k = Kp s_k + Ki I_k  (포화·적분 제한은 선형 모델에서 제외)
+    반환: (고유값 배열, 식 (6) 보존 관계에 따른 고유값 1 하나를 뺀 최대 크기)
+    최대 크기 ≥ 1 이면 선형 폐루프가 불안정 — 연속시간 극점만 보면 샘플링이 만드는 불안정을 놓칠 수 있음"""
+    g = gains if isinstance(gains, dict) else dict(zip(GAIN_KEYS, gains))
+    A, B = linearize()
+    Ad, Bd = discretize(A, B)
+    dt = C.DT
+    Ks = np.array([g["kp_x"] + g["ki_x"] * dt, g["kd_x"], g["kp_theta"] + g["ki_theta"] * dt, g["kd_theta"]])
+    Ki = np.array([g["ki_theta"], g["ki_x"]])
+    M = np.zeros((6, 6))
+    M[:4, :4] = Ad + Bd @ Ks[None, :]
+    M[:4, 4:] = Bd @ Ki[None, :]
+    M[4, 2], M[4, 4] = dt, 1.0          # ∫θ
+    M[5, 0], M[5, 5] = dt, 1.0          # ∫x
+    lam = np.linalg.eigvals(M)
+    rest = np.delete(lam, int(np.argmin(np.abs(lam - 1.0))))
+    return lam, float(np.max(np.abs(rest)))
 
 
 def damping(lam):
