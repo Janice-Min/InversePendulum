@@ -1,0 +1,93 @@
+{
+  "which": "val",
+  "n_states": 60,
+  "f_lims": [
+    25.0,
+    10.0
+  ],
+  "lqr_input_coeffs": [
+    6.705657897513229,
+    20.625782123319574,
+    133.50325639260853,
+    20.530003811327326
+  ],
+  "lqr_max_abs_z": 0.9916718859658836,
+  "variants": [
+    {
+      "variant": "PID 기준",
+      "gains": {
+        "kp_theta": 110.0,
+        "ki_theta": 45.0,
+        "kd_theta": 12.0,
+        "kp_x": 2.97,
+        "ki_x": 0.38,
+        "kd_x": 16.0
+      },
+      "max_abs_z": 0.9985466847764002,
+      "design_success": 148,
+      "design_n": 148,
+      "design_fail": {
+        "rail": 0,
+        "not_stopped": 0,
+        "not_upright": 0
+      }
+    },
+    {
+      "variant": "k_dθ → LQR",
+      "gains": {
+        "kp_theta": 110.0,
+        "ki_theta": 45.0,
+        "kd_theta": 20.530003811327326,
+        "kp_x": 2.97,
+        "ki_x": 0.38,
+        "kd_x": 16.0
+      },
+      "max_abs_z": 0.9985453625488412,
+      "design_success": 144,
+      "design_n": 148,
+      "design_fail": {
+        "rail": 0,
+        "not_stopped": 4,
+        "not_upright": 0
+      }
+    },
+    {
+      "variant": "k_px → LQR",
+      "gains": {
+        "kp_theta": 110.0,
+        "ki_theta": 45.0,
+        "kd_theta": 12.0,
+        "kp_x": 6.705657897513229,
+        "ki_x": 0.38,
+        "kd_x": 16.0
+      },
+      "max_abs_z": 0.9985623303267422,
+      "design_success": 148,
+      "design_n": 148,
+      "design_fail": {
+        "rail": 0,
+        "not_stopped": 0,
+        "not_upright": 0
+      }
+    },
+    {
+      "variant": "k_dθ·k_px → LQR",
+      "gains": {
+        "kp_theta": 110.0,
+        "ki_theta": 45.0,
+        "kd_theta": 20.530003811327326,
+        "kp_x": 6.705657897513229,
+        "ki_x": 0.38,
+        "kd_x": 16.0
+      },
+      "max_abs_z": 0.9985622122554599,
+      "design_success": 148,
+      "design_n": 148,
+      "design_fail": {
+        "rail": 0,
+        "not_stopped": 0,
+        "not_upright": 0
+      }
+    }
+  ]
+}
