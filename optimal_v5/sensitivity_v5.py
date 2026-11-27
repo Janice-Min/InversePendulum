@@ -1,22 +1,22 @@
 """
-Cart-Pole v4 — 제어기 파라미터 민감도 분석 (보고서 5장: 표 8·9·10)
+Cart-Pole v5 — 제어기 파라미터 민감도 분석 (보고서 5장: 표 8·9·10)
 ================================================================
 최종 모델의 설계 파라미터를 한 번에 하나씩 바꾸고 나머지는 고정한 채 검증 초기상태 600개에서 세 지표를 평가합니다.
 
   lqr   Bryson 허용 크기 변화 (표 8): u_max, θ_max, ẋ_max, x_max   — 게인을 다시 계산 (실제 포화는 ±25 N 그대로)
   pid   PID 게인 변화 (표 9): kpθ, kdθ, kiθ, kdx 배수, 카트 위치 루프 제거
-  ppo   PPO 보상 허용 크기 변화 (표 10): 조건마다 ppo_v4.py 로 시드 3개를 다시 학습 → 선택 → 검증 평가
+  ppo   PPO 보상 허용 크기 변화 (표 10): 조건마다 ppo_v5.py 로 시드 3개를 다시 학습 → 선택 → 검증 평가
         (시간이 오래 걸립니다: 조건 4개 × 시드 5개 × 2M 스텝. --steps 로 줄여 시험해 볼 수 있음)
 
 출력: results/upright_duration/sensitivity/{lqr,pid,ppo}.csv, figures/upright_duration/sensitivity/{lqr,pid,ppo}.png
       표 8·9·10 의 "사전 예상" 열은 아래 조건 목록의 expect 에 적어 두었습니다.
 
 실행 (이 폴더에서)
-  python sensitivity_v4.py lqr
-  python sensitivity_v4.py pid
-  python sensitivity_v4.py ppo                    # 학습 포함 (끝까지 학습된 시드는 건너뜀). 기준 조건은 ppo_v4.py 본 결과를 씀
-  python sensitivity_v4.py ppo --steps 500000     # 짧게 시험
-  python sensitivity_v4.py ppo --collect          # 학습 없이 이미 있는 결과만 모아 표·그림
+  python sensitivity_v5.py lqr
+  python sensitivity_v5.py pid
+  python sensitivity_v5.py ppo                    # 학습 포함 (끝까지 학습된 시드는 건너뜀). 기준 조건은 ppo_v5.py 본 결과를 씀
+  python sensitivity_v5.py ppo --steps 500000     # 짧게 시험
+  python sensitivity_v5.py ppo --collect          # 학습 없이 이미 있는 결과만 모아 표·그림
 """
 
 # ================================================================
@@ -45,7 +45,7 @@ PID_CONDITIONS = [   # (이름, 게인 변경 {키: 배수 또는 ("=", 값)}, �
     ("kdx ×2", dict(kd_x=2.0), "카트 정지 촉진"),
     ("카트 위치 루프 제거", dict(kp_x=("=", 0.0), ki_x=("=", 0.0), kd_x=("=", 0.0)), "카트 표류"),
 ]
-PPO_CONDITIONS = [   # (이름, ppo_v4 태그, REWARD 변경, 사전 예상)
+PPO_CONDITIONS = [   # (이름, ppo_v5 태그, REWARD 변경, 사전 예상)
     ("기준 (표 5와 같음)", "", {}, "—"),
     ("F_max = 12.5 N (R ×4)", "fmax12.5", dict(f_max=12.5), "입력 감소, 안정화 지연"),
     ("F_max = 50 N (R ÷4)", "fmax50", dict(f_max=50.0), "입력 증가, 안정화 단축"),
@@ -64,7 +64,7 @@ import argparse
 import subprocess
 
 import numpy as np
-import common_v4 as V
+import common_v5 as V
 
 OUT = os.path.join(V.RESULT_DIR, "sensitivity")
 
@@ -131,8 +131,8 @@ def lqr():
 
 # ---------------- PID ----------------
 def pid():
-    import pid_tuning_v4
-    base = V.load_pid_gains(fallback=pid_tuning_v4.GAINS)
+    import pid_tuning_v5
+    base = V.load_pid_gains(fallback=pid_tuning_v5.GAINS)
     S0, meta = V.eval_states(WHICH)
     rows = []
     for name, change, expect in PID_CONDITIONS:
@@ -158,10 +158,10 @@ def pid():
 # ---------------- PPO (재학습) ----------------
 def _ppo(cmd):
     env = dict(os.environ, PYTHONIOENCODING="utf-8")
-    print("  $ python ppo_v4.py " + " ".join(cmd), flush=True)
-    r = subprocess.run([sys.executable, V.P("ppo_v4.py"), *cmd], cwd=V.HERE, env=env)
+    print("  $ python ppo_v5.py " + " ".join(cmd), flush=True)
+    r = subprocess.run([sys.executable, V.P("ppo_v5.py"), *cmd], cwd=V.HERE, env=env)
     if r.returncode != 0:
-        sys.exit(f"ppo_v4.py {' '.join(cmd)} 실패 (code {r.returncode})")
+        sys.exit(f"ppo_v5.py {' '.join(cmd)} 실패 (code {r.returncode})")
 
 
 def ppo(steps=None, collect_only=False, parallel=None):
@@ -169,14 +169,14 @@ def ppo(steps=None, collect_only=False, parallel=None):
     for name, tag, change, expect in PPO_CONDITIONS:
         tag_args = ["--tag", tag] if tag else []
         set_args = (["--set"] + [f"{k}={v}" for k, v in change.items()]) if change else []
-        summary = V.P(V.RESULT_DIR, WHICH, f"ppo_v4{'_' + tag if tag else ''}_summary.json")
+        summary = V.P(V.RESULT_DIR, WHICH, f"ppo_v5{'_' + tag if tag else ''}_summary.json")
         if not tag:
-            # 기준 조건은 본 학습 결과(ppo_v4.py train → select)를 그대로 씀 — 여기서 다시 학습하지 않음
+            # 기준 조건은 본 학습 결과(ppo_v5.py train → select)를 그대로 씀 — 여기서 다시 학습하지 않음
             if not collect_only and not os.path.exists(summary):
                 if os.path.exists(V.P(V.PPO_PATH)):
                     _ppo(["eval", WHICH])
                 else:
-                    print("  ※ 기준 PPO 가 없습니다. 먼저 python ppo_v4.py train → select 를 실행하세요.")
+                    print("  ※ 기준 PPO 가 없습니다. 먼저 python ppo_v5.py train → select 를 실행하세요.")
         elif not collect_only:
             train = (["train"] + (["--steps", str(steps), "--eval-freq", str(max(steps // 20, 10_000))] if steps else [])
                      + (["--parallel", str(parallel)] if parallel else []))
@@ -211,7 +211,7 @@ def ppo(steps=None, collect_only=False, parallel=None):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description="제어기 파라미터 민감도 분석 (5장)")
     ap.add_argument("mode", choices=["lqr", "pid", "ppo", "all"])
-    ap.add_argument("--steps", type=int, default=None, help="PPO 학습 스텝 (기본: ppo_v4.TOTAL_STEPS)")
+    ap.add_argument("--steps", type=int, default=None, help="PPO 학습 스텝 (기본: ppo_v5.TOTAL_STEPS)")
     ap.add_argument("--parallel", type=int, default=None, help="PPO 동시 학습 시드 수")
     ap.add_argument("--collect", action="store_true", help="PPO: 학습 없이 기존 결과만 모음")
     a = ap.parse_args()

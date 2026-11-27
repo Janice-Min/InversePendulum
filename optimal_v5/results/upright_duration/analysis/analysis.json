@@ -1,0 +1,224 @@
+{
+  "design": {
+    "PID": {
+      "evaluation_schema": "upright_duration_v1",
+      "duration_s": 10.0,
+      "n": 148,
+      "n_survived": 148,
+      "survival_rate": 1.0,
+      "fail_rail": 0,
+      "final_upright_count": 148,
+      "final_stopped_count": 148,
+      "upright_time_s": 9.269864864864866,
+      "upright_time_sd_s": 0.22018540884293064,
+      "upright_time_min_s": 8.98,
+      "upright_time_p05_s": 9.0,
+      "upright_fraction": 0.9269864864864866,
+      "stationary_upright_time_s": 8.77445945945946,
+      "observed_time_s": 10.0,
+      "rmse_deg": 3.129903250142286,
+      "rmse_p95": 4.923086986532534,
+      "effort": 97.03210875132245,
+      "effort_p95": 175.00403891237454,
+      "ts_observed": 0.7502702702702703,
+      "ts_observed_n": 148,
+      "stop_time": 1.2478378378378379,
+      "stop_time_n": 148,
+      "max_abs_x": 0.8307739663296757,
+      "max_abs_x_max": 1.8644167222696835,
+      "saturation_pct": 0.8783783783783784
+    },
+    "LQR": {
+      "evaluation_schema": "upright_duration_v1",
+      "duration_s": 10.0,
+      "n": 148,
+      "n_survived": 148,
+      "survival_rate": 1.0,
+      "fail_rail": 0,
+      "final_upright_count": 148,
+      "final_stopped_count": 148,
+      "upright_time_s": 9.022432432432431,
+      "upright_time_sd_s": 0.2614236835911053,
+      "upright_time_min_s": 8.74,
+      "upright_time_p05_s": 8.8,
+      "upright_fraction": 0.9022432432432431,
+      "stationary_upright_time_s": 4.583513513513513,
+      "observed_time_s": 10.0,
+      "rmse_deg": 3.401005606910364,
+      "rmse_p95": 5.331533958494306,
+      "effort": 65.30421249361811,
+      "effort_p95": 114.80729818911172,
+      "ts_observed": 0.9977027027027029,
+      "ts_observed_n": 148,
+      "stop_time": 5.482027027027026,
+      "stop_time_n": 148,
+      "max_abs_x": 0.8725714771358821,
+      "max_abs_x_max": 1.9451511540046589,
+      "saturation_pct": 0.7378378378378379
+    },
+    "PPO": {
+      "evaluation_schema": "upright_duration_v1",
+      "duration_s": 10.0,
+      "n": 148,
+      "n_survived": 148,
+      "survival_rate": 1.0,
+      "fail_rail": 0,
+      "final_upright_count": 148,
+      "final_stopped_count": 148,
+      "upright_time_s": 9.358783783783784,
+      "upright_time_sd_s": 0.17119390845783206,
+      "upright_time_min_s": 8.78,
+      "upright_time_p05_s": 9.147,
+      "upright_fraction": 0.9358783783783785,
+      "stationary_upright_time_s": 5.150135135135136,
+      "observed_time_s": 10.0,
+      "rmse_deg": 3.5773319224580407,
+      "rmse_p95": 5.882164143293281,
+      "effort": 122.18450138078283,
+      "effort_p95": 240.90424835996475,
+      "ts_observed": 0.6617567567567567,
+      "ts_observed_n": 148,
+      "stop_time": 5.02027027027027,
+      "stop_time_n": 148,
+      "max_abs_x": 0.7128270046497909,
+      "max_abs_x_max": 1.7522501151135754,
+      "saturation_pct": 0.9405405405405405
+    }
+  },
+  "poles": {
+    "lqr": {
+      "Q": [
+        0.1736111111111111,
+        1.0,
+        3.6475626111241604,
+        0.25
+      ],
+      "R": 0.0016,
+      "input_coeffs": [
+        6.705657897513229,
+        20.625782123319574,
+        133.50325639260853,
+        20.530003811327326
+      ],
+      "poles_z_abs": [
+        0.4534874977326031,
+        0.9146756149743657,
+        0.9346580393793118,
+        0.9916718859658836
+      ],
+      "poles_s": [
+        "(-39.5393789101272+0j)",
+        "(-4.459289785854301+0j)",
+        "(-3.3787274937168768+0j)",
+        "(-0.41814932627463675+0j)"
+      ],
+      "slowest_tau_s": 2.391490161921746
+    },
+    "pid": {
+      "gains": {
+        "kp_theta": 110.0,
+        "ki_theta": 2.0,
+        "kd_theta": 12.0,
+        "kp_x": 0.03,
+        "ki_x": 0.5,
+        "kd_x": 16.0
+      },
+      "poles": [
+        "(-7.611614288511121+9.95743626169607j)",
+        "(-7.611614288511121-9.95743626169607j)",
+        "(-2.5438768291605314+0j)",
+        "(0.00855270309139012+0.17496565673867143j)",
+        "(0.00855270309139012-0.17496565673867143j)",
+        "(1.893317060430359e-15+0j)"
+      ],
+      "fast_pole": "(-7.611614288511121+9.95743626169607j)",
+      "fast_zeta": 0.607304306710513,
+      "slow_pole": "(0.00855270309139012+0.17496565673867143j)",
+      "angle_pd": [
+        "-23.135640941628036",
+        "-10.614359058371962"
+      ],
+      "effective_velocity_gain": 16.20387359836901
+    }
+  },
+  "eq6": {
+    "theta0_deg": 20.0,
+    "max_abs_diff": 0.0855568080448792,
+    "max_abs_xdot": 2.1245064222169705
+  },
+  "ppo_linear": {
+    "f0": 0.34019495360553265,
+    "coeffs": {
+      "x": 3.8155820220708847,
+      "x_dot": 18.57578754425049,
+      "theta": 131.80961832404137,
+      "theta_dot": 18.977047875523567
+    },
+    "lqr_coeffs": {
+      "x": 6.705657897513229,
+      "x_dot": 20.625782123319574,
+      "theta": 133.50325639260853,
+      "theta_dot": 20.530003811327326
+    },
+    "ppo": {
+      "evaluation_schema": "upright_duration_v1",
+      "duration_s": 10.0,
+      "n": 600,
+      "n_survived": 600,
+      "survival_rate": 1.0,
+      "fail_rail": 0,
+      "final_upright_count": 600,
+      "final_stopped_count": 600,
+      "upright_time_s": 9.441633333333332,
+      "upright_time_sd_s": 0.19749854433365346,
+      "upright_time_min_s": 8.86,
+      "upright_time_p05_s": 9.24,
+      "upright_fraction": 0.9441633333333335,
+      "stationary_upright_time_s": 5.878499999999999,
+      "observed_time_s": 10.0,
+      "rmse_deg": 2.4506749190153605,
+      "rmse_p95": 5.2149708712802045,
+      "effort": 70.55454337450767,
+      "effort_p95": 190.83642396250758,
+      "ts_observed": 0.5785333333333333,
+      "ts_observed_n": 600,
+      "stop_time": 4.304866666666666,
+      "stop_time_n": 600,
+      "max_abs_x": 0.596580333364721,
+      "max_abs_x_max": 1.803837710685072,
+      "saturation_pct": 0.47866666666666663
+    },
+    "linear": {
+      "evaluation_schema": "upright_duration_v1",
+      "duration_s": 10.0,
+      "n": 600,
+      "n_survived": 600,
+      "survival_rate": 1.0,
+      "fail_rail": 0,
+      "final_upright_count": 600,
+      "final_stopped_count": 584,
+      "upright_time_s": 9.2193,
+      "upright_time_sd_s": 0.33788329128692474,
+      "upright_time_min_s": 8.700000000000001,
+      "upright_time_p05_s": 8.799000000000001,
+      "upright_fraction": 0.9219299999999998,
+      "stationary_upright_time_s": 4.7757000000000005,
+      "observed_time_s": 10.0,
+      "rmse_deg": 2.237415706792879,
+      "rmse_p95": 4.510900709590516,
+      "effort": 40.296769316334625,
+      "effort_p95": 96.85885135692598,
+      "ts_observed": 0.8020666666666667,
+      "ts_observed_n": 600,
+      "stop_time": 5.29181506849315,
+      "stop_time_n": 584,
+      "max_abs_x": 0.7126412661524757,
+      "max_abs_x_max": 2.0906085055188846,
+      "saturation_pct": 0.44
+    },
+    "rms_input_diff": {
+      "0-0.5s": 8.061191832205337,
+      "1-10s": 0.07400371376623346
+    }
+  }
+}

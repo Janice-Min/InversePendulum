@@ -1,5 +1,5 @@
 """
-Cart-Pole v4 — PPO 학습 · 누적 직립시간에 따른 선택 · 평가
+Cart-Pole v5 — PPO 학습 · 누적 직립시간에 따른 선택 · 평가
 ================================================================
 보상 (보고서 4.3절 식 18~19)
   C = (x/2.4)² + (ẋ/1.0)² + (θ/30°)² + (θ̇/2.0)² + (F/25)²     ← 각 변수를 허용 크기(표 5)로 나눈 제곱합
@@ -16,26 +16,26 @@ Cart-Pole v4 — PPO 학습 · 누적 직립시간에 따른 선택 · 평가
   설계 상태 148개의 평균 누적 직립시간을 최대화한다.
   동률이면 레일 내 생존 수, 이어서 평균 에피소드 보상으로 선택한다.
   run별과 전체 run 선택에 같은 규칙을 사용한다. 학습 보상식과 종료 조건은 변경하지 않는다.
-  새 학습 기록과 선택 모델은 models/ppo_v4_upright...에 저장한다.
-  select --legacy는 기존 models/ppo_v4_runs의 모든 체크포인트를 새 지표로 재평가한다.
+  새 학습 기록과 선택 모델은 models/ppo_v5_upright...에 저장한다.
+  select --legacy는 기존 models/ppo_v5_runs의 모든 체크포인트를 새 지표로 재평가한다.
 
 평가
   누적 직립시간, 직립 시간 비율, RMSE, E, 레일 이탈과 보조 정지시간을 저장한다.
   마지막 2 s 유지 조건과 이진 안정화 성공률은 사용하지 않는다.
 
 필요한 것
-  이 폴더의 common_v4.py (상태 집합·배치 시뮬레이터·누적시간 계산), 레포 루트의 cartpole_common.py, cartpole_ppo.py
+  이 폴더의 common_v5.py (상태 집합·배치 시뮬레이터·누적시간 계산), 레포 루트의 cartpole_common.py, cartpole_ppo.py
   pip install stable-baselines3 gymnasium scipy
 
-실행 (이 폴더 optimal_v4/ 에서)
-  python ppo_v4.py train                    # SEEDS 전부 학습 (N_PARALLEL 개씩 동시에). 끝까지 학습된 시드는 건너뜀
-  python ppo_v4.py train 0 1                # 지정한 시드만
-  python ppo_v4.py train --steps 300000     # 짧게 시험해 볼 때
-  python ppo_v4.py select                   # 체크포인트 선택 → models/ppo_v4_upright.zip
-  python ppo_v4.py eval val                 # 선택 모델을 검증 세트로 평가 (개발 중 몇 번이고 가능)
-  python ppo_v4.py eval test                # 테스트 세트 평가 (모델 확정 후 마지막에 1번만)
-  python ppo_v4.py all                      # train → select → eval val
-  python ppo_v4.py train --tag fmax12.5 --set f_max=12.5   # 보상 허용 크기를 바꾼 학습 (5.3절, 결과는 따로 저장)
+실행 (이 폴더 optimal_v5/ 에서)
+  python ppo_v5.py train                    # SEEDS 전부 학습 (N_PARALLEL 개씩 동시에). 끝까지 학습된 시드는 건너뜀
+  python ppo_v5.py train 0 1                # 지정한 시드만
+  python ppo_v5.py train --steps 300000     # 짧게 시험해 볼 때
+  python ppo_v5.py select                   # 체크포인트 선택 → models/ppo_v5_upright.zip
+  python ppo_v5.py eval val                 # 선택 모델을 검증 세트로 평가 (개발 중 몇 번이고 가능)
+  python ppo_v5.py eval test                # 테스트 세트 평가 (모델 확정 후 마지막에 1번만)
+  python ppo_v5.py all                      # train → select → eval val
+  python ppo_v5.py train --tag fmax12.5 --set f_max=12.5   # 보상 허용 크기를 바꾼 학습 (5.3절, 결과는 따로 저장)
 """
 
 # ================================================================
@@ -62,11 +62,11 @@ LR_LINEAR_DECAY = True      # True: 학습률을 LR_START 에서 학습 끝 0 �
 TRAIN_THETA_DEG = 32.0          # 학습 초기각 θ0 ~ U(±32°)
 HARD_THETA_DEG = (24.0, 32.0)   # HARD_FRAC 비율은 |θ0| ~ U(24°, 32°)
 HARD_FRAC = 0.5
-# x0, ẋ0, θ̇0 는 common_v4.OTHER_RANGES (±0.6) 에서 균일 추출 — 설계·검증·테스트 세트와 같은 범위
+# x0, ẋ0, θ̇0 는 common_v5.OTHER_RANGES (±0.6) 에서 균일 추출 — 설계·검증·테스트 세트와 같은 범위
 
-RUN_DIR = "models/ppo_v4_upright_runs"
-BEST_PATH = "models/ppo_v4_upright"     # .zip 자동
-SUMMARY_PATH = "models/ppo_v4_upright.json"
+RUN_DIR = "models/ppo_v5_upright_runs"
+BEST_PATH = "models/ppo_v5_upright"     # .zip 자동
+SUMMARY_PATH = "models/ppo_v5_upright.json"
 RESULT_DIR = "results/upright_duration"
 
 # ================================================================
@@ -83,7 +83,7 @@ import argparse
 import subprocess
 
 import numpy as np
-import common_v4 as V               # v4 공통 기준 (상태 집합, 배치 시뮬레이터, 누적시간 계산)
+import common_v5 as V               # v5 공통 기준 (상태 집합, 배치 시뮬레이터, 누적시간 계산)
 import cartpole_common as C
 import cartpole_ppo as PP
 
@@ -94,7 +94,7 @@ TAG = ""                            # 민감도 분석용 이름표 (--tag). 비
 
 
 def apply_overrides(tag="", sets=()):
-    """--tag, --set key=value 로 보상 설정을 바꿈 (5.3절 민감도 분석). 결과는 models/ppo_v4_<tag>... 에 따로 저장"""
+    """--tag, --set key=value 로 보상 설정을 바꿈 (5.3절 민감도 분석). 결과는 models/ppo_v5_<tag>... 에 따로 저장"""
     global TAG, RUN_DIR, BEST_PATH, SUMMARY_PATH
     for kv in sets:
         k, v = kv.split("=")
@@ -103,9 +103,9 @@ def apply_overrides(tag="", sets=()):
         REWARD[k] = float(v)
     TAG = tag
     if tag:
-        RUN_DIR = f"models/ppo_v4_upright_{tag}_runs"
-        BEST_PATH = f"models/ppo_v4_upright_{tag}"
-        SUMMARY_PATH = f"models/ppo_v4_upright_{tag}.json"
+        RUN_DIR = f"models/ppo_v5_upright_{tag}_runs"
+        BEST_PATH = f"models/ppo_v5_upright_{tag}"
+        SUMMARY_PATH = f"models/ppo_v5_upright_{tag}.json"
     cfg = os.path.join(RUN_DIR, "reward_config.json")
     if not sets and os.path.exists(cfg):            # select / eval 은 학습 때 쓴 보상 설정을 그대로 불러옴
         REWARD.update(V.load_json(os.path.abspath(cfg)))
@@ -150,7 +150,7 @@ def make_env_class():
     import gymnasium as gym
     from gymnasium import spaces
 
-    class CartPoleV4Env(gym.Env):
+    class CartPoleV5Env(gym.Env):
         metadata = {"render_modes": []}
 
         def __init__(self):
@@ -178,7 +178,7 @@ def make_env_class():
             truncated = (self.k >= N_STEPS) and not failed
             return PP.make_obs(self.s), float(reward), failed, truncated, {}
 
-    return CartPoleV4Env
+    return CartPoleV5Env
 
 
 # ---------------- 배치 평가 ----------------
@@ -305,7 +305,7 @@ def train(seeds, steps, eval_freq, n_parallel):
 # ---------------- 선택 ----------------
 def select(legacy=False):
     from stable_baselines3 import PPO
-    source_dir = f"models/ppo_v4{'_' + TAG if TAG else ''}_runs" if legacy else RUN_DIR
+    source_dir = f"models/ppo_v5{'_' + TAG if TAG else ''}_runs" if legacy else RUN_DIR
     if legacy:
         cfg = os.path.join(source_dir, "reward_config.json")
         if os.path.exists(cfg):
@@ -366,7 +366,7 @@ def evaluate(which, model_path=None):
     S0, meta = V.eval_states(which)
     res, s = evaluate_policy(V.BatchPPO(PPO.load(model_path, device="cpu")), S0)
     s.update(which=which, tag=TAG, reward=dict(REWARD), model_path=os.path.abspath(model_path))
-    print(f"\n[PPO v4 — {which} {s['n']}개] {V.crit_text()}")
+    print(f"\n[PPO v5 — {which} {s['n']}개] {V.crit_text()}")
     print("  " + fmt(s))
     print(f"  직립 누적시간 하위 5% {s['upright_time_p05_s']:.3f} s, 최소 {s['upright_time_min_s']:.3f} s")
     print(f"  카트 정지까지 만족한 누적시간 {s['stationary_upright_time_s']:.3f} s")
@@ -386,11 +386,11 @@ def evaluate(which, model_path=None):
         for r in runs:
             print(f"  [{r['run']}] {fmt(r)}")
     out = os.path.join(RESULT_DIR, which)
-    name = "ppo_v4" + (f"_{TAG}" if TAG else "")
+    name = "ppo_v5" + (f"_{TAG}" if TAG else "")
     V.save_json(os.path.abspath(os.path.join(out, f"{name}_summary.json")),
                 dict(evaluation_schema=V.EVALUATION_SCHEMA, criterion=V.crit_text(),
                      selected=s, by_angle=by_angle, runs=runs))
-    from compare_v4 import trial_rows
+    from compare_v5 import trial_rows
     V.save_csv(os.path.join(out, f"{name}_trials.csv"), trial_rows({"PPO": res}, S0, meta))
     print(f"\n  저장: {out}/{name}_summary.json, {out}/{name}_trials.csv")
 
@@ -402,7 +402,7 @@ if __name__ == "__main__":
         apply_overrides(sys.argv[5])
         train_one(int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]))
         sys.exit(0)
-    ap = argparse.ArgumentParser(description="Cart-Pole v4 PPO: train / select / eval")
+    ap = argparse.ArgumentParser(description="Cart-Pole v5 PPO: train / select / eval")
     sub = ap.add_subparsers(dest="mode", required=True)
     for name in ("train", "all"):
         p = sub.add_parser(name)
@@ -411,10 +411,10 @@ if __name__ == "__main__":
         p.add_argument("--eval-freq", type=int, default=EVAL_FREQ)
         p.add_argument("--parallel", type=int, default=N_PARALLEL)
     p = sub.add_parser("select")
-    p.add_argument("--legacy", action="store_true", help="기존 ppo_v4_runs 체크포인트를 누적 직립시간으로 재평가·재선택")
+    p.add_argument("--legacy", action="store_true", help="기존 ppo_v5_runs 체크포인트를 누적 직립시간으로 재평가·재선택")
     p = sub.add_parser("eval")
     p.add_argument("which", choices=["val", "test"])
-    p.add_argument("--model", help="기존 고정 정책을 재평가할 모델 경로 (예: models/ppo_v4.zip)")
+    p.add_argument("--model", help="기존 고정 정책을 재평가할 모델 경로 (예: models/ppo_v5.zip)")
     for p in sub.choices.values():
         p.add_argument("--tag", default="", help="민감도 분석용 이름표 (결과를 따로 저장)")
         p.add_argument("--set", nargs="*", default=[], metavar="KEY=VALUE", help="REWARD 값 변경, 예: f_max=12.5")

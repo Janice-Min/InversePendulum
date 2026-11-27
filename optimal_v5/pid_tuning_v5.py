@@ -1,5 +1,5 @@
 """
-Cart-Pole v4 — PID 수동 튜닝 도구 (보고서 4.1절, 표 4)
+Cart-Pole v5 — PID 수동 튜닝 도구 (보고서 4.1절, 표 4)
 ================================================================
 아래 GAINS 를 손으로 바꾸고 실행하면 설계 초기상태 148개에서 평가해 결과와 그래프를 보여 줍니다.
 검증·테스트 집합은 쓰지 않습니다 (보고서 3.3절).
@@ -14,13 +14,13 @@ Cart-Pole v4 — PID 수동 튜닝 도구 (보고서 4.1절, 표 4)
   5. `pareto`로 각 게인 ±10%에서 직립 누적시간 ↑, RMSE·E ↓의 상충을 확인 (레일 이탈 수도 확인)
 
 실행 (이 폴더에서)
-  python pid_tuning_v4.py                       # 현재 GAINS 평가 + 그래프 + 튜닝 기록(models/pid_tuning_upright_log.csv)에 한 줄 추가
-  python pid_tuning_v4.py --no-log              # 기록하지 않고 결과만 보기
-  python pid_tuning_v4.py sweep kd_x            # 한 게인만 배수로 바꿔 가며 지표 그래프 (기본 0.5~2배)
-  python pid_tuning_v4.py sweep ki_x --values 0 0.2 0.4 0.8     # 값으로 지정 (0 인 게인을 볼 때)
-  python pid_tuning_v4.py pareto                # 각 게인 ±10% 변경 중 파레토 개선이 있는지 확인 (5단계)
-  python pid_tuning_v4.py history               # 튜닝 기록 그래프 다시 그리기
-  python pid_tuning_v4.py save                  # 현재 GAINS 를 최종 게인으로 저장 → models/pid_gains_manual.json
+  python pid_tuning_v5.py                       # 현재 GAINS 평가 + 그래프 + 튜닝 기록(models/pid_tuning_upright_log.csv)에 한 줄 추가
+  python pid_tuning_v5.py --no-log              # 기록하지 않고 결과만 보기
+  python pid_tuning_v5.py sweep kd_x            # 한 게인만 배수로 바꿔 가며 지표 그래프 (기본 0.5~2배)
+  python pid_tuning_v5.py sweep ki_x --values 0 0.2 0.4 0.8     # 값으로 지정 (0 인 게인을 볼 때)
+  python pid_tuning_v5.py pareto                # 각 게인 ±10% 변경 중 파레토 개선이 있는지 확인 (5단계)
+  python pid_tuning_v5.py history               # 튜닝 기록 그래프 다시 그리기
+  python pid_tuning_v5.py save                  # 현재 GAINS 를 최종 게인으로 저장 → models/pid_gains_manual.json
 
 그래프는 figures/upright_duration/pid_tuning/ 에 저장됩니다.
 """
@@ -30,10 +30,10 @@ Cart-Pole v4 — PID 수동 튜닝 도구 (보고서 4.1절, 표 4)
 # ================================================================
 GAINS = dict(
     kp_theta=110.0,     # 각도 P  [N/rad]
-    ki_theta=45.0,      # 각도 I  [N/(rad·s)]
+    ki_theta=2.0,      # 각도 I  [N/(rad·s)]
     kd_theta=12.0,      # 각도 D  [N·s/rad]
-    kp_x=2.97,          # 위치 P  [N/m]  (7단계: ±10% 확인에서 −10% 가 파레토 개선)
-    ki_x=0.38,           # 위치 I  [N/(m·s)]
+    kp_x=0.03,          # 위치 P  [N/m]  (7단계: ±10% 확인에서 −10% 가 파레토 개선)
+    ki_x=0.50,           # 위치 I  [N/(m·s)]
     kd_x=16.0,          # 위치 D (카트 속도) [N·s/m]
 )
 NOTE = "v3 최적 게인을 반올림한 값에서 시작"      # 튜닝 기록에 남길 변경 내용과 근거 (표 4의 마지막 열)
@@ -52,7 +52,7 @@ import argparse
 from datetime import datetime
 
 import numpy as np
-import common_v4 as V
+import common_v5 as V
 
 METRICS = [("upright_time_s", "누적 직립시간 [s] ↑", 1), ("rmse_deg", "각도 RMSE [°] ↓", 1),
            ("effort", "입력 사용량 E [N²·s] ↓", 1), ("survival_rate", "레일 내 생존율 [%]", 100)]
@@ -257,7 +257,7 @@ if __name__ == "__main__":
         run(GAINS, a.note, log=not a.no_log)
     elif a.mode == "sweep":
         if not a.gain:
-            sys.exit("예: python pid_tuning_v4.py sweep kd_x")
+            sys.exit("예: python pid_tuning_v5.py sweep kd_x")
         sweep(GAINS, a.gain, a.factors, a.values)
     elif a.mode == "pareto":
         pareto(GAINS)

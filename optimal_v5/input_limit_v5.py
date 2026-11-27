@@ -1,5 +1,5 @@
 """
-Cart-Pole v4 — 입력 제한 축소 실험 (보고서 7장: 표 13·14·15, 그림 4)
+Cart-Pole v5 — 입력 제한 축소 실험 (보고서 7장: 표 13·14·15, 그림 4)
 ================================================================
 25 N 에서 설계한 PID 게인, LQR 게인, PPO 정책을 고정하고 물리적 입력 제한 F_lim 만 줄여 검증 600개에서 평가합니다.
 PPO 는 정책 출력 25a 를 ±F_lim 에서 자릅니다 (재스케일링 없음, 7.1절).
@@ -14,9 +14,9 @@ PPO 는 정책 출력 25a 를 ±F_lim 에서 자릅니다 (재스케일링 없�
   check_summary.csv         7.5절 원인 검증: 제어기 변형별 입력 제한-누적 직립시간 (아래 CHECK 설정)
 
 실행 (이 폴더에서)
-  python input_limit_v4.py            # 검증 집합
-  python input_limit_v4.py --no-ppo
-  python input_limit_v4.py check      # 7.5절 원인 검증 실험 (게인·정책 고정, 변형 하나씩)
+  python input_limit_v5.py            # 검증 집합
+  python input_limit_v5.py --no-ppo
+  python input_limit_v5.py check      # 7.5절 원인 검증 실험 (게인·정책 고정, 변형 하나씩)
 """
 
 # ================================================================
@@ -28,7 +28,7 @@ TABLE14_ANGLES = [15, 20, 25, 30]
 TABLE15_LIMS = [25.0, 10.0]                            # 표 15
 WHICH = "val"
 CHECK_LIMS = [25.0, 15.0, 10.0, 7.5, 5.0]               # 7.5절 원인 검증에 쓰는 입력 제한
-LINEAR_EPS = dict(x=1e-3, x_dot=1e-3, theta=1e-4, theta_dot=1e-3)   # PPO 국소 선형 근사의 중앙차분 간격 (analysis_v4 와 같음)
+LINEAR_EPS = dict(x=1e-3, x_dot=1e-3, theta=1e-4, theta_dot=1e-3)   # PPO 국소 선형 근사의 중앙차분 간격 (analysis_v5 와 같음)
 
 # ================================================================
 # 이하 구현부
@@ -37,7 +37,7 @@ import os
 import argparse
 
 import numpy as np
-import common_v4 as V
+import common_v5 as V
 
 OUT = os.path.join(V.RESULT_DIR, "input_limit")
 
@@ -148,8 +148,8 @@ def check(include_ppo=True):
       H1 PID 적분 포화: 적분 제한을 입력 제한에 비례해 줄이거나(0.5·F_lim/25 rad·s) 조건부 적분을 쓰면 누적 직립시간이 오르는가
       H2 입력 사용량: 같은 Bryson 절차에서 u_max 를 바꿔 게인을 키우거나(50 N) 줄이면(12.5 N) 강인성이 바뀌는가
       H3 PPO 과도 전략: 평형점 부근 계수가 같은 국소 선형 근사(식 22)는 PPO 보다 강인한가"""
-    import pid_tuning_v4
-    g = V.load_pid_gains(fallback=pid_tuning_v4.GAINS)
+    import pid_tuning_v5
+    g = V.load_pid_gains(fallback=pid_tuning_v5.GAINS)
     S0, meta = V.eval_states(WHICH)
     variants = []          # (가설, 이름, 입력 제한 → 제어기)
     variants.append(("H1", "PID 기준", lambda fl: V.BatchPID(g)))

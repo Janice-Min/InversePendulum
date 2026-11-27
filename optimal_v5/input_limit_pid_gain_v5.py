@@ -1,13 +1,13 @@
 """
-Cart-Pole v4 — PID 일부 게인의 LQR 계수 교체와 입력 제한 민감도
+Cart-Pole v5 — PID 일부 게인의 LQR 계수 교체와 입력 제한 민감도
 ============================================================================
 PID 기준, 각속도 게인 교체, 위치 게인 교체, 두 게인 교체와 LQR을 같은 검증 상태에서 비교한다.
 주 지표는 10 s의 누적 직립시간이며, RMSE·E와 레일 이탈 수를 함께 보고한다.
 기존 2 s 유지 성공률과 보고서의 과거 수치는 재현 기준으로 사용하지 않는다.
 25 N 설계 성능, 이산 극점, 입력 제한별·초기각별 누적시간을 저장한다.
 
-  python input_limit_pid_gain_v4.py          # 전체 검증 집합
-  python input_limit_pid_gain_v4.py --quick  # 동작 확인용 축소 실행
+  python input_limit_pid_gain_v5.py          # 전체 검증 집합
+  python input_limit_pid_gain_v5.py --quick  # 동작 확인용 축소 실행
 """
 
 # ================================================================
@@ -17,7 +17,7 @@ WHICH = "val"                                    # 7.5절과 같은 검증 집�
 CHECK_LIMS = [25.0, 15.0, 10.0, 7.5, 5.0]        # [N] 표 20 과 같은 입력 제한
 BY_ANGLE_LIMS = [10.0, 7.5]                      # 초기각별 누적 직립시간을 저장할 입력 제한
 
-# 표 5 의 최종 PID 게인 (7단계). 저장소의 pid_tuning_v4.GAINS 와 관계없이 이 값을 씁니다.
+# 표 5 의 최종 PID 게인 (7단계). 저장소의 pid_tuning_v5.GAINS 와 관계없이 이 값을 씁니다.
 BASE_GAINS = dict(kp_theta=110.0, ki_theta=45.0, kd_theta=12.0, kp_x=2.97, ki_x=0.38, kd_x=16.0)
 
 # (변형 이름, LQR 계수로 바꿀 PID 게인)
@@ -40,7 +40,7 @@ import os
 import argparse
 
 import numpy as np
-import common_v4 as V
+import common_v5 as V
 
 OUT = os.path.join(V.RESULT_DIR, "input_limit")
 SUMMARY_KEYS = ["evaluation_schema", "n", "n_survived", "survival_rate", "fail_rail", "upright_time_s",
@@ -50,7 +50,7 @@ SUMMARY_KEYS = ["evaluation_schema", "n", "n_survived", "survival_rate", "fail_r
 
 def max_abs_z(g):
     """PID 이산시간 폐루프 (ZOH, Δt, 적분 상태 포함)의 최대 고유값 크기.
-    식 (6)의 보존 관계에서 오는 고유값 1 하나는 뺀다 (common_v4.pid_poles_discrete 와 같은 계산).
+    식 (6)의 보존 관계에서 오는 고유값 1 하나는 뺀다 (common_v5.pid_poles_discrete 와 같은 계산).
     시뮬레이션 순서: I_k = I_{k-1} + θ_k Δt,  F_k = Kp s_k + Ki I_k  (포화·적분 제한은 선형 모델에서 제외)"""
     A, B = V.linearize()
     Ad, Bd = V.discretize(A, B)

@@ -1,0 +1,4 @@
+﻿controller,initial_saturation_s,reverse_force_peak_N,theta_min_deg,ts_s,upright_time_s,final_x_m
+PID,0.12,-17.127789,-20.77242,0.94,9.08,0.874324
+LQR,0.1,-6.265242,-16.844206,1.16,8.86,0.02827
+PPO,0.1,-23.595539,-26.417562,0.72,9.3,0.024479

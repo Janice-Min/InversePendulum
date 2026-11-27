@@ -14,12 +14,12 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(HERE))
-import common_v4 as V
-import compare_v4 as compare
+import common_v5 as V
+import compare_v5 as compare
 
-# ppo_v4의 명령줄 상대 경로 설정이 테스트 실행 위치를 바꾸지 않도록 복구한다.
+# ppo_v5의 명령줄 상대 경로 설정이 테스트 실행 위치를 바꾸지 않도록 복구한다.
 _cwd = os.getcwd()
-import ppo_v4 as ppo
+import ppo_v5 as ppo
 os.chdir(_cwd)
 
 
@@ -140,7 +140,7 @@ class PPOSelectionTests(unittest.TestCase):
     def test_legacy_checkpoints_are_rescored_and_originals_preserved(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            source = root / "models/ppo_v4_runs/seed0"
+            source = root / "models/ppo_v5_runs/seed0"
             (source / "ckpt").mkdir(parents=True)
             history = [dict(step=100, n_success=148), dict(step=200, n_success=0)]
             original = json.dumps(history)
@@ -154,15 +154,15 @@ class PPOSelectionTests(unittest.TestCase):
             cwd = os.getcwd()
             try:
                 os.chdir(root)
-                with patch.multiple(ppo, RUN_DIR="models/ppo_v4_upright_runs", BEST_PATH="models/ppo_v4_upright",
-                                    SUMMARY_PATH="models/ppo_v4_upright.json", TAG=""), \
+                with patch.multiple(ppo, RUN_DIR="models/ppo_v5_upright_runs", BEST_PATH="models/ppo_v5_upright",
+                                    SUMMARY_PATH="models/ppo_v5_upright.json", TAG=""), \
                      patch.dict(sys.modules, {"stable_baselines3": types.SimpleNamespace(PPO=fake_ppo)}), \
                      patch.object(ppo, "evaluate_policy", side_effect=score), \
                      contextlib.redirect_stdout(io.StringIO()):
                     ppo.select(legacy=True)
-                self.assertEqual((root / "models/ppo_v4_upright.zip").read_bytes(), b"200")
+                self.assertEqual((root / "models/ppo_v5_upright.zip").read_bytes(), b"200")
                 self.assertEqual((source / "history.json").read_text(), original)
-                chosen = json.loads((root / "models/ppo_v4_upright.json").read_text())
+                chosen = json.loads((root / "models/ppo_v5_upright.json").read_text())
                 self.assertEqual(chosen["best"]["selected_step"], 200)
                 self.assertNotIn("n_success", chosen["best"])
             finally:

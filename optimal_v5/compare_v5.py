@@ -1,11 +1,11 @@
 """
-Cart-Pole v4 — PID · LQR · PPO 성능 비교 (보고서 6장: 표 11·12, 그림 1~3)
+Cart-Pole v5 — PID · LQR · PPO 성능 비교 (보고서 6장: 표 11·12, 그림 1~3)
 ================================================================
 같은 초기상태(±5~30°)에서 누적 직립시간(최대화), RMSE·E(최소화)를 비교합니다.
 마지막 구간 유지 조건과 이진 안정화 성공률은 사용하지 않습니다.
-  PID  models/pid_gains_manual.json  (pid_tuning_v4.py save 로 저장한 수동 튜닝 게인. 없으면 pid_tuning_v4.GAINS)
-  LQR  Bryson 규칙 (common_v4.BRYSON, 표 5)으로 게인을 계산 → models/lqr_bryson.json 에 저장
-  PPO  models/ppo_v4_upright.zip  (ppo_v4.py select 로 선택한 모델)
+  PID  models/pid_gains_manual.json  (pid_tuning_v5.py save 로 저장한 수동 튜닝 게인. 없으면 pid_tuning_v5.GAINS)
+  LQR  Bryson 규칙 (common_v5.BRYSON, 표 5)으로 게인을 계산 → models/lqr_bryson.json 에 저장
+  PPO  models/ppo_v5_upright.zip  (ppo_v5.py select 로 선택한 모델)
 
 출력 (results/upright_duration/<집합>/, figures/upright_duration/<집합>/)
   compare_trials.csv        시행별 결과 (제어기 × 600)
@@ -16,9 +16,9 @@ Cart-Pole v4 — PID · LQR · PPO 성능 비교 (보고서 6장: 표 11·12, �
                             → fig3_paired_diff.png (그림 3)
 
 실행 (이 폴더에서)
-  python compare_v4.py val          # 검증 600개 — 개발 중 확인용
-  python compare_v4.py test         # 테스트 600개 — 모델을 모두 확정한 뒤 마지막에 1번
-  python compare_v4.py val --no-ppo # PPO 없이 PID·LQR 만
+  python compare_v5.py val          # 검증 600개 — 개발 중 확인용
+  python compare_v5.py test         # 테스트 600개 — 모델을 모두 확정한 뒤 마지막에 1번
+  python compare_v5.py val --no-ppo # PPO 없이 PID·LQR 만
 """
 
 # ================================================================
@@ -34,7 +34,7 @@ import os
 import argparse
 
 import numpy as np
-import common_v4 as V
+import common_v5 as V
 
 METRIC_DEFS = [("upright", "upright_time_s", "누적 직립시간 [s] ↑", False),
                ("rmse", "angle_rmse_deg", "각도 RMSE [°] ↓", False),
@@ -242,6 +242,6 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser(description="PID · LQR · PPO 비교 (6장)")
     ap.add_argument("which", choices=["val", "test", "design"])
     ap.add_argument("--no-ppo", action="store_true")
-    ap.add_argument("--ppo-model", help="고정된 기존 정책을 재평가할 때 모델 경로 (예: models/ppo_v4.zip)")
+    ap.add_argument("--ppo-model", help="고정된 기존 정책을 재평가할 때 모델 경로 (예: models/ppo_v5.zip)")
     a = ap.parse_args()
     main(a.which, include_ppo=not a.no_ppo, ppo_path=a.ppo_model)

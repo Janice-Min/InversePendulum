@@ -1,8 +1,8 @@
 """
-Cart-Pole v4 — 공통 기준
+Cart-Pole v5 — 공통 기준
 ================================================================
 보고서 3장(실험 설계)과 4.2절(Bryson LQR)의 기준을 한 곳에 모은 모듈입니다.
-optimal_v4 의 다른 코드(pid_tuning_v4, ppo_v4, compare_v4, sensitivity_v4, input_limit_v4, analysis_v4)는
+optimal_v5 의 다른 코드(pid_tuning_v5, ppo_v5, compare_v5, sensitivity_v5, input_limit_v5, analysis_v5)는
 모두 이 파일을 import 합니다. 물리 파라미터와 적분기는 레포 루트의 cartpole_common.py 를 그대로 씁니다.
 
   주 평가 지표       10 s 동안 |θ| ≤ 3°, |θ̇| ≤ 0.2 rad/s 를 만족한 누적 직립시간 [s] (클수록 좋음)
@@ -30,7 +30,7 @@ OTHER_RANGES = dict(x=(-0.6, 0.6), x_dot=(-0.6, 0.6), theta_dot=(-0.6, 0.6))
 DESIGN_SEED = 2026
 VAL_SEED, VAL_TRIALS = 0, 50
 TEST_SEED, TEST_TRIALS = 20261126, 50   # 초판(커밋 9b77730)의 테스트 시드 20261124는 이미 평가에 사용했으므로 교체
-                                        # (이전 결과는 results/archive/test_seed20261124_v4초판/)
+                                        # (이전 결과는 results/archive/test_seed20261124_v5초판/)
 
 # ---- LQR Bryson 허용 크기 (표 5) ----
 BRYSON = dict(
@@ -41,10 +41,10 @@ BRYSON = dict(
     u=25.0,                 # [N]
 )
 
-# ---- 파일 위치 (optimal_v4 폴더 기준) ----
-PID_GAINS_PATH = "models/pid_gains_manual.json"     # pid_tuning_v4.py save 가 만듦
-LQR_PATH = "models/lqr_bryson.json"                 # compare_v4.py 가 만듦
-PPO_PATH = "models/ppo_v4_upright.zip"                      # ppo_v4.py select 가 만듦
+# ---- 파일 위치 (optimal_v5 폴더 기준) ----
+PID_GAINS_PATH = "models/pid_gains_manual.json"     # pid_tuning_v5.py save 가 만듦
+LQR_PATH = "models/lqr_bryson.json"                 # compare_v5.py 가 만듦
+PPO_PATH = "models/ppo_v5_upright.zip"                      # ppo_v5.py select 가 만듦
 EVALUATION_SCHEMA = "upright_duration_v1"
 FIG_DIR = "figures/upright_duration"
 RESULT_DIR = "results/upright_duration"
@@ -73,7 +73,7 @@ INTEGRAL_LIMIT = dict(theta=0.5, x=1.0)             # cartpole_pid.INTEGRAL_LIMI
 
 
 def P(*parts):
-    """optimal_v4 폴더 기준 절대 경로"""
+    """optimal_v5 폴더 기준 절대 경로"""
     return os.path.join(HERE, *parts)
 
 
@@ -213,7 +213,7 @@ def step_batch(S, F):
 
 
 def batch_run(policy, S0, f_lim=None, record=False):
-    """N개 시행을 10 s 평가한다. 제어기와 물리 적분기는 기존 v4와 같다.
+    """N개 시행을 10 s 평가한다. 제어기와 물리 적분기는 기존 v5와 같다.
 
     upright_time_s: 적분 후 샘플 중 레일 내에서 각도·각속도 조건을 만족한 수 × DT.
       떨어진 구간을 모두 합산하며, 카트 속도와 마지막 구간 유지 조건은 포함하지 않는다.
@@ -497,16 +497,16 @@ def load_pid_gains(path=PID_GAINS_PATH, fallback=None):
         return {k: float(d["gains"][k]) for k in GAIN_KEYS}
     if fallback is not None:
         if path not in _WARNED:
-            print(f"  ※ {path} 가 없어 pid_tuning_v4.GAINS 를 사용합니다 (pid_tuning_v4.py save 로 저장하세요).")
+            print(f"  ※ {path} 가 없어 pid_tuning_v5.GAINS 를 사용합니다 (pid_tuning_v5.py save 로 저장하세요).")
             _WARNED.add(path)
         return dict(fallback)
-    raise FileNotFoundError(f"{path} 가 없습니다. pid_tuning_v4.py save 로 먼저 저장하세요.")
+    raise FileNotFoundError(f"{path} 가 없습니다. pid_tuning_v5.py save 로 먼저 저장하세요.")
 
 
 def load_ppo(path=PPO_PATH):
     from stable_baselines3 import PPO
     if not os.path.exists(P(path)):
-        raise FileNotFoundError(f"{path} 가 없습니다. ppo_v4.py train → select 를 먼저 실행하세요.")
+        raise FileNotFoundError(f"{path} 가 없습니다. ppo_v5.py train → select 를 먼저 실행하세요.")
     return PPO.load(P(path), device="cpu")
 
 
@@ -514,8 +514,8 @@ def build_controllers(include_ppo=True, pid_gains=None, verbose=True, ppo_path=N
     """보고서 비교용 세 제어기: PID(수동 튜닝 게인), LQR(Bryson), PPO(선택 모델)"""
     ctrls = {}
     if pid_gains is None:
-        import pid_tuning_v4
-        pid_gains = load_pid_gains(fallback=pid_tuning_v4.GAINS)
+        import pid_tuning_v5
+        pid_gains = load_pid_gains(fallback=pid_tuning_v5.GAINS)
     ctrls["PID"] = BatchPID(pid_gains)
     lq = lqr_design()
     save_json(LQR_PATH, dict(bryson=lq["z"], Q_diag=lq["Q"], R=lq["R"], K=lq["K"], input_coeffs=lq["input_coeffs"],
@@ -526,8 +526,8 @@ def build_controllers(include_ppo=True, pid_gains=None, verbose=True, ppo_path=N
         try:
             ctrls["PPO"] = BatchPPO(load_ppo(ppo_path or PPO_PATH))
         except (FileNotFoundError, ImportError) as e:
-            raise RuntimeError("PPO 모델/의존성을 불러오지 못했습니다. ppo_v4.py train → select, "
-                               "기존 정책에는 --ppo-model models/ppo_v4.zip, PID·LQR만 실행할 때는 --no-ppo를 사용하세요.") from e
+            raise RuntimeError("PPO 모델/의존성을 불러오지 못했습니다. ppo_v5.py train → select, "
+                               "기존 정책에는 --ppo-model models/ppo_v5.zip, PID·LQR만 실행할 때는 --no-ppo를 사용하세요.") from e
     return ctrls
 
 

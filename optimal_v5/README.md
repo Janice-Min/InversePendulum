@@ -7,6 +7,12 @@
 
 카트 속도는 이 지표의 조건에 포함하지 않는다. `|ẋ| ≤ 0.05 m/s`까지 만족한 시간은 `stationary_upright_time_s`라는 보조 지표로 저장한다. 제어기, 물리 모델, 초기상태 집합과 PPO 보상식은 그대로다.
 
+## 별도 폴더로 설치
+
+저장소 루트에 압축을 풀면 `optimal_v5` 폴더가 만들어진다. `cartpole_common.py`와 `cartpole_ppo.py`는 저장소 루트의 공통 파일을 사용하므로 `optimal_v5`를 그 두 파일과 같은 위치에 둔다.
+
+새 폴더에는 학습 모델과 과거 실험 결과가 포함되지 않는다. 기존 정책 재평가 또는 `select --legacy`를 사용할 때는 필요한 모델·체크포인트를 새 폴더의 `models` 아래에 복사하고 아래 명령의 파일명에 맞춰 준비한다. 처음부터 학습하면 `models/ppo_v5_upright...` 경로가 자동 생성된다.
+
 ## 계산 방법
 
 `upright_time_s = DT × 조건을 만족한 적분 후 샘플 수`
@@ -22,8 +28,8 @@
 | `results/upright_duration/` | 새 CSV·JSON·종합 표 |
 | `figures/upright_duration/` | 새 그래프 |
 | `models/pid_tuning_upright_log.csv` | 새 기준의 PID 튜닝 기록 |
-| `models/ppo_v4_upright_runs/` | 새 학습 기록과 시드별 선택 모델 |
-| `models/ppo_v4_upright.zip` | 새 기준으로 선택한 PPO 정책 |
+| `models/ppo_v5_upright_runs/` | 새 학습 기록과 시드별 선택 모델 |
+| `models/ppo_v5_upright.zip` | 새 기준으로 선택한 PPO 정책 |
 | `upright_time_s` | 시행별 누적 직립시간 [s]; 요약 표에서는 전체 시행 평균 |
 | `upright_fraction` | 누적시간/10초 (0~1) |
 | `stationary_upright_time_s` | 직립과 카트 속도 조건을 모두 만족한 누적시간 [s] |
@@ -34,7 +40,7 @@
 
 ## 실행 위치와 의존성
 
-저장소 루트에서 `cd optimal_v4` 후 실행한다. 기존 환경을 사용할 수 있다.
+저장소 루트에서 `cd optimal_v5` 후 실행한다. 기존 환경을 사용할 수 있다.
 
 ```powershell
 python -m pip install numpy scipy matplotlib gymnasium stable-baselines3
@@ -43,13 +49,13 @@ python -m pip install numpy scipy matplotlib gymnasium stable-baselines3
 ### 기존 제어기를 고정하고 평가 지표만 바꿀 때
 
 ```powershell
-python compare_v4.py val --ppo-model models/ppo_v4.zip
+python compare_v5.py val --ppo-model models/ppo_v5.zip
 ```
 
 PPO 모델이 없는 환경에서 계산과 그래프를 확인하려면:
 
 ```powershell
-python compare_v4.py val --no-ppo
+python compare_v5.py val --no-ppo
 ```
 
 ### 기존 PPO 체크포인트를 새 기준으로 다시 선택할 때
@@ -57,22 +63,22 @@ python compare_v4.py val --no-ppo
 보상식은 바뀌지 않았으므로, 저장된 모든 체크포인트가 있다면 재학습 없이 새 지표로 재선택할 수 있다. 과거 성공 수만으로 누적시간을 복원하지 않고 각 체크포인트의 정책을 실제로 다시 평가한다.
 
 ```powershell
-python ppo_v4.py select --legacy
-python ppo_v4.py eval val
-python compare_v4.py val
+python ppo_v5.py select --legacy
+python ppo_v5.py eval val
+python compare_v5.py val
 ```
 
-`models/ppo_v4_runs/seed*/ckpt/*.zip`과 `history.json`이 필요하다. 체크포인트가 없으면 현재 모델 하나를 `--ppo-model`로 고정 평가하거나 새로 학습한다. `select --legacy --tag fmax12.5`처럼 보상 민감도 조건에도 적용할 수 있다.
+`models/ppo_v5_runs/seed*/ckpt/*.zip`과 `history.json`이 필요하다. 체크포인트가 없으면 현재 모델 하나를 `--ppo-model`로 고정 평가하거나 새로 학습한다. `select --legacy --tag fmax12.5`처럼 보상 민감도 조건에도 적용할 수 있다.
 
 ### PID를 조정하고 PPO를 새로 학습할 때
 
 ```powershell
-python pid_tuning_v4.py --no-log
-python pid_tuning_v4.py pareto
-python pid_tuning_v4.py save
-python ppo_v4.py train
-python ppo_v4.py select
-python compare_v4.py val
+python pid_tuning_v5.py --no-log
+python pid_tuning_v5.py pareto
+python pid_tuning_v5.py save
+python ppo_v5.py train
+python ppo_v5.py select
+python compare_v5.py val
 ```
 
 PID는 `GAINS`를 수동 조정한다. `pareto`는 누적 직립시간 증가, RMSE·E 감소, 레일 이탈 수 비증가를 확인한다. 새 평가 기준 아래의 확인이므로 기존 게인이 최적이라고 전제하지 않는다.
@@ -82,16 +88,16 @@ PPO는 설계 집합 148개의 **평균 누적 직립시간 → 레일 내 생�
 ### 설계를 확정한 뒤 평가와 보조 실험
 
 ```powershell
-python compare_v4.py test
-python sensitivity_v4.py lqr
-python sensitivity_v4.py pid
-python input_limit_v4.py
-python input_limit_v4.py check
-python input_limit_pid_gain_v4.py
-python analysis_v4.py all
+python compare_v5.py test
+python sensitivity_v5.py lqr
+python sensitivity_v5.py pid
+python input_limit_v5.py
+python input_limit_v5.py check
+python input_limit_pid_gain_v5.py
+python analysis_v5.py all
 ```
 
-PPO 보상 민감도는 `python sensitivity_v4.py ppo`로 새 기준의 학습·선택·평가를 실행한다. `--collect`는 새 형식의 기존 평가 결과만 모은다. 기존의 마지막 2초 성공률 요약은 새 요약으로 취급하지 않는다. 테스트 초기상태 생성 규칙과 시드는 유지했으므로 이번 결과는 같은 상태 집합을 새 평가 기준으로 재평가한 결과이다.
+PPO 보상 민감도는 `python sensitivity_v5.py ppo`로 새 기준의 학습·선택·평가를 실행한다. `--collect`는 새 형식의 기존 평가 결과만 모은다. 기존의 마지막 2초 성공률 요약은 새 요약으로 취급하지 않는다. 테스트 초기상태 생성 규칙과 시드는 유지했으므로 이번 결과는 같은 상태 집합을 새 평가 기준으로 재평가한 결과이다.
 
 ## 코드 검사
 

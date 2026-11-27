@@ -1,0 +1,5 @@
+{
+  "evaluation_schema": "upright_duration_v1",
+  "criterion": "10 s 동안 |θ|≤3°, |θ̇|≤0.2 rad/s 를 만족한 누적시간; 레일 |x|≤2.4 m, 이탈 이후 시간은 0; 카트 정지 |ẋ|≤0.05 m/s 는 보조 지표",
+  "selection_rule": "upright_time_s desc, n_survived desc, mean_return desc"
+}

@@ -1,5 +1,5 @@
 """
-Cart-Pole v4 — 보고서 본문에 들어갈 보조 수치 계산
+Cart-Pole v5 — 보고서 본문에 들어갈 보조 수치 계산
 ================================================================
 보고서의 [ ] 자리 중 시뮬레이션 한두 번으로 나오는 값들을 계산합니다.
 
@@ -11,8 +11,8 @@ Cart-Pole v4 — 보고서 본문에 들어갈 보조 수치 계산
   all         위 전부 → results/upright_duration/analysis/analysis.json
 
 실행 (이 폴더에서)
-  python analysis_v4.py all
-  python analysis_v4.py poles
+  python analysis_v5.py all
+  python analysis_v5.py poles
 """
 
 # ================================================================
@@ -30,14 +30,14 @@ import os
 import argparse
 
 import numpy as np
-import common_v4 as V
+import common_v5 as V
 
 OUT = os.path.join(V.RESULT_DIR, "analysis")
 
 
 def _pid_gains():
-    import pid_tuning_v4
-    return V.load_pid_gains(fallback=pid_tuning_v4.GAINS)
+    import pid_tuning_v5
+    return V.load_pid_gains(fallback=pid_tuning_v5.GAINS)
 
 
 def design(include_ppo=True):
